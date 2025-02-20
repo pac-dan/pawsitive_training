@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'pawsitive_training.urls'
+ROOT_URLCONF = 'pawsitive_training.pawsitive_training.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pawsitive_training.wsgi.application'
+WSGI_APPLICATION = 'pawsitive_training.pawsitive_training.wsgi.application'
 
 
 # Database
