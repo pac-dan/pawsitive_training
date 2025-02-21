@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # required for allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+     #'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -45,11 +50,12 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',  # required for allauth
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'pawsitive_training.pawsitive_training.urls'
+ROOT_URLCONF = 'pawsitive_training.urls'
 
 TEMPLATES = [
     {
@@ -59,7 +65,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request',  # required for allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -67,7 +73,27 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pawsitive_training.pawsitive_training.wsgi.application'
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1  # required for allauth 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
+ACCOUNT_LOGIN_METHODS = {'email', 'username'}
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/success'
+
+WSGI_APPLICATION = 'pawsitive_training.wsgi.application'
 
 
 # Database
