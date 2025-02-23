@@ -1,6 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block page_header %}
+  <header class="py-5 text-center position-relative bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
 {% block content %}
-    <h1 class="text-center">Welcome to Pawsitive Training</h1>
+  <section class="container d-flex align-items-center justify-content-center" style="height: 60vh;">
+    <div class="text-center">
+      <h1 class="display-4 fw-bold mb-4">New Collection Is Here</h1>
+      
+      <!-- Shop Now Btn -->
+      <a href="#" class="btn btn-dark btn-lg px-5 py-3 text-uppercase fw-semibold shadow-sm">
+        Shop Now
+      </a>
+    </div>
+  </section>
 {% endblock %}

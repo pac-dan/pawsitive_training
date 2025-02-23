@@ -31,7 +31,70 @@
     <title>Pawsitive Training{% block extra_title %}{% endblock %}</title>
   </head>
   <body>
-    <header class="container-fluid fixed-top"></header>
+    <header class="container-fluid fixed-top">
+      <div class="row">
+          <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-ceter text-lg-left">
+          <a href="{% url 'welcome' %}" class="nav-link main-logo-link">
+            {% comment %} <img src="{% static 'img/logo.png' %}" alt="Pawsitive Training Logo" class="main-logo"> {% endcomment %}
+            <h1 class="display-4 fw-bold"><strong>Pawsitive</strong> Training</h1>
+          </a>
+          </div>
+
+            <!-- Center Column -->
+          <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+            <form method="GET" action="">
+              <div class="input-group">
+                <input type="text" class="form-control" name="q" placeholder="Search our site" aria-label="Search our site">
+                <button class="btn btn-outline-secondary" type="submit">
+                   <i class="fas fa-search"></i> GO
+                </button>
+              </div>
+            </form>
+          </div>
+             <div class="col-12 col-lg-4 d-flex justify-content-center justify-content-lg-end">
+              <ul class="list-inline my-0 d-flex align-items-center">
+
+                  <!-- Account Dropdown -->
+                <li class="list-inline-item nav-item dropdown me-4">
+                  <a class="nav-link dropdown-toggle text-dark" href="#" id="user-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user fa-lg"></i>
+                    <span class="small d-block">My Account</span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="user-options">
+                    {% if request.user.is_authenticated %}
+                      {% if request.user.is_superuser %}
+                      <li><a href="#" class="dropdown-item">Product Management</a></li>
+                      {% endif %}
+                      <li><a href="#" class="dropdown-item">My Profile</a></li>
+                      <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>
+                    {% else %}
+                      <li><a href="{% url 'account_signup' %}" class="dropdown-item">Register</a></li>
+                      <li><a href="{% url 'account_login' %}" class="dropdown-item">Login</a></li>
+                    {% endif %}
+                  </ul>
+                </li> 
+
+                  <!-- Cart Link -->
+                <li class="list-inline-item">
+                <a class="text-center position-relative text-dark" 
+                   href="">
+                   <div class="text-center">
+                    <i class="fas fa-shopping-bag fa-lg"></i>
+                     <p class="my-0 small">
+                      {% if grand_total %}
+                        ${{ grand_total|floatformat:2 }}
+                      {% else %}
+                        $0.00
+                      {% endif %}
+                     </p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div> 
+      </div>
+    </header>
 
     {% if messages %}
         <div class="message-container"></div>
