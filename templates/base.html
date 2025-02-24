@@ -60,12 +60,17 @@
             </form>
             
             <!-- Right: Account Dropdown & Cart -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row align-items-center">
               <!-- Account Dropdown -->
               <li class="nav-item dropdown me-3">
-                <a class="nav-link dropdown-toggle text-dark" href="#" id="user-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fas fa-user fa-lg icon"></i>
-                  <span class="small ms-1">My Account</span>
+                <a class="nav-link text-dark" href="#" id="user-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="d-flex flex-column align-items-center">
+                    <i class="fas fa-user fa-lg icon"></i>
+                    <div class="d-flex align-items-center">
+                      <span class="small">My Account</span>
+                      <i class="fas fa-chevron-down ms-1"></i>
+                    </div>
+                  </div>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="user-options">
                   {% if request.user.is_authenticated %}
