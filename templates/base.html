@@ -38,9 +38,8 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <!-- Left: Logo/Brand -->
-          <a class="navbar-brand" href="{% url 'welcome' %}">
-            {% comment %} <img src="{% static 'img/logo.png' %}" alt="Pawsitive Training Logo" class="main-logo"> {% endcomment %}
-            <h1 class="display-4 fw-bold mb-0"><strong>Pawsitive</strong> Training</h1>
+          <a class="navbar-brand logo-nav" href="{% url 'welcome' %}">
+            <img src="{% static '../media/pawsitive_logo_2.PNG' %}" alt="Pawsitive Training Logo" class="main-logo img-fluid">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
                   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +48,20 @@
       
           <!-- Collapsible Content -->
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                  <!-- Left: Navigation Links -->
+            <ul class="navbar-nav nav-items me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'welcome' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Lessons</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Shop</a>
+              </li>
+            </ul>
+
             <!-- Center: Search Form -->
             <form class="d-flex mx-auto" method="GET" action="">
               <div class="input-group">
@@ -60,47 +73,51 @@
             </form>
             
             <!-- Right: Account Dropdown & Cart -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row align-items-center">
-              <!-- Account Dropdown -->
-              <li class="nav-item dropdown me-3">
-                <a class="nav-link text-dark" href="#" id="user-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <div class="d-flex flex-column align-items-center">
-                    <i class="fas fa-user fa-lg icon"></i>
-                    <div class="d-flex align-items-center">
-                      <span class="small">My Account</span>
-                      <i class="fas fa-chevron-down ms-1"></i>
+            <div class="navbar-icons">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row align-items-center">
+
+                <!-- Account Dropdown -->
+                <li class="nav-item dropdown me-3">
+                  <a class="nav-link text-dark" href="#" id="user-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="d-flex flex-column align-items-center">
+                      <i class="fas fa-user fa-lg icon"></i>
+                      <div class="d-flex align-items-center">
+                        <span class="small">My Account</span>
+                        <i class="fas fa-chevron-down ms-1"></i>
+                      </div>
                     </div>
-                  </div>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="user-options">
-                  {% if request.user.is_authenticated %}
-                    {% if request.user.is_superuser %}
-                      <li><a href="#" class="dropdown-item">Product Management</a></li>
-                    {% endif %}
-                    <li><a href="#" class="dropdown-item">My Profile</a></li>
-                    <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>
-                  {% else %}
-                    <li><a href="{% url 'account_signup' %}" class="dropdown-item">Register</a></li>
-                    <li><a href="{% url 'account_login' %}" class="dropdown-item">Login</a></li>
-                  {% endif %}
-                </ul>
-              </li>
-              <!-- Cart Link -->
-              <li class="nav-item">
-                <a class="nav-link text-dark" href="">
-                  <div class="d-flex flex-column align-items-center">
-                    <i class="fas fa-shopping-bag fa-lg icon"></i>
-                    <span class="small">
-                      {% if grand_total %}
-                        ${{ grand_total|floatformat:2 }}
-                      {% else %}
-                        $0.00
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="user-options">
+                    {% if request.user.is_authenticated %}
+                      {% if request.user.is_superuser %}
+                        <li><a href="#" class="dropdown-item">Product Management</a></li>
                       {% endif %}
-                    </span>
-                  </div>
-                </a>
-              </li>
-            </ul>
+                      <li><a href="#" class="dropdown-item">My Profile</a></li>
+                      <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>
+                    {% else %}
+                      <li><a href="{% url 'account_signup' %}" class="dropdown-item">Register</a></li>
+                      <li><a href="{% url 'account_login' %}" class="dropdown-item">Login</a></li>
+                    {% endif %}
+                  </ul>
+                </li>
+
+                <!-- Cart Link -->
+                <li class="nav-item">
+                  <a class="nav-link text-dark" href="">
+                    <div class="d-flex flex-column align-items-center">
+                      <i class="fas fa-shopping-bag fa-lg icon"></i>
+                      <span class="small">
+                        {% if grand_total %}
+                          ${{ grand_total|floatformat:2 }}
+                        {% else %}
+                          $0.00
+                        {% endif %}
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </nav>          

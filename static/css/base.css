@@ -18,28 +18,185 @@ body {
     width: 1.5rem;
 }
 
-.main-logo-link {
-    width: fit-content;
+.nav-item {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Base styling for nav links */
+.navbar-nav .nav-link {
+    position: relative;
+    color: #333;
+    transition: color 0.3s ease;
+}
+  
+  /* Create the underline effect using a pseudo-element */
+.navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px; /* Adjust thickness as needed */
+    background-color: #000; /* Underline color */
+    left: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+  
+  /* On hover, scale the underline to full width */
+.navbar-nav .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+  
+
+.main-logo {
+    width: 70%;
+    max-width: 24rem;
+    height: auto;
+    max-height: 12rem;
+}
+
+.container-fluid {
+    justify-content: space-between;
 }
 
 /* Slightly larger container on xl screens */
-@media (min-width: 1200px) {
+@media (max-width: 1200px) {
     .container {
       max-width: 80%;
+    }
+
+    .navbar-brand.logo-nav {
+        flex-shrink: 0;
+        max-width: 300px;
     }
   }
   
   /* fixed top navbar only on medium and up */
-  @media (min-width: 992px) {
-      .fixed-top-desktop-only {
-          position: fixed;
-          top: 0;
-          right: 0;
-          left: 0;
-          z-index: 1030;
-      }
-  
-      .header-container {
-          padding-top: 164px;
-      }
+@media (max-width: 992px) {
+      .navbar-collapse.show {
+        display: flex !important;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .navbar-icons {
+        order: 1;
+        width: 50%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .navbar-nav {
+        flex-direction: row !important;
+        width: 100%;
+        text-align: center;
+        justify-content: space-between;
+    }
+    
+    .navbar-brand.logo-nav {
+        flex-shrink: 0;
+        max-width: 300px;
+    }
+
+    .nav-items {
+        justify-content: space-evenly;
+    }
   }
+
+@media (max-width: 768.98px) {
+
+    .navbar-collapse.show {
+        display: flex !important;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .navbar-icons {
+        order: 1;
+        width: 50%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .navbar-nav {
+        flex-direction: row !important;
+        width: 100%;
+        text-align: center;
+        justify-content: space-between;
+    }
+    
+    .navbar-brand.logo-nav {
+        flex-shrink: 0;
+        max-width: 300px;
+    }
+
+    .nav-items {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}
+
+@media (max-width: 552px) {
+    div.text-center {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-shop-train {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .navbar-collapse.show {
+        display: flex !important;
+        flex-direction: column; /* or row if you prefer a horizontal layout when open */
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .navbar-icons {
+        order: 1;
+        width: 50%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .navbar-nav {
+        flex-direction: row !important;
+        width: 100%;
+        text-align: center;
+        justify-content: space-between;
+    }
+    
+    .navbar-brand.logo-nav {
+        flex-shrink: 0;
+        max-width: 200px;
+    }
+
+    .nav-items {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}
