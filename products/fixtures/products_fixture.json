@@ -1,0 +1,602 @@
+[
+    {
+        "model": "products.product",
+        "pk": 1,
+        "fields": {
+            "sku": "206228",
+            "name": "Formula of Champions Game Plan Starter-Developer 18% Medicated Show Goat Feed With Decoquinate",
+            "description": "Formula of Champions Game Plan 18% Starter Developer Goat Feed encourages weight gain and health in young goats. Designed to be fed with forage, this feed includes quality ingredients that encourage bloom. The feed is medicated to help prevent coccidiosis, and includes ammonium chloride to help prevent urinary calculi or water belly. Chelated minerals support cell absorption, immunity, haircoat and skin condition, preparing your goat for the show ring\u2014no kidding around!",
+            "price": "38.49",
+            "image": "products\\1.jpg",
+            "brand": "Formula of Champions"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 2,
+        "fields": {
+            "sku": "286322",
+            "name": "Quick-Tag Star Wars The Mandalorian's The Child Baby Yoda Military Personalized Dog & Cat ID Tag",
+            "description": "If your pet is the Grogu to your Mando, the Quick-Tag Star Wars The Mandalorian's The Child Baby Yoda Military Personalized Dog & Cat ID Tag is a must! This super sturdy tag is made out of brass and painted with a fun design. It\u2019s the paw-fect size to hold all of your pal\u2019s important information like medical conditions, addresses, and phone numbers. To top it off, the customizable side features permanent, clear laser engraving, helping it endure tons of wear and tear. For a collar charm that\u2019s as cute as your BFF, this tag is your best bet!",
+            "price": "19.99",
+            "image": "products\\2.jpg",
+            "brand": "Quick-Tag"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 3,
+        "fields": {
+            "sku": "654102",
+            "name": "Pet MD Deodorizing Sweet Pea & Vanilla Cat & Dog Body Spray, 8 oz bottle",
+            "description": "Help tame your fur baby\u2019s coat and control any odors with Pet MD Deodorizing Sweet Pea & Vanilla Cat & Dog Body Spray! Made in the USA, this water-based, deodorizing spray is infused with all-natural sweet pea and vanilla fragrances\u2014it is gentle enough to use on pets with sensitive skin, including cats, dogs, horses, and pocket pets over 12 weeks old. It is designed to eliminate odors for long periods of time, including those in hard-to-reach areas like skin folds and undercoats. It naturally reduces static as well, so it is helpful for taming wild coats. Its refreshing scent, static-reduction, and mild cleansing action helps minimize expensive grooming visits as well!",
+            "price": "12.99",
+            "image": "products\\3.jpg",
+            "brand": "Pet MD"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 4,
+        "fields": {
+            "sku": "141736",
+            "name": "Aquatop Submersible Glass Aquarium Heater",
+            "description": "Keep your aquarium at just the right temperature with the Aquatop Submersible Glass Aquarium Heater. Made of high-quality insulated glass, it\u2019s the easy way to maintain the temperature your freshwater or marine aquariums need to keep your plants and critters healthy. The analog design makes it simple to use with just the turn of a knob to adjust the temperature to your needs, and it features a highly visible temperature setting to make monitoring the temperature easy, with no guesswork. Plus, it\u2019s easy to set up with included suction cups, and is available from 50 to 300-watts for tanks of various sizes.",
+            "price": "22.99",
+            "image": "",
+            "brand": "Aquatop"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 5,
+        "fields": {
+            "sku": "132261",
+            "name": "OneTigris Cotton Canvas Dog Backpack",
+            "description": "**Remember to measure your pet for the paw-fect fit.** The OneTigris Cotton Canvas Medium & Large Dog Backpack lets you get into the wild with your adventurous pup. These sleek, stylish saddlebags are made from heavy-duty cotton canvas that\u2019s lightweight and durable with a vintage look. There are a variety of storage options for all the food, water and supplies she\u2019ll need for the day including large zippered pouches on each side that feature a small zippered inner pocket for keys, money or other small items, as well as outer pockets that are held closed with fuzzy fastener straps for quick and easy access. The fully adjustable neck strap and dual chest and belly straps with quick-release buckles provide a snug, secure and comfortable fit.",
+            "price": "35.98",
+            "image": "",
+            "brand": "OneTigris"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 6,
+        "fields": {
+            "sku": "311969",
+            "name": "Frisco Circle Design Stainless Steel Dog & Cat Bowl",
+            "description": "It\u2019s always a positive when our pets are excited to eat, and it doesn\u2019t get more enticing than this pawsome circle design stainless-steel bowl. Think of it as pulling out the fancy cutlery for those special dinner dates, except this fancy bowl will be around all the time! Time to clean up? The stainless-steel bowl can be removed from the melamine base whenever things get dirty. It\u2019s also top-rack dishwasher safe, making cleanup an absolute breeze.",
+            "price": "8.29",
+            "image": "products\\6.jpg",
+            "brand": "Frisco"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 7,
+        "fields": {
+            "sku": "106123",
+            "name": "Prevue Pet Products Tinkle Turf System for Dogs",
+            "description": "Prevue Pet Products Tinkle Turf System for Dogs provides a convenient option for your pup to relieve themselves when getting outdoors isn\u2019t an easy option. The synthetic grass square tray will help protect your floors and furniture, plus it\u2019s also an ideal training tool for young pups that can be easily transported when traveling with your pet. The lead-free tray is also protected with microbial odor control.  It\u2019s a soft and realistic turf that\u2019s easy to clean with warm water and dish soap then rinse and let air dry.  It works well with small and larger dogs, too.",
+            "price": "87.20",
+            "image": "",
+            "brand": "Prevue Pet Products"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 8,
+        "fields": {
+            "sku": "365036",
+            "name": "Aquascape Fountain Scale Free Water Treatment, 8-oz bottle",
+            "description": "Help your finned friends breathe easily with the Aquascape Fountain Scale Free Fish WaterTreatment! This water treatment effectively eradicates hard water deposits, white scale and foam and helps keep your water clean and clear. Use regularly to prevent damage and clogging of pumps and plumbing. It features an enticing lavender smell, and it contains no chemicals or acids. It\u2019s non-toxic, so it\u2019s safe to use to keep your scaly sidekicks happy and healthy!",
+            "price": "15.36",
+            "image": "",
+            "brand": "Aquascape"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 9,
+        "fields": {
+            "sku": "314471",
+            "name": "904 Custom Personalized My Cat & I Funny Double Sided Mug, 11-oz",
+            "description": "Celebrate your furry family member and show everyone just how much you love her with this paw-some 904 Custom Personalized My Cat & I Funny Double Sided Mug! This ceramic coffee mug is proudly made in the USA and can hold 11 oz. of your favorite coffee, tea, or other beverage of choice. Not only is it completely microwave and dishwasher safe for your convenience, but you can also have it personalized with custom text. This mug makes a great gift for fellow pet parents!",
+            "price": "15.95",
+            "image": "products\\9.jpg",
+            "brand": "904 Custom"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 10,
+        "fields": {
+            "sku": "65494",
+            "name": "IRIS USA Open Top Cat Litter Box w/Scatter Shield",
+            "description": "The IRIS USA Open Top Cat Litter Box with Scatter Shield & Scoop features extra-tall walls to help contain litter and spray while keeping dirt out. The open top provides quick and easy access, while the deep design gives your cat a semi-private space to take care of business. Recessed bottoms and molded-in feet help keep the cat litter box in place, and the molded-in rims around the pan add extra strength and stability. Plus, the high-polished interior surfaces and included litter scoop make this litter box easy to clean!",
+            "price": "16.32",
+            "image": "",
+            "brand": "IRIS"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 11,
+        "fields": {
+            "sku": "144968",
+            "name": "Hyper Pet Flippy Flopper Flying Disc Dog Toy, Color Varies, 9-in",
+            "description": "Help your dog spend his boundless reserves of energy with the Hyper Pet Flippy Flopper Flying Disc. This interactive toss and fetch toy will provide hours of playtime for you and your furry friend. Made from soft rubber and nylon, the toy measures nine inches in diameter and comes in a variety of colors. It\u2019s safe for your pal\u2019s teeth and durable enough to withstand daily play sessions. The flying dog toy acts like a frisbee and floats in water, plus it complies with children\u2019s toy standards, so you can feel safe about letting your kids have fun with it too. Choose from a 1-pack, 2-pack or 5-pack!",
+            "price": "8.95",
+            "image": "",
+            "brand": "Hyper Pet"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 12,
+        "fields": {
+            "sku": "315982",
+            "name": "Underwater Treasures Bubble Disk Aquarium Pump",
+            "description": "Provide live-sustaining oxygen to your underwater pals with the Bubble Disk Aquarium Pump from Underwater Treasure! Simply pop in this aquarium pump and watch as oxygen-rich bubbles provide ample energy for your active fish. The size and output of your air pump can establish how large a portion of the disk will discharge these air bubbles. Plus, it is easily cleanable \u2014 just rinse the bubble disk in clear water to remove dust.",
+            "price": "3.49",
+            "image": "",
+            "brand": "Underwater Treasures"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 13,
+        "fields": {
+            "sku": "367681",
+            "name": "Wild One Dog Poop Bags, 120 count",
+            "description": "Take care of business after your dog takes care of his with Wild One Dog Poop Bags. These unscented bags are made with a corn starch blend, which makes them extra thick and leak proof to help contain the mess inside where it belongs. Each purchase comes with 120 blush-colored bags (12 rolls total)!",
+            "price": "12.99",
+            "image": "products\\13.jpg",
+            "brand": "Wild One"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 14,
+        "fields": {
+            "sku": "188018",
+            "name": "Scratch and Peck Feeds Naturally Free Organic Starter Chicken & Duck Feed",
+            "description": "Give your growing chicks and ducklings the nutrition and taste they need to thrive with the Scratch and Peck Naturally Free Organic Starter Chicken Food. Formulated with organic, raw whole grains like wheat and barley, plus nutrient-rich meals like sesame, flax and kelp, it\u2019s a complete and balanced feed for starting poultry chicks and ducklings. Naturally free of soy, corn or fillers, it packs more nutrition in every peck\u2014like omegas, vitamins, minerals, probiotics and essential amino acids. Plus, it\u2019s sourced and made in the USA with never any GMO foods.",
+            "price": "76.99",
+            "image": "",
+            "brand": "Scratch and Peck Feeds"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 15,
+        "fields": {
+            "sku": "201261",
+            "name": "Hartz Cattraction Silver Vine & Catnip Plush Macaron Mice Cat Toy, 2 count",
+            "description": "Entice your pretty kitty to play with Cattraction Silver Vine & Catnip Plush Macaron Mice Cat Toys from Hartz. This pair of plush pastry macaron mice come in pastel colors with jingly bells and expressive features to intrigue your furry friend. They are filled with a potent combination of silver vine and catnip attractants to grab your paw-tner\u2019s attention and enhance her playtime. These toys are also light enough for your companion to carry, swat and bat for hours of enjoyment. Hartz Cattraction Silver Vine & Catnip Plush Macaron Mice Cat Toys stimulate your sidekick\u2019s natural instincts to fulfill her need to play.",
+            "price": "5.99",
+            "image": "",
+            "brand": "Hartz"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 16,
+        "fields": {
+            "sku": "285935",
+            "name": "Farm Innovators Drain Plug De-Icer",
+            "description": "Say goodbye to frozen stock tanks this winter with the Farm Innovators Drain Plug De-Icer. This de-icer delivers 1500 watts of power and can be used in all Rubbermaid stock tanks with drain holes (sold separately). It\u2019s designed to fit through the drain plug hole for easy installation, and is unnoticeable to livestock. This submersible de-icer is suitable for tanks up to 300 gallons. It\u2019s thermostatically controlled to operate only when the water temperature reaches 35 degrees or less, saving you electricity.",
+            "price": "59.29",
+            "image": "",
+            "brand": "Farm Innovators"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 17,
+        "fields": {
+            "sku": "287537",
+            "name": "Frisco Fashion Bow, Striped",
+            "description": "The perfect everyday look for your pup or kitty starts with a bow tie. And actually, that\u2019s all you need! It\u2019s a statement piece, it\u2019s easy to wear, it brings out their best features, it\u2019s a little dressed-up moment to make any day special. Simply put it on with an elastic band and your pet will be ready to rock the look to impress that playdate or just look cute for the fun of it.",
+            "price": "1.82",
+            "image": "",
+            "brand": "Frisco"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 18,
+        "fields": {
+            "sku": "243543",
+            "name": "Aquapaw Pro Dog Grooming Tool, Blue",
+            "description": "Bath time has never been easier than with the Aquapaw Pro Dog Grooming Tool. It combines a silicone sprayer and a scrubber in one convenient tool, so you can rinse and brush your furry friend\u2019s coat at the same time! The sprayer-scrubber features a 2-stage button mechanism that you can click to Low, High and ON and Off with one hand. It gives you total control over your pet and the flow of water during the entire bathing process, eliminating much of the time and fuss involved in bath time. This particular tool was designed with larger dogs and thicker coats in mind to help save time, reduce mess and eliminate the stress of bath time for you and your pet!",
+            "price": "44.95",
+            "image": "products\\18.jpg",
+            "brand": "Aquapaw"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 19,
+        "fields": {
+            "sku": "93547",
+            "name": "Tomlyn Pill-Masker Bacon Flavored Paste for Cats",
+            "description": "Streamline pill time with Tomlyn Pill-Masker Bacon Flavored Paste for Cats! This shapeable paste is perfect for wrapping around pills of any size to conceal those necessary medications. The feline-focused formula with bacon flavor helps make pills delicious, so you can help keep your kitty healthy and happy. Plus this paste is moist and juicy, to match other cat foods. With this paste, your cat won\u2019t have such a big pill to swallow.",
+            "price": "10.99",
+            "image": "",
+            "brand": "Tomlyn"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 20,
+        "fields": {
+            "sku": "277091",
+            "name": "Frisco \"Classic #2\" Photos White Personalized Coffee Mug",
+            "description": "We know your pet is your cup of tea\u2014and now you can show off their adorable personality with every sip. This ceramic mug is customizable with your pet\u2019s photo and a unique phrase\u2014for you or for your favorite pet parent friend. \u201cWho\u2019s that cute kitty or doggy?\u201d everyone will ask when you\u2019re sipping your coffee. Whatever beverage you start your day with, you\u2019re sure to start some conversation with this one-of-a-kind mug.",
+            "price": "10.99",
+            "image": "products\\20.jpg",
+            "brand": "Frisco"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 21,
+        "fields": {
+            "sku": "100126",
+            "name": "Purina Beneful Medleys Tuscan Style Canned Dog Food",
+            "description": "Dazzle your dog at mealtime with Purina Beneful Medleys Tuscan Style Canned Dog Food. Real beef delivers meaty goodness in every bite, and the 100% complete and balanced nutrition offered in each can helps support his overall health and well-being. Real carrots, rice and spinach offer added flavor to the recipe blend in the form of ingredients you can see, and the small, tender chunks of meat create an appealing texture he's sure to wag his tail for. Essential vitamins and minerals give this delectable entree the nutrients your dog needs for his whole-body health and wellness, making you feel good about the meal you serve him every day. This tasty recipe is crafted without artificial colors, flavors or preservatives. Show him how much you care about his health and happiness with a bowlful of this handy single-serving deliciousness.",
+            "price": "2.78",
+            "image": "",
+            "brand": "Purina Beneful"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 22,
+        "fields": {
+            "sku": "538478",
+            "name": "Vitakraft Vita Smart Gourmet Fortified Daily Cockatiel & Lovebird Food, 4-lb bag",
+            "description": "The Vitakraft Vita Smart Gourmet Cockatiel and Lovebird Food is designed specifically for your Cockatiel or Lovebird, and is packed full of good stuff to keep your feathered friend flap-happy. This premium grain, fruit and nut seed mix delivers complete nutrition. With ingredients including millet, sunflower seeds, nutriberries, peas, papaya, carrots, coconut and pineapple, it\u2019s like a super tasty fiesta in a bag. Unique ingredients like dried chamomile and dried rose hips help ensure your bird will never be bored. Aloe vera concentrate and other nutrients support your bird\u2019s skin health.",
+            "price": "11.90",
+            "image": "products\\22.jpg",
+            "brand": "Vitakraft"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 23,
+        "fields": {
+            "sku": "103786",
+            "name": "Penn-Plax Turtle Topper Above Tank Basking Platform",
+            "description": "The Penn-Plax Turtle Topper Above Tank Basking Platform provides a unique spot for turtles to bask on top of their tank. Aquatic turtles are naturally avid swimmers that prefer deep water. Because the Turtle Topper sits on top, you can fill the tank completely so your turtle can enjoy swimming throughout the entire tank. It\u2019s made to support the weight of multiple or larger turtles without sinking, which helps keep them dry as they bask. Two mounting rims are included to attach clamp lamps for optimal basking.",
+            "price": "55.99",
+            "image": "",
+            "brand": "Penn-Plax"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 24,
+        "fields": {
+            "sku": "676822",
+            "name": "Pet Factory Twistedz 3 to 3.5-inch Beefhide Mini Rolls Beef Flavored Dog Hard Chews, 14 count",
+            "description": "Put a tasty twist on snacktime with Pet Factory Twistedz 3 to 3.5-inch Beefhide Mini Rolls Beef Flavored Dog Hard Chews! These two-in-one treats combine real meat and American beefhide to create a flavorful, natural chew that dogs find hard to resist! Twistedz mini rolls are the paw-fect choice for avid chewers. Each beefy bite is 99% digestible and contains no harmful additives or preservatives. With paw-rental supervision, these chews offer a tasty, fun and satisfying workout for your dog\u2019s wild instincts!",
+            "price": "12.99",
+            "image": "",
+            "brand": "Pet Factory"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 25,
+        "fields": {
+            "sku": "252287",
+            "name": "B&G Martin Faux Leather Poly Fill Cushion Insert Dog & Cat Bed",
+            "description": "Your furbaby deserves to be pampered and the B&G Martin Faux Leather Poly Fill Cushion Insert Dog & Cat Bed makes that su-paw easy. This pet bed is 100% vegan and cruelty-free, paw-fect for any animal lover and their best friend. The faux leather cover provides a luxurious feel and fits into most home d\u00e9cor\u2013\u2013it will beautifully complement other leather furniture in your home. A polyfill cushion insert helps to keep your furbaby comfortable while catching some Z\u2019s. Just wipe down the bed for easy cleaning.",
+            "price": "199.00",
+            "image": "products\\25.jpg",
+            "brand": "B&G Martin"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 26,
+        "fields": {
+            "sku": "202168",
+            "name": "Turbo Krinkle Balls Cat Toy, 4 count",
+            "description": "Treat your furbaby to hours of play and exercise with Turbo Assorted Ball Cat Toys! Your kitty will love the way this ball bounces, rolls and twirls. Each Krinkle Ball is made with a shiny, crinkly material to help capture your kitty\u2019s attention. This fun feline toy makes the purr-fect addition to your cat\u2019s rotating collection. Plus, it encourages active play, mental stimulation and paw-sitive bonding between you and your furry friend!",
+            "price": "3.49",
+            "image": "products\\26.jpg",
+            "brand": "Turbo"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 27,
+        "fields": {
+            "sku": "646854",
+            "name": "Variety Pack - Friskies Lil' Gravies Roast Beef Flavor Cat Food Complement, 1.55-oz, case of 16, Salmon, Chicken & Turkey Flavors",
+            "description": "Friskies Lil' Gravies Roast Beef Flavor Cat Food Complement, 1.55-oz, case of 16 \u2014 Friskies Lil\u2019 Gravies Roast Beef Flavor Cat Food Complement offers the gravy flavor that cat tastebuds crave. Each pouch of this gravy-licious delight can be served as a topper for dry food or as a treat between meals. \n\nFriskies Lil' Gravies Savory Salmon Flavor Cat Food Complement, 1.55-oz, case of 16 \u2014 Friskies Lil\u2019 Gravies Savory Salmon Flavor Cat Food Complement takes tastebuds to gravy purr-a-dise. Each pouch of this gravy-licious delight can be served as a topper for dry food or as a treat between meals.\n\nFriskies Lil' Gravies Roasted Chicken Flavor Cat Food Complement, 1.55-oz, case of 16 \u2014 Friskies Lil\u2019 Gravies Roasted Chicken Flavor Cat Food Complement will satisfy gravy-loving cats everywhere. Each pouch of this gravy-licious delight can be used as a topper for crunchy dry cat food or as a treat between meals. \n\nFriskies Lil' Gravies Roasted Turkey Flavor Cat Food Complement, 1.55-oz, case of 16 \u2014 Make mealtimes memorable with Friskies Lil\u2019 Gravies Roasted Turkey Flavor Cat Food Complement. Each pouch of this gravy-licious delight can be used as a topper for dry food or as a treat between meals.",
+            "price": "52.24",
+            "image": "",
+            "brand": "Friskies"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 28,
+        "fields": {
+            "sku": "326345",
+            "name": "Ice Horse Horse Knee Wrap",
+            "description": "The Ice Horse Horse Knee Wrap provides targeted therapeutic cooling to your horse\u2019s knee. This wrap surrounds the entire knee joint to reduce heat and swelling. It includes reusable Cold Capsule inserts that help it stay cold longer. Specially placed Velcro closures create a secure and tight fit, and technical fabric keeps the Cold Capsules compressed and in place. An included suspender strap also helps to keep the wraps secure. When you\u2019re done, just put the inserts back in the freezer to use them again.",
+            "price": "189.95",
+            "image": "products\\28.jpg",
+            "brand": "Ice Horse"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 29,
+        "fields": {
+            "sku": "237531",
+            "name": "Simplicity 200 Micron Plastic Ring Aquarium Filter Sock",
+            "description": "A quality filter sock is an integral part of keeping your aquarium water clean, healthy and free of debris. Fitting the Simplicity 200 Micron Plastic Ring Aquarium Filter Sock on your filter (sold separately) means you know your fishy friends will swim in the cleanest, healthiest water possible. Made in the US from durable material that will last, this aquarium accessory comes in a variety of sizes and styles to fit your tank\u2019s needs.",
+            "price": "8.50",
+            "image": "",
+            "brand": "Simplicity"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 30,
+        "fields": {
+            "sku": "76334",
+            "name": "Friskies Tasty Treasures Pate Liver & Beef Wet Cat Food",
+            "description": "Friskies Tasty Treasures Pate Beef & Liver Dinner Canned Cat Food is like a treasure find for your kitty\u2019s taste buds! This whisker-licking recipe features real beef, and is packed with everything your cat needs to fuel all those furry adventures - like protein, antioxidants and healthy omegas. The formula is also enhanced with vitamins, minerals and essential taurine for nose-to-tail well-being in every bite. Plus, it provides moisture to help keep your pal hydrated and support urinary health. So open up the easy pull tab and turn mealtime into yum time.",
+            "price": "19.92",
+            "image": "",
+            "brand": "Friskies"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 31,
+        "fields": {
+            "sku": "102305",
+            "name": "Purina Pro Plan Focus Adult Urinary Tract Health Formula with Salmon Classic Canned Cat Food",
+            "description": "Nourish kitty with the foods she adores and the focused nutrition she needs when you serve Pro Plan Urinary Tract Health Formula Classic Entree With Salmon Adult Wet Cat Food. This adult cat food helps keep up your kitty's urinary tract health by reducing urinary pH and providing low dietary magnesium. Plus, every tender bite is chock full of kitty-approved flavor. Purposeful ingredients like real salmon are blended in, and along with that high-quality protein, your feline friend gets 25 essential vitamins and minerals plus taurine, an amino acid. Best of all, this highly digestible pate cat food promotes optimal nutrient delivery, helping the high-quality ingredients go to work to support her nose-to-tail well-being. Your furry companion is one-of-a-kind. Care for her unique needs with focused nutrition when you try this urinary cat food risk free.",
+            "price": "39.84",
+            "image": "products\\31.jpg",
+            "brand": "Purina Pro Plan"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 32,
+        "fields": {
+            "sku": "298272",
+            "name": "NaturVet All-In-One Support Soft Chews Dog Supplement, 120 count + NaturVet Senior Care Hip & Joint Advanced Formula Dog Soft Chews, 120 count",
+            "description": "Support your sweet senior\u2019s joints and overall health with NaturVet All-In-One Support Soft Chews Dog Supplement and NaturVet Senior Care Hip & Joint Advanced Formula Dog Soft Chews. Both supplements are formulated to support healthy hip and joint function including cartilage and connective tissues. All-in-One Support chews cover your pup\u2019s essential health needs including digestive enzymes to help support proper digestion and a healthy digestive tract. They contain glucosamine and chondroitin for added joint support in dogs plus omega-3, -6 and -9 fatty acids for healthy skin and a glossy coat. Senior Care chews are veterinarian formulated and recommended to support healthy hips and joints. Safe for use with dogs aged 1 year and older.",
+            "price": "33.48",
+            "image": "products\\32.jpg",
+            "brand": "NaturVet"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 33,
+        "fields": {
+            "sku": "648694",
+            "name": "Sublime Adjustable Dog Collar",
+            "description": "**Remember to measure your pet for the paw-fect fit.** Your pup will be the bark of the town wearing the fetching Sublime Adjustable Dog Collar! It features a double-sided design with two complementary patterns for twice the possibilities, and twice the fun. It also includes an extra-wide width and stylish, durable plastic hardware. This collar is sure to keep your barking bestie looking fur-esh and fashionable all year long!",
+            "price": "8.99",
+            "image": "products\\33.jpg",
+            "brand": "Sublime"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 34,
+        "fields": {
+            "sku": "124844",
+            "name": "Decker Manufacturing Company Union Fiber Horse Brush",
+            "description": "Keep your stallion looking sharp with the Decker Manufacturing Company Union Fiber Horse Brush. This medium-stiff brush features 1.38-inch union fiber bristles, which are ideal for removing dust, dirt and debris from his neck, body and legs. The Grip-Fit\u00ae handle is designed to fit comfortably in your hand while the nylon hand strap provides maximum control without slipping. And since it\u2019s made from durable polypropylene, it won\u2019t rot or mildew. Like all Decker equine products, this brush is proudly made in the USA.",
+            "price": "24.99",
+            "image": "products\\34.jpg",
+            "brand": "Decker Manufacturing Company"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 35,
+        "fields": {
+            "sku": "155129",
+            "name": "Mighty Tequila Worm Squeaky Stuffing-Free Plush Dog Toy",
+            "description": "This Mighty Tequila Worm is the paw-fect toy for dogs who like to play a little \u201cruff\u201d. This plush toy is reinforced with multiple layers of durable materials and several layers of stitching that\u2019s flipped inside for added strength. It\u2019s also made with zero stuffing\u2014just squeaker balls! That means you don\u2019t have to worry about any fluffy disasters spread across your floors, furniture or yard. It's great for fetching and tugging and it makes an excellent companion to accompany your pup during a game of toss and catch.  Once your long day of play is done, simply place your BFF\u2019s new pal in the washing machine for easy cleaning.",
+            "price": "23.99",
+            "image": "products\\35.jpg",
+            "brand": "Mighty"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 36,
+        "fields": {
+            "sku": "258230",
+            "name": "Ware Living Room Series Ferret Cage",
+            "description": "Enjoy comfort, safety and convenient cleaning with the Ware Living Room Series Ferret Cage. This cozy cage comes complete with shelves, ramps, a bowl and other accessories to help your fuzzy friend feel right at home. It\u2019s made with durable plastic, powder-coated metal and chew-proof welded steel. Narrow 1-inch bar spacing helps prevent your adventurous fellow from sneaking out. Plus, the full size slide-out pan makes cleanups a breeze!",
+            "price": "319.99",
+            "image": "",
+            "brand": "Ware"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 37,
+        "fields": {
+            "sku": "106386",
+            "name": "Shapley's Magic Sheen Horse Hair Polish",
+            "description": "Shapley's Magic Sheen Horse Hair Polish was voted by Horse Journal as the \u201cTop Choice\u201d of all silicone hair polish on the market. It gives the coat an exceptional shine, helps reduce hair loss and repels dirt and stains. Magic Sheen protects the hair shaft and keeps mane and tail hair tangle-free to minimize damage and breakage from brushing. This special formula won\u2019t strip away moisture or natural oils, so it\u2019s safe for everyday use.",
+            "price": "15.95",
+            "image": "",
+            "brand": "Shapley's"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 38,
+        "fields": {
+            "sku": "147035",
+            "name": "Old World Christmas Hamster Glass Tree Ornament, 2.75-in",
+            "description": "Share the spirit of the holiday season with your hamster friend when you hang up the Old World Christmas Glass Tree Ornament. As good companions, rodents are affectionate and intelligent, and their small bodies hide how big their hearts really are! With the hand-painted, mouth-blown ornaments from Old World Christmas, your precious fur baby can become a holiday tradition in your home, hanging proudly on your holiday tree. It can be a treasured keepsake, and even a great gift for your fellow animal lovers.",
+            "price": "9.87",
+            "image": "",
+            "brand": "Old World Christmas"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 39,
+        "fields": {
+            "sku": "71362",
+            "name": "Ethical Pet Fleece Chewman Squeaky Tough Plush Dog Toy",
+            "description": "The Ethical Pet Fleece Chewman Dog Toy is a heavy-textured, natural-colored fleece toy that's sure to get your pup shaking, fetching and rolling. This paw-some toy adds fun and excitement to any playtime, and the nubby texture makes it appealing to gentle chewers. A hidden squeaker gets (and holds!) your pup's attention.",
+            "price": "8.74",
+            "image": "",
+            "brand": "Ethical Pet"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 40,
+        "fields": {
+            "sku": "108561",
+            "name": "Kitty Cot Original World's Best Cat Perch Giant Replacement Suction Cups",
+            "description": "Kitty Cot Original World's Best Cat Perch Giant Replacement Suction Cups give you a set of four patented suction cups for your Kitty Cot. Each cup is 3.25 inches in diameter and rated to hold 12 pounds of kitty weight. These heavy-duty suction cups are made in the USA by Adams Manufacturing and will attach to most smooth, non-porous surfaces, such as windows. They\u2019re easy to install and remove by pulling on the release tab to break the suction. Cleaning them is simple by washing with warm, soapy water and gently drying with a lint-free cloth. The top two suction cups have loops with snap clips for attaching the wire cables that support the Kitty Cot. You can hang a lightweight cat toy from these top suction cups for a little extra playtime fun.",
+            "price": "18.88",
+            "image": "products\\40.jpg",
+            "brand": "Kitty Cot"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 41,
+        "fields": {
+            "sku": "304522",
+            "name": "Horze Equestrian Supreme Silent Horse Ear Net",
+            "description": "**Remember to measure for the perfect fit.** With its sound dampening properties, the Horze Equestrian Supreme Silent Horse Ear Net can help your horse to focus on his job, instead of everything that\u2019s going on around him. The ear net features a traditional crochet design for impeccable style. Upgraded neoprene lined ears provide additional sound dampening properties, the perfect alternative to ear plugs. The scalloped edge won\u2019t interfere with your horse\u2019s eyes, leaving him distraction-free. This ear net is available in conservative colors, so it will pair well with your show gear.",
+            "price": "25.99",
+            "image": "products\\41.jpg",
+            "brand": "Horze Equestrian"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 42,
+        "fields": {
+            "sku": "52719",
+            "name": "Hill's Science Diet Adult Small Bites Lamb Meal & Brown Rice Recipe Dry Dog Food",
+            "description": "Hill's Science Diet Adult Advanced Fitness Small Bites Lamb Meal & Rice Dry Dog Food provides your pup with precise nutrition for a healthy lifestyle. Made with wholesome ingredients such as lamb meal and rice, this nourishing recipe is balanced to meet your pet\u2019s needs, encourage strong, learn muscles, and promote a healthy skin and coat. Manufactured in the United States, every ingredient meets strict requirements for purity and nutrient content which exceed industry standards. Formulated for adult dogs 1 to 6 years of age, this Hill\u2019s Science Diet provides your pooch with the nutrition he needs for a lifetime of health and happiness.",
+            "price": "79.99",
+            "image": "products\\42.jpg",
+            "brand": "Hill's Science Diet"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 43,
+        "fields": {
+            "sku": "76718",
+            "name": "Eagle Pack Reduced Fat Adult Dry Dog Food",
+            "description": "Help keep your pooch in shape with Eagle Pack Natural Dry Reduced Fat Dog Food, Pork, Chicken & Fish Formula. This recipe is specifically designed with a balance of proteins, carbohydrates and fewer calories to support healthy weight loss in overweight or less active adult dogs. But don\u2019t worry\u2013\u2013this leaner formula doesn\u2019t mean your dog will get less nutrients. This special recipe is formulated with glucosamine, omega fatty acids and antioxidants to support joint health, skin health and a strong immune system. Bone app\u00e9tit!",
+            "price": "68.14",
+            "image": "",
+            "brand": "Eagle Pack"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 44,
+        "fields": {
+            "sku": "215356",
+            "name": "Hill's Science Diet Adult 7+ Chicken & Brown Rice Recipe Dry Dog Food",
+            "description": "Your senior dog may be a puppy at heart, but his nutritional needs are unique! Hill\u2019s Science Diet Senior 7+ Chicken Flavored No Corn, Wheat or Soy Dry Dog food is specifically formulated for your aging pup\u2014made with natural ingredients and added vitamins, minerals and amino acids to help support his heart, kidneys and coat. The high-quality protein formula helps encourage lean muscles on your older best bud. Included antioxidants and vitamins C and E also help support a healthy immune system. Made in the USA with no corn, wheat or soy, this senior dry dog food is both a delicious and nutritious meal that will help support your senior pal\u2019s health and energy!",
+            "price": "79.99",
+            "image": "",
+            "brand": "Hill's Science Diet"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 45,
+        "fields": {
+            "sku": "163975",
+            "name": "Icelandic+ Cod Skin Strips Dog Treats, 16-oz bag",
+            "description": "Give your pup a treat straight from the pure waters of the North Atlantic with Cod Skin Strips from Icelandic+. These treats feature Icelandic cod skins as the only ingredient with no additives, supplements or preservatives. The cod is line-caught daily and processed immediately for freshness your paw-tner can taste. These skins are rich in omega-3 fatty acids to support healthy skin and a shiny coat. They also promote dental wellness in your furry friend by reducing tartar and plaque build-up for healthier teeth and gums. Icelandic+ Cod Skin Strips Dog Treats even come in a resealable bag to keep them nice and fresh for your companion.",
+            "price": "34.99",
+            "image": "products\\45.jpg",
+            "brand": "Icelandic+"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 46,
+        "fields": {
+            "sku": "363994",
+            "name": "Dexas Popware For Pets Polypropylene Travel Dog Cup with Bottle Holder & Carabiner, 8-oz",
+            "description": "With the Dexas Polypropylene Travel Dog Cup with Bottle Holder & Carabiner, you\u2019ll always be prepared with fresh water during your big adventures with your best friend. This silicone attachment easily fits over the neck of a bottle of water. Then, you can store it in your car or take it with you on a hike. When your dog is ready for a drink, slip the cup off the bottle, pop open the collapsible cup and pour in the water. This handy cup is paw-fect for hiking, camping, trips to the dog part and more. It collapses for space-saving storage and is dishwasher-safe for easy cleaning.",
+            "price": "10.99",
+            "image": "products\\46.jpg",
+            "brand": "Dexas Popware for Pets"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 47,
+        "fields": {
+            "sku": "219879",
+            "name": "Exotic Nutrition Press N' Slide Small Animal Feeding Station",
+            "description": "Make feeding your furry friend effortless with the Exotic Nutrition Press N' Slide Small Animal Feeding Station. This convenient pet feeding bowl makes serving your sidekick super easy. Simply press the button on the attachment and his dish will slide out from the holder. You\u2019ll be able to fill it with food or clean out any leftovers without fumbling for hooks or taking half his bedding with you. When you\u2019re done, slide the bowl back and it will lock into place to help eliminate any spills or messes. It\u2019s crafted to be chew-resistant, stain-resistant and fit just about any wire cage without any tools required.",
+            "price": "14.49",
+            "image": "",
+            "brand": "Exotic Nutrition"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 48,
+        "fields": {
+            "sku": "198272",
+            "name": "Smart Cookie Barkery Endurance Beef Grain-Free Dog Treats, 8-oz bag",
+            "description": "Give your active dog a beefy boost when he\u2019s feeling the burn with Smart Cookie Barkery Endurance Beef Dog Treats. He\u2019ll love the extra energy provided to him with these handcrafted artisanal treats that are designed for ruff-and-ready dogs. Packed with high-protein ingredients including beef, organic quinoa and carrots, he\u2019ll be ready to take on your next action-packed adventure. These single-protein-source treats are designed to be great for sensitive stomachs.",
+            "price": "9.99",
+            "image": "products\\48.jpg",
+            "brand": "Smart Cookie Barkery"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 49,
+        "fields": {
+            "sku": "733462",
+            "name": "Blue Buffalo Wilderness Chicken Adult Dry Dog Food",
+            "description": "Give your barking bestie the nutrition she needs with Blue Buffalo Wilderness Chicken Adult Dry Dog Food! This high-protein dry food is made with real, high-quality chicken, antioxidants, vitamins and minerals. It features complex carbohydrates sourced from wholesome grains to help support an active lifestyle, and it also includes omega-3 and -6 fatty acids to promote a healthy coat and skin. It\u2019s also free from chicken and poultry byproduct meals, corn, wheat, soy, artificial flavors and preservatives. Even the pickiest pups will lap up the irresistible taste, and you can rest easy knowing you\u2019re giving her a fur-esh, high-quality meal!",
+            "price": "64.98",
+            "image": "products\\49.jpg",
+            "brand": "Blue Buffalo"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 50,
+        "fields": {
+            "sku": "141378",
+            "name": "Frisco Open Top Cat Litter Box With Rim, Large 19-in",
+            "description": "This open-top litter box from Frisco by Chewy provides a roomy, private place for cats to do their business. To keep litter and spray inside the box, there\u2019s a rim around the sides and back wall that also acts as a privacy shield. Cats can step in and out of the box easily through the lowered front side, and the removable top rim and open-box design make it easy to scoop the litter or spot clean small messes. This litter box is made with BPA-free plastic that\u2019s recyclable, so it\u2019s ready for plenty of digging and pawing around, and perfect for eco-minded households.",
+            "price": "11.07",
+            "image": "products\\50.jpg",
+            "brand": "Frisco"
+        }
+    }
+]

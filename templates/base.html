@@ -39,7 +39,7 @@
         <div class="container-fluid">
           <!-- Left: Logo/Brand -->
           <a class="navbar-brand logo-nav" href="{% url 'welcome' %}">
-            <img src="{% static '../media/pawsitive_logo_2.PNG' %}" alt="Pawsitive Training Logo" class="main-logo img-fluid">
+            <img src="{% static '../media/nav/pawsitive_logo_2.PNG' %}" alt="Pawsitive Training Logo" class="main-logo img-fluid">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
                   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
                 <a class="nav-link" href="">Lessons</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="">Shop</a>
+                <a class="nav-link" href="{% url 'products' %}">Shop</a>
               </li>
             </ul>
 
