@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+  <h1>Lessons</h1>
+  <div class="row">
+    {% for training in trainings %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          {% if training.thumbnail %}
+            <img src="{{ training.thumbnail.url }}" class="card-img-top" alt="{{ training.title }}">
+          {% else %}
+            <img src="{% static '../media/products/placeholder.png' %}" class="card-img-top" alt="No Thumbnail">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ training.title }}</h5>
+            <p class="card-text">{{ training.description|truncatewords:15 }}</p>
+            <a href="{% url 'training_detail' training.pk %}" class="btn btn-primary">Watch Lesson</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

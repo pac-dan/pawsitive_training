@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Lesson
+from .models import Training
 
 
-def lessons_display(request):
-    lessons = Lesson.objects.all()
-    return render(request, 'lessons_display.html', {'lessons': lessons})
+def training_display(request):
+    trainings = Training.objects.all()
+    return render(request, 'training_display.html', {'trainings': trainings})
 
-def lesson_detail(request, pk):
-    lesson = get_object_or_404(Lesson, pk=pk)
-    return render(request, 'lesson_detail.html', {'lesson': lesson})
+def training_detail(request, pk):    
+    training = get_object_or_404(Training, pk=pk)
+    return render(request, 'training_detail.html', {'training': training})
 

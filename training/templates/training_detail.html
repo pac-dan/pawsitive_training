@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <a href="{% url 'training' %}" class="btn btn-secondary mb-3">&larr; Back to Lessons</a>
+    <h1>{{ training.title }}</h1>
+    <p>{{ training.description }}</p>
+    
+    {% if training.video_file %}
+    <div class="d-flex justify-content-center">
+      <video
+        id="my-video"
+        class="video-js vjs-default-skin d-block mx-auto vp"
+        controls
+        preload="auto"
+        poster="{% static '../media/training/thumbnails/thumbnail_image_V1NJazF.png' %}" 
+        data-setup='{"fluid": true}'>
+        <source src="{{ training.video_file.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    {% else %}
+    <p>No video available for this lesson.</p>
+    {% endif %}
+</div>
+{% endblock %}

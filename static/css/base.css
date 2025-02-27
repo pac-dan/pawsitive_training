@@ -76,6 +76,16 @@ body {
         max-width: 300px;
     }
   }
+
+  /* Video Player */
+
+  .vp, 
+  img {
+    display: block;
+    align-content: center;
+    width: 80% !important;
+    height: 80% !important;
+  }
   
   /* fixed top navbar only on medium and up */
 @media (max-width: 992px) {

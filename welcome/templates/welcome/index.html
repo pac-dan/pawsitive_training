@@ -15,15 +15,15 @@
 {% block content %}
   <section class="container d-flex align-items-center justify-content-center" style="height: 60vh;">
     <div class="text-center">
-      <h1 class="display-4 fw-bold mb-4">Your Journey Begins</h1>
+      <h1 class="display-4 fw-bold mb-4">Welcome</h1>
       
       <!-- Shop  Btn -->
-      <a href="#" class="btn-shop-train btn btn-dark btn-lg px-5 py-3 text-uppercase fw-semibold shadow-sm">
+      <a href="{% url 'products' %}" class="btn-shop-train btn btn-dark btn-lg px-5 py-3 text-uppercase fw-semibold shadow-sm">
         Shop Here
       </a>
 
       <!-- Train  Btn -->
-      <a href="#" class="btn-shop-train btn btn-dark btn-lg px-5 py-3 text-uppercase fw-semibold shadow-sm">
+      <a href="{% url 'training' %}" class="btn-shop-train btn btn-dark btn-lg px-5 py-3 text-uppercase fw-semibold shadow-sm">
         Train Here
       </a>
       
