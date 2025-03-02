@@ -11,7 +11,7 @@
             <img src="{% static '../media/products/placeholder.png' %}" class="img-fluid rounded" alt="Placeholder">
             {% endif %}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 product-info-card">
             <h1 class="mb-3">{{ product.name }}</h1>
             <p class="fs-4 text-success mb-3">${{ product.price|floatformat:2 }}</p>
             <p>{{ product.description }}</p>
@@ -19,7 +19,7 @@
             <p><strong>Brand:</strong> {{ product.brand }}</p>
             {% endif %}
             
-            <a href="{% url 'products' %}" class="btn btn-secondary mt-3">&larr; Back to Products</a>
+            <a href="{% url 'products:products_display' %}" class="btn btn-secondary mt-3">&larr; Back to Products</a>
         </div>
         </div>
     </div>

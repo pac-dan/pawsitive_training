@@ -53,17 +53,23 @@
                 <a class="nav-link" href="{% url 'welcome' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'training' %}">Lessons</a>
+                <a class="nav-link" href="{% url 'training:training_display' %}">Lessons</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'products' %}">Shop</a>
+                <a class="nav-link" href="{% url 'products:products_display' %}">Shop</a>
               </li>
             </ul>
 
             <!-- Center: Search Form -->
-            <form class="d-flex mx-auto" method="GET" action="">
+            <form class="d-flex mx-auto" method="GET" id="nav-search-form">
               <div class="input-group">
-                <input type="text" class="form-control" name="q" placeholder="Search our site" aria-label="Search our site">
+
+                <!-- Dropdown to choose search category -->
+                <select name="category" id="nav-search-category" class="form-select">
+                  <option value="products">Products</option>
+                  <option value="training">Training Videos</option>
+                </select>
+                <input type="text" class="form-control" name="q" placeholder="Search our site" aria-label="Search our site" required>
                 <button class="btn btn-outline-secondary" type="submit">
                   <i class="fas fa-search"></i> GO
                 </button>
@@ -137,6 +143,18 @@
     {% block extra_js %}
         <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
     {% endblock %}
+
+    <!-- set search form action based on selected category -->
+    <script>
+      document.getElementById('nav-search-form').addEventListener('submit', function(e) {
+        var category = document.getElementById('nav-search-category').value;
+        if (category === 'products') {
+          this.action = "{% url 'products:search' %}";
+        } else if (category === 'training') {
+          this.action = "{% url 'training:search' %}";
+        }
+      });
+    </script>
 
   </body>
 </html> 

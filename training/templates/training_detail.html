@@ -3,12 +3,12 @@
 
 {% block content %}
 <div class="container mt-5 pt-5">
-    <a href="{% url 'training' %}" class="btn btn-secondary mb-3">&larr; Back to Lessons</a>
+    <a href="{% url 'training:training_display' %}" class="btn btn-secondary mb-3">&larr; Back to Lessons</a>
     <h1>{{ training.title }}</h1>
     <p>{{ training.description }}</p>
     
     {% if training.video_file %}
-    <div class="d-flex justify-content-center">
+    <div class="video-container">
       <video
         id="my-video"
         class="video-js vjs-default-skin d-block mx-auto vp"
