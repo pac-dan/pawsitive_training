@@ -41,7 +41,7 @@ def search(request):
     """
     query = None
     trainings = Training.objects.all()
-    
+
     # Check if a search query exists and is non-empty.
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']

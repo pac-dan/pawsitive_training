@@ -2,7 +2,23 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
-from .models import Product
+from .models import Product, ProductCategory
+
+def category_products(request, category_slug):
+    """
+    Displays a paginated list of products for a given category.
+    """
+    category = get_object_or_404(ProductCategory, slug=category_slug)
+    products = category.products.all() 
+    paginator = Paginator(products, 8)  
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'category': category,
+        'page_obj': page_obj,
+    }
+    return render(request, '../templates/products/products_category.html', context)
 
 def products_display(request):
     """
@@ -44,7 +60,7 @@ def search(request):
         'page_obj': page_obj,
         'search_term': query,
     }
-    return render(request, '../templates/products/products_display.html', context)
+    return render(request, '../templates/products/products_category.html', context)
 
 
 def product_detail(request, pk):

@@ -2,11 +2,17 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5 pt-5 cat-train-container">
-  <h1>Related Products</h1>
+<div class="container">
+  {% if category %}
+    <h1>{{ category.name }}</h1>
+  {% elif search_term %}
+    <h1>Search Results for "{{ search_term }}"</h1>
+  {% else %}
+    <h1>Search Training Lessons</h1>
+  {% endif %}
   <div class="row">
     {% for training in page_obj.object_list %}
-      <div class="col-md-4 mb-4">
+      <div class="col-item max-width-training-card">
         <div class="card">
           {% if training.thumbnail %}
             <img src="{{ training.thumbnail.url }}" class="card-img-top" alt="{{ training.title }}">
@@ -15,7 +21,7 @@
           {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ training.title }}</h5>
-            <p class="card-text">{{ training.description|truncatewords:15 }}</p>
+            <p class="card-text">{{ training.description|truncatewords:8 }}</p>
             <a href="{% url 'training:training_detail' training.pk %}" class="btn btn-primary">Watch Lesson</a>
           </div>
         </div>

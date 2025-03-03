@@ -11,6 +11,12 @@ body {
     margin-top: 110px !important;
 }
 
+h1 {
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
 .icon {
     align-items: center;
     display: inline-flex;
@@ -61,13 +67,39 @@ body {
     max-height: 12rem;
 }
 
-.cat-train-container {
+div.container {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-wrap: nowrap;
     align-items: center;
-    margin-top: 2rem;
+    padding-top: 8%;
+}
+
+.col-item {
+    display: flex;
+    margin-bottom: 20px; /* adjust spacing as needed */
+}
+
+.card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+h5.card-title {
+    width: max-content;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: fit-content;
+}
+
+.max-width-training-card {
+    max-width: 50% !important;
+}
+
+.product-width {
+    max-width: 95%;
 }
 
 .product-info-card {

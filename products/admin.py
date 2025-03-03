@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Product
+from .models import Product, ProductCategory
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'sku', 'price', 'brand', 'image_preview')
@@ -13,4 +13,4 @@ class ProductAdmin(admin.ModelAdmin):
     image_preview.short_description = 'Image Preview'
 
 admin.site.register(Product, ProductAdmin)
-
+admin.site.register(ProductCategory)

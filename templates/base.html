@@ -33,32 +33,22 @@
   </head>
   <body>
     <header class="container-fluid fixed-top">
+
+      <!-- Top row: Logo, Search, Account & Cart -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <!-- Left: Logo/Brand -->
+
+          <!-- Left: Logo/Brand -->         
           <a class="navbar-brand logo-nav" href="{% url 'welcome' %}">
             <img src="{% static '../media/nav/pawsitive_logo_2.PNG' %}" alt="Pawsitive Training Logo" class="main-logo img-fluid">
           </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbarContent" 
+                  aria-controls="topNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-      
-          <!-- Collapsible Content -->
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                  <!-- Left: Navigation Links -->
-            <ul class="navbar-nav nav-items me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'welcome' %}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'training:training_display' %}">Lessons</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'products:products_display' %}">Shop</a>
-              </li>
-            </ul>
+          <!-- Collapsible Top Content -->
+          <div class="collapse navbar-collapse" id="topNavbarContent">
 
             <!-- Center: Search Form -->
             <form class="d-flex mx-auto" method="GET" id="nav-search-form">
@@ -66,8 +56,8 @@
 
                 <!-- Dropdown to choose search category -->
                 <select name="category" id="nav-search-category" class="form-select">
-                  <option value="products">Products</option>
-                  <option value="training">Training Videos</option>
+                  <option value="products" {% if request.GET.category == "products" or not request.GET.category %}selected{% endif %}>Products</option>
+                  <option value="training" {% if request.GET.category == "training" %}selected{% endif %}>Training Videos</option>
                 </select>
                 <input type="text" class="form-control" name="q" placeholder="Search our site" aria-label="Search our site" required>
                 <button class="btn btn-outline-secondary" type="submit">
@@ -75,7 +65,7 @@
                 </button>
               </div>
             </form>
-            
+
             <!-- Right: Account Dropdown & Cart -->
             <div class="navbar-icons">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row align-items-center">
@@ -107,7 +97,7 @@
 
                 <!-- Cart Link -->
                 <li class="nav-item">
-                  <a class="nav-link text-dark" href="">
+                  <a class="nav-link text-dark" href="#">
                     <div class="d-flex flex-column align-items-center">
                       <i class="fas fa-shopping-bag fa-lg icon"></i>
                       <span class="small">
@@ -122,10 +112,66 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </div><!-- End Top Navbar Collapsible -->
         </div>
-      </nav>          
+      </nav>
+    
+      <!-- Second row: Navigation Links -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid navlinks-div">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+
+            <!-- Home Link -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'welcome' %}">Home</a>
+            </li>
+
+            <!-- Lessons Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="lessonsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Lessons
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="lessonsDropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'training:training_display' %}">
+                    All Lessons
+                  </a>
+                </li>
+                {% for category in training_categories %}
+                  <li>
+                    <a class="dropdown-item" href="{% url 'training:category_trainings' category.slug %}">
+                      {{ category.name }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+
+            <!-- Shop Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Shop
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="shopDropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'products:products_display' %}">
+                    All Products
+                  </a>
+                </li>
+                {% for category in product_categories %}
+                  <li>
+                    <a class="dropdown-item" href="{% url 'products:category_products' category.slug %}">
+                      {{ category.name }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
+    
 
     {% if messages %}
         <div class="message-container"></div>

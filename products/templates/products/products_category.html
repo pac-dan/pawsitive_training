@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  {% if category %}
+  <h1 class="text-center">{{ category.name }}</h1>
+{% elif search_term %}
+  <h1 class="text-center">Search Results for "{{ search_term }}"</h1>
+{% else %}
+  <h1 class="text-center">Search</h1>
+{% endif %}
+
+<div class="row product-width">       
+  {% for product in page_obj %}
+    <div class="col-item max-width-training-card">
+      <div class="card">
+        {% if product.image %}
+          <a href="{% url 'products:product_detail' product.pk %}">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+          </a>
+        {% else %}
+          <img src="{% static '../media/products/placeholder.png' %}" class="card-img-top" alt="Placeholder">
+        {% endif %}
+        <div class="card-body text-center">
+          <h5 class="card-title">
+            <a href="{% url 'products:product_detail' product.pk %}" class="text-decoration-none text-dark">
+              {{ product.name }}
+            </a>
+          </h5>
+          <p class="card-text text-success">${{ product.price|floatformat:2 }}</p>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-center">No products found in this category.</p>
+  {% endfor %}
+</div>
+  
+<!-- Pagination -->
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

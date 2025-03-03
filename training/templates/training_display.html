@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5 pt-5">
+<div class="container">
   <h1>Lessons</h1>
   <div class="row">
     {% for training in page_obj %}
-      <div class="col-md-4 mb-4">
+      <div class="col-item max-width-training-card">
         <div class="card">
           {% if training.thumbnail %}
             <img src="{{ training.thumbnail.url }}" class="card-img-top" alt="{{ training.title }}">

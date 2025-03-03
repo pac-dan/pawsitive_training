@@ -18,6 +18,7 @@ class Training(models.Model):
     video_file = models.FileField(upload_to='training/videos/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='training/thumbnails/', blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
+    
     # New field for categorizing training lessons:
     category = models.ForeignKey(
         TrainingCategory,
