@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'welcome',
     'products',
     'training',
+    'basket',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'training.context_processors.training_categories',
                 'products.context_processors.product_categories',
+                'basket.context_processors.basket_total',
             ],
         },
     },
@@ -155,6 +157,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -162,3 +165,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Cart session id
+BASKET_SESSION_ID = 'basket'

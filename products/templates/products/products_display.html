@@ -23,7 +23,13 @@
                   {{ product.name }}
                 </a>
               </h5>
-              <p class="card-text text-success">${{ product.price|floatformat:2 }}</p>
+              <p class="card-text text-success">€{{ product.price|floatformat:2 }}</p>
+
+              <!-- Add to Basket Button -->
+              <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success add-to-basket">
+                Add to Basket
+              </a>
+
             </div>
           </div>
         </div>

@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5 pt-5">
-    <a href="{% url 'training:training_display' %}" class="btn btn-secondary mb-3">&larr; Back to Lessons</a>
+<div class="container lessons-container">
+    
     <h1>{{ training.title }}</h1>
     <p>{{ training.description }}</p>
     
@@ -19,6 +19,7 @@
         <source src="{{ training.video_file.url }}" type="video/mp4">
         Your browser does not support the video tag.
       </video>
+      <a href="{% url 'training:training_display' %}" class="btn btn-secondary mb-3">&larr; Back to Lessons</a>
     </div>
     {% else %}
     <p>No video available for this lesson.</p>

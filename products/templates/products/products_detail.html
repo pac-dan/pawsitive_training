@@ -18,8 +18,18 @@
             {% if product.brand %}
             <p><strong>Brand:</strong> {{ product.brand }}</p>
             {% endif %}
-            
-            <a href="{% url 'products:products_display' %}" class="btn btn-secondary mt-3">&larr; Back to Products</a>
+            <div class="products-buttons">
+            <a href="{% url 'products:products_display' %}" class="btn btn-secondary mt-3">&larr; 
+                Back to Products</a>
+
+            <a href="{% url 'basket_detail' %}" class="btn btn-outline-success">
+                View Basket
+            </a>
+
+            <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success">
+                Add to Basket
+            </a>
+            </div>
         </div>
         </div>
     </div>

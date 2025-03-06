@@ -95,18 +95,18 @@
                   </ul>
                 </li>
 
-                <!-- Cart Link -->
+                <!-- Basket Link -->
                 <li class="nav-item">
-                  <a class="nav-link text-dark" href="#">
+                  <a class="nav-link text-dark" href="{% url 'basket_detail' %}">
                     <div class="d-flex flex-column align-items-center">
                       <i class="fas fa-shopping-bag fa-lg icon"></i>
-                      <span class="small">
+                      <span id="basket-total" class="small">
                         {% if grand_total %}
                           ${{ grand_total|floatformat:2 }}
                         {% else %}
                           $0.00
                         {% endif %}
-                      </span>
+                      </span>                     
                     </div>
                   </a>
                 </li>
@@ -184,6 +184,7 @@
     {% endblock %}
 
     {% block postloadjs %}
+        <script src="{% static 'js/basket.js' %}"></script>
     {% endblock %}
 
     {% block extra_js %}

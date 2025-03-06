@@ -75,6 +75,21 @@ div.container {
     padding-top: 8%;
 }
 
+.lessons-container {
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.video-container {
+    position: static;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    width: 80%;
+    overflow: hidden;
+}
+
 .col-item {
     display: flex;
     margin-bottom: 20px; /* adjust spacing as needed */
@@ -102,16 +117,68 @@ h5.card-title {
     max-width: 95%;
 }
 
+.basket {
+    box-sizing: border-box;
+    border: 1px solid #2d2d2d;
+    border-radius: 15px;
+    padding: 20px;
+    padding-top: 20px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-top: 12rem;
+}
+
 .product-info-card {
     background-color: rgba(255, 255, 255, 0.8); 
     border-radius: 15px; 
     padding: 20px;      
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
 
-  }
+.products-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.custom-hr {
+    border: 0;
+    border-top: 2px solid #000000; 
+    margin: 20px 0; 
+    width: 80%;   
+    z-index: 99;
+}
 
 .container-fluid {
     justify-content: space-between;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 10px;       
+    margin-bottom: 20px;
+}
+  
+  /* Style the table header cells */
+th {
+    padding: 12px 15px;         
+    text-align: left;  
+    font-weight: bold; 
+}
+  
+  /* Style the table data cells */
+td {
+    padding: 12px 15px;
+    text-align: left;
 }
 
 /* Slightly larger container on xl screens */
