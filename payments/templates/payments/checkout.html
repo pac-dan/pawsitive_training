@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <h2>Checkout</h2>
+  
+  {% if basket %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in basket %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.product.price|floatformat:2 }}</td>
+          <td>${{ item.total|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="text-end">
+      <h4>Total: ${{ basket_total|floatformat:2 }}</h4>
+    </div>
+  {% else %}
+    <p>Your basket is empty.</p>
+  {% endif %}
+  
+  <button id="checkout-button" class="btn btn-primary mt-3">Pay Now</button>
+</div>
+
+<!-- Stripe JS library -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  // Initialize Stripe 
+  var stripe = Stripe("{{ stripe_publishable_key }}");
+
+  document.getElementById("checkout-button").addEventListener("click", function () {
+    fetch("{% url 'payments:create-checkout-session' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}"
+      },
+      body: JSON.stringify({})  
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        alert("Error: " + data.error);
+      } else {
+        // Redirect to Stripe's Checkout
+        stripe.redirectToCheckout({ sessionId: data.id });
+      }
+    })
+    .catch(error => console.error("Error:", error));
+  });
+</script>
+{% endblock %}
