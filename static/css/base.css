@@ -58,7 +58,6 @@ h1 {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
-  
 
 .main-logo {
     width: 70%;
@@ -82,7 +81,7 @@ div.container {
 }
 
 .video-container {
-    position: static;
+    position: static !important;
     padding-bottom: 56.25%;
     padding-top: 30px;
     height: 0;
@@ -192,8 +191,6 @@ td {
         max-width: 300px;
     }
   }
-
-
 
   /* Video Player */
 

@@ -30,7 +30,7 @@
             </tbody>
         </table>
         <hr class="custom-hr">
-        <p>Total Price: €{{ basket.get_total_price }}</p>
+        <p>Total Price: €<span id="basket-grand-total">{{ grand_total|floatformat:2 }}</span></p>
 {% else %}
     <p>Your basket is empty.</p>
 {% endif %}

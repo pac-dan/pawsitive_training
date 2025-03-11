@@ -48,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (quantityElement) {
           quantityElement.innerText = data.product_quantity;
         }
+        // Update overall basket total on the detail page if present
+        const grandTotalElement = document.getElementById('basket-grand-total');
+        if (grandTotalElement) {
+          grandTotalElement.innerText = data.grand_total;
+        }
       })
       .catch(error => {
         console.error('Error adding item to basket:', error);
@@ -97,6 +102,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const grandTotalElement = document.getElementById('basket-grand-total');
         if (grandTotalElement) {
           grandTotalElement.innerText = data.grand_total;
+        }
+        // If the basket is empty, update the container to show an empty message
+        if (data.basket_items === 0) {
+          const basketContainer = document.getElementById('basket-container');
+          if (basketContainer) {
+            basketContainer.innerHTML = '<p>Your basket is empty.</p>';
+          }
         }
       })
       .catch(error => {
