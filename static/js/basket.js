@@ -5,7 +5,6 @@ function getCookie(name) {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
-      // Check if this cookie string starts with the name we want
       if (cookie.substring(0, name.length + 1) === (name + '=')) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault(); // Prevent default link behavior
       const url = this.href;
       
-      // Send a POST request using fetch
       fetch(url, {
         method: 'POST',
         headers: {
@@ -47,6 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const quantityElement = document.getElementById('basket-quantity-' + data.product_id);
         if (quantityElement) {
           quantityElement.innerText = data.product_quantity;
+        }
+        // Update product unit price in the basket detail table if present
+        const priceElement = document.getElementById('basket-price-' + data.product_id);
+        if (priceElement) {
+          priceElement.innerText = '€' + parseFloat(data.product_price).toFixed(2);
+        }
+        // Update line subtotal in the basket detail table if present
+        const subtotalElement = document.getElementById('basket-subtotal-' + data.product_id);
+        if (subtotalElement) {
+          subtotalElement.innerText = '€' + parseFloat(data.line_total).toFixed(2);
         }
         // Update overall basket total on the detail page if present
         const grandTotalElement = document.getElementById('basket-grand-total');
@@ -66,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault(); // Prevent default link behavior
       const url = this.href;
       
-      // Send a POST request using fetch for removal
       fetch(url, {
         method: 'POST',
         headers: {
@@ -90,13 +97,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const quantityElement = document.getElementById('basket-quantity-' + data.product_id);
         if (quantityElement) {
           quantityElement.innerText = data.product_quantity;
-          //  if quantity is 0, remove the product row from the table
+          // If quantity is 0, remove the product row from the table
           if (data.product_quantity === 0) {
             const rowElement = document.getElementById('basket-row-' + data.product_id);
             if (rowElement) {
               rowElement.remove();
             }
           }
+        }
+        // Update product unit price in the basket detail table if present
+        const priceElement = document.getElementById('basket-price-' + data.product_id);
+        if (priceElement) {
+          priceElement.innerText = '€' + parseFloat(data.product_price).toFixed(2);
+        }
+        // Update line subtotal in the basket detail table if present
+        const subtotalElement = document.getElementById('basket-subtotal-' + data.product_id);
+        if (subtotalElement) {
+          subtotalElement.innerText = '€' + parseFloat(data.line_total).toFixed(2);
         }
         // Update overall basket total on the detail page if present
         const grandTotalElement = document.getElementById('basket-grand-total');

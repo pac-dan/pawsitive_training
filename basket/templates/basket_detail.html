@@ -10,7 +10,7 @@
                     <th>Product</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Total</th>
+                    <th>Subtotal</th>
                     <th>Adjust basket</th>
                 </tr>
             </thead>
@@ -18,9 +18,9 @@
                 {% for item in basket %}
                     <tr id="basket-row-{{ item.product.id }}">
                         <td>{{ item.product.name }}</td>
-                        <td>€{{ item.price }}</td>
+                        <td id="basket-price-{{ item.product.id }}">€{{ item.price }}</td>
                         <td id="basket-quantity-{{ item.product.id }}">{{ item.quantity }}</td>
-                        <td>€{{ item.total_price }}</td>
+                        <td id="basket-subtotal-{{ item.product.id }}">€{{ item.total|floatformat:2 }}</td>
                         <td>
                             <a href="{% url 'basket_add' item.product.id %}" class="btn btn-sm btn-outline-success add-to-basket">Add</a>
                             <a href="{% url 'basket_remove' item.product.id %}" class="btn btn-sm btn-outline-danger remove-from-basket">Remove</a>

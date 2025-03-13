@@ -11,13 +11,17 @@ def basket_add(request, product_id):
     basket.add(product=product, quantity=1, update_quantity=False)
 
     product_id_str = str(product.id)
-    new_quantity = basket.basket[str(product_id_str)]['quantity']
+    new_quantity = basket.basket[product_id_str]['quantity']
+    product_price = product.price
+    line_total = product_price * new_quantity
     
     data = {
         'grand_total': str(basket.get_total_price()),
         'basket_items': len(basket),
         'product_id': product.id, 
         'product_quantity': new_quantity,
+        'product_price': str(product_price),  # Unit price
+        'line_total': str(line_total),          # Updated subtotal for that product
     }
     return JsonResponse(data)
 
@@ -30,19 +34,36 @@ def basket_remove(request, product_id):
     basket.remove(product)
     
     product_id_str = str(product.id)
-    # Get the updated quantity; if the product is no longer in the basket, return 0.
     new_quantity = basket.basket.get(product_id_str, {}).get('quantity', 0)
+    product_price = product.price
+    line_total = product_price * new_quantity
     
     data = {
         'grand_total': str(basket.get_total_price()),
         'basket_items': len(basket),
         'product_id': product.id,
         'product_quantity': new_quantity,
+        'product_price': str(product_price),
+        'line_total': str(line_total),
     }
     return JsonResponse(data)
 
-# The basket_detail view retrieves the current basket from the session and renders the basket detail template.
 def basket_detail(request):
     basket = Basket(request)
-    return render(request, 'basket_detail.html', {'basket': basket})
+    basket_items = []
+    for product_id, item in basket.basket.items():
+        product = get_object_or_404(Product, id=product_id)
+        quantity = item['quantity']
+        total = product.price * quantity
+        basket_items.append({
+            'product': product,
+            'quantity': quantity,
+            'total': total,
+        })
+
+    context = {
+        'basket': basket_items,
+        'total': basket.get_total_price(),
+    }
+    return render(request, 'basket_detail.html', context)
 

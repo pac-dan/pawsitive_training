@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from products.models import Product
 from django.conf import settings
 from django.http import JsonResponse
 from django.urls import reverse
@@ -8,13 +9,21 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 from basket.models import Basket
 
 def checkout(request):
-    # Instantiate your Basket object
+    # Instantiate Basket object
     basket_obj = Basket(request)
     
-    # If your basket is a dictionary, you might want to get a list of items:
-    basket_items = basket_obj.basket.values()  # This gives you each item's dictionary
-    
-    # Calculate the total price using your Basket's method
+    basket_items = []
+    # Iterate over key-value pairs where key is product_id
+    for product_id, item in basket_obj.basket.items():
+        product = get_object_or_404(Product, id=product_id)
+        quantity = item['quantity']
+        total = product.price * quantity
+        basket_items.append({
+            'product': product,
+            'quantity': quantity,
+            'total': total,
+        })
+        
     basket_total = basket_obj.get_total_price()
     
     context = {
@@ -29,7 +38,7 @@ def checkout(request):
 def create_checkout_session(request):
     domain_url = request.build_absolute_uri('/')[:-1]
     try:
-        total_amount = 0  # Replace with your actual basket total in cents
+        total_amount = 0  # Replace with actual basket total in cents
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
@@ -51,6 +60,8 @@ def create_checkout_session(request):
         return JsonResponse({'error': str(e)}, status=403)
 
 def payment_success(request):
+    basket_obj = Basket(request)
+    basket_obj.clear()
     return render(request, 'payments/success.html')
 
 def payment_cancel(request):

@@ -17,17 +17,17 @@
       </thead>
       <tbody>
         {% for item in basket %}
-        <tr>
+        <tr >
           <td>{{ item.product.name }}</td>
           <td>{{ item.quantity }}</td>
-          <td>${{ item.product.price|floatformat:2 }}</td>
-          <td>${{ item.total|floatformat:2 }}</td>
+          <td>€{{ item.product.price|floatformat:2 }}</td>
+          <td>€{{ item.total|floatformat:2 }}</td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
-    <div class="text-end">
-      <h4>Total: ${{ basket_total|floatformat:2 }}</h4>
+    <div class="text-end total-row">
+      <h4>Total: €{{ basket_total|floatformat:2 }}</h4>
     </div>
   {% else %}
     <p>Your basket is empty.</p>
