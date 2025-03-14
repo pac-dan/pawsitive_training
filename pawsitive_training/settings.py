@@ -68,6 +68,8 @@ INSTALLED_APPS = [
     'training',
     'basket',
     'payments',
+    'users.apps.UsersConfig',
+    'orders',
 ]
 
 MIDDLEWARE = [

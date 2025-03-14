@@ -38,7 +38,14 @@ def checkout(request):
 def create_checkout_session(request):
     domain_url = request.build_absolute_uri('/')[:-1]
     try:
-        total_amount = 0  # Replace with actual basket total in cents
+        basket_obj = Basket(request)
+        # Convert basket total to cents
+        basket_total = int(basket_obj.get_total_price() * 100)
+        # Build metadata dictionary
+        metadata = {}
+        if request.user.is_authenticated:
+            metadata['user_id'] = request.user.id
+
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
@@ -47,13 +54,14 @@ def create_checkout_session(request):
                     'product_data': {
                         'name': 'Pawsitive Training Order',
                     },
-                    'unit_amount': total_amount,
+                    'unit_amount': basket_total,
                 },
                 'quantity': 1,
             }],
             mode='payment',
             success_url=domain_url + reverse('payments:payment-success'),
             cancel_url=domain_url + reverse('payments:payment-cancel'),
+            metadata=metadata,  # Pass extra metadata to Stripe
         )
         return JsonResponse({'id': session.id})
     except Exception as e:

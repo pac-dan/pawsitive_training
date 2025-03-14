@@ -72,7 +72,7 @@
 
                 <!-- Account Dropdown -->
                 <li class="nav-item dropdown me-3">
-                  <a class="nav-link text-dark" href="#" id="user-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link text-dark" href="{% url 'users:dashboard' %}" id="user-options" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="d-flex flex-column align-items-center">
                       <i class="fas fa-user fa-lg icon"></i>
                       <div class="d-flex align-items-center">
@@ -86,7 +86,7 @@
                       {% if request.user.is_superuser %}
                         <li><a href="#" class="dropdown-item">Product Management</a></li>
                       {% endif %}
-                      <li><a href="#" class="dropdown-item">My Profile</a></li>
+                      <li><a href="{% url 'users:dashboard' %}" class="dropdown-item">My Profile</a></li>
                       <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>
                     {% else %}
                       <li><a href="{% url 'account_signup' %}" class="dropdown-item">Register</a></li>

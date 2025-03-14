@@ -20,7 +20,29 @@ def stripe_webhook(request):
 
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        # Process the successful payment here.
-        print("Payment completed successfully!")
+        # Extract metadata; values in metadata are strings.
+        user_id = session.get('metadata', {}).get('user_id')
+        # Stripe returns the amount in cents. Convert it to dollars.
+        amount = session.get('amount_total', 0) / 100.0
+
+        # Import the Order model (adjust the import path as needed)
+        from orders.models import Order
+        order, created = Order.objects.get_or_create(
+            stripe_checkout_session_id=session['id'],
+            defaults={'amount': amount, 'user': None}
+        )
+
+        if user_id:
+            try:
+                from django.contrib.auth.models import User
+                user = User.objects.get(id=user_id)
+                order.user = user
+                order.save()
+            except User.DoesNotExist:
+                pass
+
+        # Add more fields to the Order model as needed
+        print("Payment completed successfully! Order created.")
 
     return HttpResponse(status=200)
+

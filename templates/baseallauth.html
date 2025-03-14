@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Account{% endblock %}</title>
+  {% load static %}
+  <!-- Include your custom CSS for account pages -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body style="background: url('#') no-repeat center center; background-size: cover;">
+  <div class="account-container">
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>
