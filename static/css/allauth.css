@@ -1,0 +1,110 @@
+/* Ensure the entire page uses the hero background image */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Hero Background Style */
+.allauth-hero {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../../media/allauth/pexels-yaroslav-shuraev-8499874.jpg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -1; /* behind all content */
+}
+
+/* Centered Container */
+.allauth-container {
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.95); /* semi-transparent white background */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Styling for forms (inputs, labels, buttons) */
+.allauth-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.allauth-container input[type="text"],
+.allauth-container input[type="password"],
+.allauth-container input[type="email"],
+.allauth-container input[type="date"] {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.allauth-container button,
+.allauth-container input[type="submit"] {
+    padding: 0.75rem;
+    background-color: #007bff;  /* primary button color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.allauth-container button:hover,
+.allauth-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Center headings */
+.allauth-container h1, 
+.allauth-container h2, 
+.allauth-container h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.allauth-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.allauth-container::-webkit-scrollbar-track {
+    background: #f1f1f1;  /* Track background color */
+}
+
+.allauth-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Thumb color */
+    border-radius: 10px !important;    /* Rounded corners */
+    border: 2px solid #f1f1f1; /* Creates some padding around thumb */
+} 
+
+/* Firefox support: */
+.allauth-container {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+.allauth-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* optional spacing between elements */
+}
+
+.allauth-container form label,
+.allauth-container form input,
+.allauth-container form textarea,
+.allauth-container form select {
+    width: 100%;
+    display: block;
+}

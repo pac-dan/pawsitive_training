@@ -7,8 +7,11 @@ from .models import Profile
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
-        # When a new User is created, create a Profile for that user.
+        # Create the profile for new users
         Profile.objects.create(user=instance)
     else:
-        # When an existing User is updated, save the Profile.
-        instance.profile.save()
+        # For existing users, check if profile exists; if not, create it.
+        if not hasattr(instance, 'profile'):
+            Profile.objects.create(user=instance)
+        else:
+            instance.profile.save()
