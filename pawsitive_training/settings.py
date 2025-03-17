@@ -30,10 +30,11 @@ env = environ.Env(
 # reading .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-DEBUG = env('DEBUG')  # If you have a DEBUG variable in your .env file
-STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
-STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
+DEBUG = env('DEBUG') 
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS = os.getenv("STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS")
+STRIPE_WEBHOOK_SECRET_PAYMENTS = os.getenv("STRIPE_WEBHOOK_SECRET_PAYMENTS")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-^z=y7d^gfp!$44&wm+t)xll*@gun^!^ztf4gjepzh-e(_$2)l-'
@@ -45,6 +46,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '6517-2001-bb6-1fe4-1400-39d0-94e8-fa72-2398.ngrok-free.app',
     '127.0.0.1',
+    '1647-2001-bb6-1fe4-1400-14ac-ee0a-5803-e9d6.ngrok-free.app',
 ]
 
 
@@ -70,6 +72,7 @@ INSTALLED_APPS = [
     'payments',
     'users.apps.UsersConfig',
     'orders',
+    'subscriptions',
 ]
 
 MIDDLEWARE = [
@@ -102,6 +105,7 @@ TEMPLATES = [
                 'training.context_processors.training_categories',
                 'products.context_processors.product_categories',
                 'basket.context_processors.basket_total',
+                'pawsitive_training.context_processors.stripe_keys',
             ],
         },
     },

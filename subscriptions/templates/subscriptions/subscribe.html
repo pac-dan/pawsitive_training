@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Subscription{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Subscription</h2>
+    {% if subscription %}
+        {% if subscription.active and subscription.expiry_date > now %}
+            <p>Your {{ subscription.subscription_type }} subscription is active until {{ subscription.expiry_date|date:"M d, Y" }}.</p>
+            <a href="#" class="btn btn-primary" id="manage-subscription">Manage Subscription</a>
+        {% else %}
+            <p>Your subscription has expired or is inactive.</p>
+            <a href="#" data-checkout-url="{% url 'subscriptions:purchase' %}?price_id=price_1R3fWlA2Hl78BqmcYQTLktmV" class="btn btn-success" id="renew-subscription">Renew Subscription</a>
+        {% endif %}
+    {% else %}
+        <p>You don't have a subscription yet.</p>
+        <a href="#" data-checkout-url="{% url 'subscriptions:purchase' %}?price_id=price_1R3fVwA2Hl78BqmcE0or4dio" class="btn btn-success" id="purchase-subscription">Purchase Monthly Subscription</a>
+        <a href="#" data-checkout-url="{% url 'subscriptions:purchase' %}?price_id=price_1R3fWlA2Hl78BqmcYQTLktmV" class="btn btn-success" id="purchase-subscription-yearly">Purchase Yearly Subscription</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM fully loaded and parsed");
+
+    // Initialize Stripe using the publishable key passed in the template
+    const stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+    console.log("Stripe object initialized:", stripe);
+
+    // Function to call checkout session view via fetch
+    function redirectToCheckout(url) {
+        console.log("redirectToCheckout called with URL:", url);
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+        })
+        .then(response => {
+            console.log("Response status:", response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log("Data received from checkout session:", data);
+            if (data.error) {
+                console.error("Error from checkout session:", data.error);
+            } else {
+                // Redirect to Stripe Checkout
+                stripe.redirectToCheckout({ sessionId: data.id }).then(function(result) {
+                    if (result.error) {
+                        console.error("Stripe redirect error:", result.error.message);
+                    }
+                });
+            }
+        })
+        .catch(error => console.error("Fetch error:", error));
+    }
+
+    // Bind click events using the data-checkout-url attribute
+    const purchaseBtn = document.getElementById("purchase-subscription");
+    if (purchaseBtn) {
+        purchaseBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            console.log("Purchase subscription button clicked");
+            let url = this.getAttribute("data-checkout-url");
+            console.log("Using checkout URL:", url);
+            redirectToCheckout(url);
+        });
+    } else {
+        console.error("Purchase Subscription button not found");
+    }
+
+    const yearlyBtn = document.getElementById("purchase-subscription-yearly");
+    if (yearlyBtn) {
+        yearlyBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            console.log("Yearly subscription button clicked");
+            let url = this.getAttribute("data-checkout-url");
+            console.log("Using checkout URL:", url);
+            redirectToCheckout(url);
+        });
+    } else {
+        console.error("Yearly Subscription button not found");
+    }
+
+    const renewBtn = document.getElementById("renew-subscription");
+    if (renewBtn) {
+        renewBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            console.log("Renew subscription button clicked");
+           
+            let url = this.getAttribute("href");
+            console.log("Using renew checkout URL:", url);
+            redirectToCheckout(url);
+        });
+    } else {
+        console.error("Renew Subscription button not found");
+    }
+});
+</script>
+{% endblock %}

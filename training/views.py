@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.db.models import Q
 from .models import Training, TrainingCategory
+from django.utils import timezone
+from subscriptions.models import Subscription
 
 def category_trainings(request, category_slug):
     """
@@ -66,6 +68,23 @@ def search(request):
 def training_detail(request, pk):
     """
     Displays the detail view of a single training video.
+    Requires an active subscription for authenticated users.
     """
     training = get_object_or_404(Training, pk=pk)
-    return render(request, 'training_detail.html', {'training': training})
+    
+    # Check if the user is logged in
+    if request.user.is_authenticated:
+        try:
+            subscription = request.user.subscription
+            # Check if the subscription is active and hasn't expired
+            if subscription.active and subscription.expiry_date > timezone.now():
+                return render(request, 'training_detail.html', {'training': training})
+            else:
+                # Subscription exists but is inactive or expired; redirect to subscribe page.
+                return redirect('subscriptions:subscribe')
+        except Subscription.DoesNotExist:
+            # No subscription exists; redirect to subscribe page.
+            return redirect('subscriptions:subscribe')
+    else:
+        # If user is not logged in, redirect them to the login page.
+        return redirect('account_login')
