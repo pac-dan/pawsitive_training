@@ -25,5 +25,8 @@ class Subscription(models.Model):
                 self.expiry_date = self.start_date + timedelta(days=365)
         super().save(*args, **kwargs)
 
+    def is_active(self):
+        return self.active and self.expiry_date > timezone.now()
+
     def __str__(self):
         return f"{self.user.username}'s Subscription"

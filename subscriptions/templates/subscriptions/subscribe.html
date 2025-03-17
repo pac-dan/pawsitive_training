@@ -12,7 +12,7 @@
             <a href="#" class="btn btn-primary" id="manage-subscription">Manage Subscription</a>
         {% else %}
             <p>Your subscription has expired or is inactive.</p>
-            <a href="#" data-checkout-url="{% url 'subscriptions:purchase' %}?price_id=price_1R3fWlA2Hl78BqmcYQTLktmV" class="btn btn-success" id="renew-subscription">Renew Subscription</a>
+            <a href="#" data-checkout-url="{% url 'subscriptions:purchase' %}?price_id=price_id=price_1R3fWlA2Hl78BqmcYQTLktmV" class="btn btn-success" id="renew-subscription">Renew Subscription</a>
         {% endif %}
     {% else %}
         <p>You don't have a subscription yet.</p>

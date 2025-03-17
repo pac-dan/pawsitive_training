@@ -14,6 +14,22 @@
       <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
     </div>
   </div>
+
+  <!-- Subscription status -->
+  <div class="mb-3">
+    {% if subscription and subscription.active %}
+      <div class="alert alert-success">
+        <strong>Subscriber Status:</strong> You are an active subscriber!
+        <br>
+        Your subscription is valid until {{ subscription.expiry_date|date:"M d, Y" }}.
+      </div>
+    {% else %}
+      <div class="alert alert-warning">
+        <strong>Subscriber Status:</strong> You are not currently subscribed.
+        <a href="{% url 'subscriptions:subscribe' %}">Subscribe now</a>
+      </div>
+    {% endif %}
+  </div>
   
   <h3>Order History</h3>
   {% if orders %}
