@@ -13,8 +13,9 @@
 
 <div class="row product-width">       
   {% for product in page_obj %}
-    <div class="col-item max-width-training-card">
-      <div class="card">
+  <div class="col-12 col-sm-6 col-lg-3">
+    <div class="product-card">
+      <div class="product-contents">
         {% if product.image %}
           <a href="{% url 'products:product_detail' product.pk %}">
             <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
@@ -38,6 +39,7 @@
         </div>
       </div>
     </div>
+  </div>
   {% empty %}
     <p class="text-center">No products found in this category.</p>
   {% endfor %}

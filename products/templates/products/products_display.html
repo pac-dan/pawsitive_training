@@ -7,8 +7,9 @@
     <div class="row product-width">  
 
       {% for product in page_obj %}
-        <div class="col-item max-width-training-card">
-          <div class="card">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="product-card">
+          <div class="product-contents">
             {% if product.image %}
               <a href="{% url 'products:product_detail' product.pk %}">
                 <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
@@ -29,10 +30,11 @@
               <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success add-to-basket">
                 Add to Basket
               </a>
-
+              <a href="{% url 'basket_detail' %}" class="btn btn-secondary">View Basket</a>
             </div>
           </div>
         </div>
+      </div>
       {% empty %}
         <p class="text-center">No products available at this time.</p>
       {% endfor %}

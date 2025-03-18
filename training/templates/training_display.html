@@ -6,8 +6,9 @@
   <h1>Lessons</h1>
   <div class="row">
     {% for training in page_obj %}
-      <div class="col-item max-width-training-card">
-        <div class="card">
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="product-card">
+        <div class="product-contents">
           {% if training.thumbnail %}
             <img src="{{ training.thumbnail.url }}" class="card-img-top" alt="{{ training.title }}">
           {% else %}
@@ -20,6 +21,7 @@
           </div>
         </div>
       </div>
+    </div>
     {% endfor %}
   </div> 
 </div>

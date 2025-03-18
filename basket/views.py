@@ -55,10 +55,12 @@ def basket_detail(request):
         product = get_object_or_404(Product, id=product_id)
         quantity = item['quantity']
         total = product.price * quantity
+        price = product.price
         basket_items.append({
             'product': product,
             'quantity': quantity,
             'total': total,
+            'price': price,
         })
 
     context = {
