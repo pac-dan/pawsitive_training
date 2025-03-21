@@ -4,48 +4,47 @@
 {% block content %}
 <div class="container">
   {% if category %}
-  <h1 class="text-center">{{ category.name }}</h1>
-{% elif search_term %}
-  <h1 class="text-center">Search Results for "{{ search_term }}"</h1>
-{% else %}
-  <h1 class="text-center">Search</h1>
-{% endif %}
+    <h1 class="text-center">{{ category.name }}</h1>
+  {% elif search_term %}
+    <h1 class="text-center">Search Results for "{{ search_term }}"</h1>
+  {% else %}
+    <h1 class="text-center">Search</h1>
+  {% endif %}
 
-<div class="row product-width">       
-  {% for product in page_obj %}
-  <div class="col-12 col-sm-6 col-lg-3">
-    <div class="product-card">
-      <div class="product-contents">
-        {% if product.image %}
-          <a href="{% url 'products:product_detail' product.pk %}">
-            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-          </a>
-        {% else %}
-          <img src="{% static '../media/products/placeholder.png' %}" class="card-img-top" alt="Placeholder">
-        {% endif %}
-        <div class="card-body text-center">
-          <h5 class="card-title">
-            <a href="{% url 'products:product_detail' product.pk %}" class="text-decoration-none text-dark">
-              {{ product.name }}
+  <div class="row product-width">
+    {% for product in page_obj %}
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="product-card">
+        <div class="product-contents">
+          {% if product.image %}
+            <a href="{% url 'products:product_detail' product.pk %}">
+              <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
             </a>
-          </h5>
-          <p class="card-text text-success">${{ product.price|floatformat:2 }}</p>
-
-          <!-- Add to Basket Button -->
-          <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success add-to-basket">
-            Add to Basket
-          </a>
-
+          {% else %}
+            <img src="{% static 'media/products/placeholder.png' %}" class="card-img-top" alt="Placeholder">
+          {% endif %}
+          <div class="card-body text-center">
+            <h5 class="card-title">
+              <a href="{% url 'products:product_detail' product.pk %}" class="text-decoration-none text-dark">
+                {{ product.name|truncatewords:6 }}
+              </a>
+            </h5>
+            <p class="card-text text-success">€{{ product.price|floatformat:2 }}</p>
+            <!-- Add to Basket Button -->
+            <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success add-to-basket">
+              Add to Basket
+            </a>
+            <a href="{% url 'basket_detail' %}" class="btn btn-secondary">View Basket</a>
+          </div>
         </div>
       </div>
     </div>
+    {% empty %}
+      <p class="text-center">No products found in this category.</p>
+    {% endfor %}
   </div>
-  {% empty %}
-    <p class="text-center">No products found in this category.</p>
-  {% endfor %}
-</div>
   
-<!-- Pagination -->
+  <!-- Pagination -->
   <div class="pagination">
     {% if page_obj.has_previous %}
       <a href="?page={{ page_obj.previous_page_number }}">Previous</a>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-secondary text-white">
+            <h2 class="mb-0">Update Stock for {{ product.name }}</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_stock" class="form-label">Current Stock:</label>
+                    {{ form.stock }}
+                    {% if form.stock.errors %}
+                        <div class="text-danger">
+                            {{ form.stock.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="{% url 'products:stock_list' %}" class="btn btn-link">Back to Stock List</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

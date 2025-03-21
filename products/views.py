@@ -3,6 +3,28 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from .models import Product, ProductCategory
+from django.contrib.admin.views.decorators import staff_member_required
+from .forms import ProductStockUpdateForm
+
+@staff_member_required
+def update_stock(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        form = ProductStockUpdateForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Stock updated successfully!")
+            return redirect('products:stock_list')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = ProductStockUpdateForm(instance=product)
+    return render(request, 'products/update_stock.html', {'form': form, 'product': product})
+
+@staff_member_required
+def stock_list(request):
+    products = Product.objects.all()
+    return render(request, 'products/stock_list.html', {'products': products})
 
 def category_products(request, category_slug):
     """

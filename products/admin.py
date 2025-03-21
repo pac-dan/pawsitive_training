@@ -3,8 +3,9 @@ from django.utils.html import format_html
 from .models import Product, ProductCategory
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'sku', 'price', 'brand', 'image_preview')
+    list_display = ('name', 'sku', 'price', 'stock', 'image_preview')
     readonly_fields = ('image_preview',)
+    list_filter = ('category', 'brand')
 
     def image_preview(self, obj):
         if obj.image:

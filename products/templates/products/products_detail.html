@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block content %}
-    <div class="container mt-5 pt-5">
-        <div class="row">
+<div class="container mt-5 pt-5">
+    <div class="row">
         <div class="col-md-6">
             {% if product.image %}
             <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
             {% else %}
-            <img src="{% static '../media/products/placeholder.png' %}" class="img-fluid rounded" alt="Placeholder">
+            <img src="{% static 'media/products/placeholder.png' %}" class="img-fluid rounded" alt="Placeholder">
             {% endif %}
         </div>
         <div class="col-md-6 product-info-card">
@@ -18,19 +18,24 @@
             {% if product.brand %}
             <p><strong>Brand:</strong> {{ product.brand }}</p>
             {% endif %}
-            <div class="products-buttons">
-            <a href="{% url 'products:products_display' %}" class="btn btn-secondary mt-3">&larr; 
-                Back to Products</a>
-
-            <a href="{% url 'basket_detail' %}" class="btn btn-outline-success">
-                View Basket
-            </a>
-
-            <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success add-to-basket">
-                Add to Basket
-            </a>
+            
+            {# Show an "Out of Stock" badge if product.stock is 0 or less #}
+            {% if product.stock <= 0 %}
+              <p class="mt-2">
+                <span class="badge bg-danger out-of-stock">Out of Stock</span>
+              </p>
+            {% endif %}
+            
+            <div class="products-buttons mt-3">
+                <a href="{% url 'products:products_display' %}" class="btn btn-secondary">&larr; Back to Products</a>
+                <a href="{% url 'basket_detail' %}" class="btn btn-outline-success">View Basket</a>
+                {% if product.stock > 0 %}
+                  <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success add-to-basket">Add to Basket</a>
+                {% else %}
+                  <button class="btn btn-outline-secondary" disabled>Add to Basket</button>
+                {% endif %}
             </div>
         </div>
-        </div>
     </div>
-  {% endblock %}
+</div>
+{% endblock %}

@@ -29,6 +29,9 @@ class Product(models.Model):
         blank=True
     )
 
+    # New stock field
+    stock = models.IntegerField(default=0, help_text="Available stock for this product")
+
 
     def __str__(self):
         return self.name or 'Unnamed Product'
