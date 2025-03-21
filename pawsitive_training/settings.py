@@ -35,6 +35,8 @@ STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS = os.getenv("STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS")
 STRIPE_WEBHOOK_SECRET_PAYMENTS = os.getenv("STRIPE_WEBHOOK_SECRET_PAYMENTS")
+STRIPE_PRICE_ID_YEARLY = os.getenv("STRIPE_PRICE_ID_YEARLY")
+STRIPE_PRICE_ID_MONTHLY = os.getenv("STRIPE_PRICE_ID_MONTHLY")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-^z=y7d^gfp!$44&wm+t)xll*@gun^!^ztf4gjepzh-e(_$2)l-'
@@ -65,6 +67,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    'django.contrib.sitemaps',
     'welcome',
     'products',
     'training',
@@ -73,6 +76,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'orders',
     'subscriptions',
+    'core',
+    'newsletter',
 ]
 
 MIDDLEWARE = [

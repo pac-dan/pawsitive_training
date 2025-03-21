@@ -19,15 +19,23 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from products.views import search
+from core.sitemap import StaticViewSitemap
+from django.contrib.sitemaps.views import sitemap  
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('welcome.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('products/', include('products.urls')),
     path('training/', include('training.urls')),
     path('basket/', include('basket.urls')), 
     path('payments/', include('payments.urls')),
     path('users/', include('users.urls')),
     path('subscriptions/', include('subscriptions.urls')),
+    path('newsletter/', include('newsletter.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
