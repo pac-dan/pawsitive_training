@@ -18,6 +18,7 @@ def profile_dashboard(request):
 
     orders = Order.objects.filter(user=request.user).order_by('-created')
     context = {
+        'profile': request.user.profile, 
         'subscription': subscription,
         'subscription_active': subscription_active,
         'orders': orders,

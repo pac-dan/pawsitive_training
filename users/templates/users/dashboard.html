@@ -4,33 +4,43 @@
 {% block content %}
 <div class="container">
   <h2>Profile Dashboard</h2>
-  <div class="">
-    <div class="dash">
-      <p><strong>Username:</strong> {{ request.user.username }}</p>
-      <p><strong>Email:</strong> {{ request.user.email }}</p>
-      <p><strong>Bio:</strong> {{ profile.bio|default:"No bio provided" }}</p>
-      <p><strong>Location:</strong> {{ profile.location|default:"Not specified" }}</p>
-      <p><strong>Birth Date:</strong> {{ profile.birth_date|date:"M d, Y" }}</p>
-      <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+  
+  <!-- Row for Profile and Subscription Status -->
+  <div class="row mb-4 align-items-stretch">
+    <!-- Profile Dashboard on the Left (2/3 or half, adjust as needed) -->
+    <div class="col-md-6">
+      <div class="dash p-3 border rounded bg-light h-100">
+        <p><strong>Username:</strong> {{ request.user.username }}</p>
+        <p><strong>Email:</strong> {{ request.user.email }}</p>
+        <p><strong>Bio:</strong> {{ profile.bio|default:"No bio provided" }}</p>
+        <p><strong>Location:</strong> {{ profile.location|default:"Not specified" }}</p>
+        <p><strong>Birth Date:</strong> {{ profile.birth_date|date:"M d, Y" }}</p>
+        <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+      </div>
+    </div>
+    
+    <!-- Subscription Status on the Right -->
+    <div class="col-md-6">
+      {% if subscription and subscription.active %}
+        <div class="alert alert-success h-100 d-flex align-items-center justify-content-center">
+          <div>
+            <strong>Subscriber Status:</strong> You are an active subscriber!
+            <br>
+            Your subscription is valid until {{ subscription.expiry_date|date:"M d, Y" }}.
+          </div>
+        </div>
+      {% else %}
+        <div class="alert alert-warning h-100 d-flex align-items-center justify-content-center">
+          <div>
+            <strong>Subscriber Status:</strong> You are not currently subscribed.
+            <a href="{% url 'subscriptions:subscribe' %}" class="btn btn-link">Subscribe now</a>
+          </div>
+        </div>
+      {% endif %}
     </div>
   </div>
-
-  <!-- Subscription status -->
-  <div class="mb-3">
-    {% if subscription and subscription.active %}
-      <div class="alert alert-success">
-        <strong>Subscriber Status:</strong> You are an active subscriber!
-        <br>
-        Your subscription is valid until {{ subscription.expiry_date|date:"M d, Y" }}.
-      </div>
-    {% else %}
-      <div class="alert alert-warning">
-        <strong>Subscriber Status:</strong> You are not currently subscribed.
-        <a href="{% url 'subscriptions:subscribe' %}">Subscribe now</a>
-      </div>
-    {% endif %}
-  </div>
   
+  <!-- Orders List -->
   <h3>Order History</h3>
   {% if orders %}
     <table class="table">
@@ -44,7 +54,7 @@
       <tbody>
         {% for order in orders %}
           <tr>
-            <td>{{ order.order_id }}</td>
+            <td>{{ order.id }}</td>
             <td>{{ order.amount }}</td>
             <td>{{ order.created|date:"M d, Y" }}</td>
           </tr>
