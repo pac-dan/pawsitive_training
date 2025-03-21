@@ -22,6 +22,7 @@ def basket_add(request, product_id):
         'product_quantity': new_quantity,
         'product_price': str(product_price),  # Unit price
         'line_total': str(line_total),          # Updated subtotal for that product
+        'message': 'Product added to basket successfully!'
     }
     return JsonResponse(data)
 

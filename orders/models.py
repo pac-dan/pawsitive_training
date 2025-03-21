@@ -13,6 +13,7 @@ class Order(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
     #  add fields such as status, shipping address, etc.
+    status = models.CharField(max_length=20, default="pending")
     
     def __str__(self):
         return f"Order {self.stripe_checkout_session_id} for {self.user or 'Guest'}"
