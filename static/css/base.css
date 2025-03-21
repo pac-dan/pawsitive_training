@@ -1,3 +1,4 @@
+    /* main styles */
 html {
     height: 100%;
 }
@@ -17,14 +18,38 @@ h1 {
     justify-content: center;
 }
 
-.icon {
+div.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
+    padding-top: 8%;
 }
 
+section.container {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding-top: 3%;
+    max-width: 65%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.custom-hr {
+    border: 0;
+    border-top: 2px solid #000000; 
+    margin: 20px 0;    
+    z-index: 99;
+}
+
+    /* Base styling for nav links */
 .nav-item {
     display: flex;
     flex-wrap: nowrap;
@@ -32,28 +57,35 @@ h1 {
     align-items: center;
 }
 
-/* Base styling for nav links */
+
 .navbar-nav .nav-link {
     position: relative;
     color: #333;
     transition: color 0.3s ease;
 }
+
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
   
-  /* Create the underline effect using a pseudo-element */
+    /* Underline effect on hover */
 .navbar-nav .nav-link::after {
     content: "";
     position: absolute;
     width: 100%;
     height: 2px; 
-    background-color: #000; /* Underline color */
+    background-color: #000; 
     left: 0;
     bottom: 0;
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
 }
-  
-  /* On hover, scale the underline to full width */
+
 .navbar-nav .nav-link:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
@@ -66,9 +98,8 @@ h1 {
     max-height: 12rem;
 }
 
-/* welcome page */
-
-h1.display-4.fw-bold.mb-4 {
+    /* welcome page */
+h1.display-4.fw-bold.mb-4{
     color: #110c2d;
     border: 3px solid #000;
     background: border-box;
@@ -77,16 +108,28 @@ h1.display-4.fw-bold.mb-4 {
     padding: 1rem;
 }
 
-div.container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    padding-top: 8%;
-    /* width: 90%; */
+.lead {
+    color: #110c2d;
+    border: 3px solid #000;
+    background: border-box;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20rem;
+    padding: 1rem;
 }
 
+.lead-2 {
+    color: #110c2d;
+    border: 3px solid #000;
+    background: border-box;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 2rem;
+    padding: 1rem;
+}
+
+    /* Lessons page */
 .lessons-container {
+    padding-top: 110px;      /* Height of the navbar */
+    display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
@@ -94,16 +137,78 @@ div.container {
 
 .video-container {
     position: static !important;
-    padding-bottom: 56.25%;
     padding-top: 30px;
     height: 0;
     width: 80%;
     overflow: hidden;
 }
 
+.video-card {
+    height: 300px;           
+    overflow: hidden;      
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #2d2d2d;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Needed for absolute positioning of overlay */
+}
+
+.video-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.video-card .card-img-top {
+    height: 150px;           
+    width: 100%;
+    object-fit: cover;      
+    border-radius: 10px;
+}
+
+/* Overlay for locked videos */
+.video-lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dimmed effect */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    z-index: 10;
+    opacity: 1; 
+}
+
+.video-lock-overlay i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.out-of-stock {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+a.btn.btn-secondary.mb-3 {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+       
 .col-item {
     display: flex;
-    margin-bottom: 20px; /* adjust spacing as needed */
+    margin-bottom: 20px; 
 }
 
 .card {
@@ -120,6 +225,7 @@ h5.card-title {
     max-width: fit-content;
 }
 
+    /* Basket Page */
 .basket {
     width: 100%; 
     max-width: 900px; 
@@ -152,6 +258,7 @@ h5.card-title {
     overflow-wrap: break-word;
 }
 
+    /* Products Page */
 .product-info-card {
     background-color: rgba(255, 255, 255, 0.8); 
     border-radius: 15px; 
@@ -167,6 +274,8 @@ h5.card-title {
 }
 
 .product-card {
+    height: 400px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -185,6 +294,13 @@ h5.card-title {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.product-card .card-img-top {
+    height: 200px;        
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
 .product-contents {
     width: 100%;
     height: auto; 
@@ -192,20 +308,6 @@ h5.card-title {
     object-position: center;
     border-radius: 15px;
     display: block;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.custom-hr {
-    border: 0;
-    border-top: 2px solid #000000; 
-    margin: 20px 0;    
-    z-index: 99;
 }
 
 .container-fluid {
@@ -244,7 +346,7 @@ td {
     }
   }
 
-  /* Video Player */
+    /* Video Player */
 
 .video-container {
     position: relative;
@@ -266,7 +368,7 @@ td {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* Account */
+    /* Account */
 .account-container {
     display: flex;
     flex-direction: column;
@@ -309,7 +411,7 @@ td {
     border-radius: 20px;
 }
   
-  /* fixed top navbar only on medium and up */
+    /* fixed top navbar only on medium and up */
 @media (max-width: 992px) {
       .navbar-collapse.show {
         display: flex !important;
@@ -400,7 +502,7 @@ td {
 
     .navbar-collapse.show {
         display: flex !important;
-        flex-direction: column; /* or row if you prefer a horizontal layout when open */
+        flex-direction: column; 
         justify-content: space-evenly;
         align-items: center;
     }

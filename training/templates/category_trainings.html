@@ -4,37 +4,46 @@
 {% block content %}
 <div class="container">
   {% if category %}
-    <h1>{{ category.name }}</h1>
+    <h1 class="text-center">{{ category.name }}</h1>
   {% elif search_term %}
-    <h1>Search Results for "{{ search_term }}"</h1>
+    <h1 class="text-center">Search Results for "{{ search_term }}"</h1>
   {% else %}
-    <h1>Search Training Lessons</h1>
+    <h1 class="text-center">Search Training Lessons</h1>
   {% endif %}
   <div class="row">
     {% for training in page_obj.object_list %}
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="product-card">
-        <div class="product-contents">
-          {% if training.thumbnail %}
-            <img src="{{ training.thumbnail.url }}" class="card-img-top" alt="{{ training.title }}">
-          {% else %}
-            <img src="{% static 'products/placeholder.png' %}" class="card-img-top" alt="No Thumbnail">
-          {% endif %}
-          <div class="card-body">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <!-- Video card with locked overlay if necessary -->
+        <div class="video-card position-relative">
+          <div class="product-contents">
+            {% if training.thumbnail %}
+              <img src="{{ training.thumbnail.url }}" class="card-img-top" alt="{{ training.title }}">
+            {% else %}
+              <img src="{% static 'products/placeholder.png' %}" class="card-img-top" alt="No Thumbnail">
+            {% endif %}
+          </div>
+          <div class="card-body text-center">
             <h5 class="card-title">{{ training.title }}</h5>
             <p class="card-text">{{ training.description|truncatewords:8 }}</p>
             <a href="{% url 'training:training_detail' training.pk %}" class="btn btn-primary">Watch Lesson</a>
           </div>
+          
+          {# Overlay: show if video is locked (not free and user is not subscribed) #}
+          {% if not training.is_free and not has_subscription %}
+            <div class="video-lock-overlay">
+              <i class="fas fa-lock"></i>
+              <span>Locked</span>
+            </div>
+          {% endif %}
         </div>
       </div>
-    </div>
     {% empty %}
       <div class="col-12">
-        <p>No training videos found in this category.</p>
+        <p class="text-center">No training videos found in this category.</p>
       </div>
     {% endfor %}
   </div>
-
+  
   <!-- Pagination Controls -->
   <div class="pagination">
     {% if page_obj.has_previous %}

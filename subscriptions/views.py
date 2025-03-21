@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from orders.models import Order
+import uuid
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -35,6 +36,14 @@ def create_subscription_checkout(request):
     
     try:
         user_id_str = str(request.user.id)
+        # Create an order record for this subscription purchase
+        order = Order.objects.create(
+            user=request.user,
+            stripe_checkout_session_id=str(uuid.uuid4()),  # Use a temporary unique value for now
+            amount=250 if price_id == settings.STRIPE_PRICE_ID_YEARLY else 50,
+            status="pending"
+        )
+        
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             mode='subscription',
@@ -42,13 +51,11 @@ def create_subscription_checkout(request):
                 'price': price_id,
                 'quantity': 1,
             }],
-            # Pass metadata at the session level
-            metadata={'user_id': user_id_str},
-            # And also pass it inside subscription_data
+            # Pass metadata including the Order's primary key as 'order_id'
+            metadata={'user_id': user_id_str, 'order_id': str(order.id)},
             subscription_data={
-                'metadata': {'user_id': user_id_str}
+                'metadata': {'user_id': user_id_str, 'order_id': str(order.id)}
             },
-            # Also set client_reference_id
             client_reference_id=user_id_str,
             success_url=domain_url + reverse('subscriptions:subscription_success'),
             cancel_url=domain_url + reverse('subscriptions:subscribe'),

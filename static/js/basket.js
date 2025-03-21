@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(response => response.json())
       .then(data => {
-        // Update the basket count and total in the navbar
+        // Update the basket UI elements
         const basketCountElement = document.getElementById('basket-count');
         if (basketCountElement) {
           basketCountElement.innerText = data.basket_items;
@@ -41,29 +41,43 @@ document.addEventListener('DOMContentLoaded', function() {
         if (basketTotalElement) {
           basketTotalElement.innerText = '$' + data.grand_total;
         }
-        // Update quantity in the basket detail table if present
         const quantityElement = document.getElementById('basket-quantity-' + data.product_id);
         if (quantityElement) {
           quantityElement.innerText = data.product_quantity;
         }
-        // Update product unit price in the basket detail table if present
         const priceElement = document.getElementById('basket-price-' + data.product_id);
         if (priceElement) {
           priceElement.innerText = '€' + parseFloat(data.product_price).toFixed(2);
         }
-        // Update line subtotal in the basket detail table if present
         const subtotalElement = document.getElementById('basket-subtotal-' + data.product_id);
         if (subtotalElement) {
           subtotalElement.innerText = '€' + parseFloat(data.line_total).toFixed(2);
         }
-        // Update overall basket total on the detail page if present
         const grandTotalElement = document.getElementById('basket-grand-total');
         if (grandTotalElement) {
           grandTotalElement.innerText = data.grand_total;
         }
+        
+        // Show a toast message if one is provided in the response
+        if (data.message) {
+          toastr.options = {
+              "closeButton": true,
+              "progressBar": true,
+              "positionClass": "toast-top-right",
+              "timeOut": "5000"
+          };
+          toastr.success(data.message);
+        }
       })
       .catch(error => {
         console.error('Error adding item to basket:', error);
+        toastr.options = {
+              "closeButton": true,
+              "progressBar": true,
+              "positionClass": "toast-top-right",
+              "timeOut": "5000"
+          };
+        toastr.error("There was an error adding the product to the basket.");
       });
     });
   });
@@ -84,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(response => response.json())
       .then(data => {
-        // Update the basket count and total in the navbar
+        // Update the basket UI elements
         const basketCountElement = document.getElementById('basket-count');
         if (basketCountElement) {
           basketCountElement.innerText = data.basket_items;
@@ -93,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (basketTotalElement) {
           basketTotalElement.innerText = '$' + data.grand_total;
         }
-        // Update quantity in the basket detail table if present
         const quantityElement = document.getElementById('basket-quantity-' + data.product_id);
         if (quantityElement) {
           quantityElement.innerText = data.product_quantity;
@@ -105,17 +118,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
         }
-        // Update product unit price in the basket detail table if present
         const priceElement = document.getElementById('basket-price-' + data.product_id);
         if (priceElement) {
           priceElement.innerText = '€' + parseFloat(data.product_price).toFixed(2);
         }
-        // Update line subtotal in the basket detail table if present
         const subtotalElement = document.getElementById('basket-subtotal-' + data.product_id);
         if (subtotalElement) {
           subtotalElement.innerText = '€' + parseFloat(data.line_total).toFixed(2);
         }
-        // Update overall basket total on the detail page if present
         const grandTotalElement = document.getElementById('basket-grand-total');
         if (grandTotalElement) {
           grandTotalElement.innerText = data.grand_total;
@@ -127,9 +137,27 @@ document.addEventListener('DOMContentLoaded', function() {
             basketContainer.innerHTML = '<p>Your basket is empty.</p>';
           }
         }
+        
+        
+        if (data.message) {
+          toastr.options = {
+              "closeButton": true,
+              "progressBar": true,
+              "positionClass": "toast-top-right",
+              "timeOut": "5000"
+          };
+          toastr.info(data.message);
+        }
       })
       .catch(error => {
         console.error('Error removing item from basket:', error);
+        toastr.options = {
+              "closeButton": true,
+              "progressBar": true,
+              "positionClass": "toast-top-right",
+              "timeOut": "5000"
+          };
+        toastr.error("There was an error removing the product from the basket.");
       });
     });
   });

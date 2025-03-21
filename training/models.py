@@ -27,6 +27,12 @@ class Training(models.Model):
         null=True,
         blank=True
     )
+
+    # NEW: Field to mark a training as free
+    is_free = models.BooleanField(
+        default=False,
+        help_text="Mark this video as free to view without a subscription"
+    )
     
     class Meta:
         db_table = 'training_lesson'  # This is the original table name for Lesson

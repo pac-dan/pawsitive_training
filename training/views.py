@@ -19,6 +19,7 @@ def category_trainings(request, category_slug):
     context = {
         'category': category,
         'page_obj': page_obj,
+        'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
     }
     return render(request, 'category_trainings.html', context)
 
@@ -33,6 +34,7 @@ def training_display(request):
     
     context = {
         'page_obj': page_obj,
+        'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
     }
     return render(request, 'training_display.html', context)
 
@@ -61,6 +63,7 @@ def search(request):
     context = {
         'page_obj': page_obj,
         'search_term': query,
+        'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
     }
     return render(request, 'category_trainings.html', context)
 
@@ -68,23 +71,26 @@ def search(request):
 def training_detail(request, pk):
     """
     Displays the detail view of a single training video.
-    Requires an active subscription for authenticated users.
+    
+    - If the video is marked as free (training.is_free is True), any logged-in user can view it.
+    - Otherwise, the user must have an active subscription.
+    - If the user is not logged in, they are redirected to the login page.
     """
     training = get_object_or_404(Training, pk=pk)
     
-    # Check if the user is logged in
-    if request.user.is_authenticated:
-        try:
-            subscription = request.user.subscription
-            # Check if the subscription is active and hasn't expired
-            if subscription.active and subscription.expiry_date > timezone.now():
-                return render(request, 'training_detail.html', {'training': training})
-            else:
-                # Subscription exists but is inactive or expired; redirect to subscribe page.
-                return redirect('subscriptions:subscribe')
-        except Subscription.DoesNotExist:
-            # No subscription exists; redirect to subscribe page.
-            return redirect('subscriptions:subscribe')
-    else:
-        # If user is not logged in, redirect them to the login page.
+    if not request.user.is_authenticated:
         return redirect('account_login')
+    
+    # If the training video is free, allow access immediately.
+    if training.is_free:
+        return render(request, 'training_detail.html', {'training': training})
+    
+    # Otherwise, require an active subscription.
+    try:
+        subscription = request.user.subscription
+        if subscription.active and subscription.expiry_date > timezone.now():
+            return render(request, 'training_detail.html', {'training': training})
+        else:
+            return redirect('subscriptions:subscribe')
+    except Subscription.DoesNotExist:
+        return redirect('subscriptions:subscribe')
