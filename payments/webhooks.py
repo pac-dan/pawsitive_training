@@ -2,6 +2,7 @@ import stripe
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from orders.models import Order
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -40,6 +41,13 @@ def stripe_webhook(request):
                 order.save()
             except User.DoesNotExist:
                 pass
+
+        metadata = session.get('metadata', {})
+        order_id = metadata.get('order_id')        
+        if order_id:
+            order = Order.objects.get(id=order_id)
+            order.status = "paid"
+            order.save()
 
         print("Payment completed successfully! Order created.")
 

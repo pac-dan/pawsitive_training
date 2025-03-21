@@ -7,6 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 from basket.models import Basket
+from orders.models import Order
+import uuid
+from django.contrib import messages
 
 def checkout(request):
     # Instantiate Basket object
@@ -39,13 +42,22 @@ def create_checkout_session(request):
     domain_url = request.build_absolute_uri('/')[:-1]
     try:
         basket_obj = Basket(request)
-        # Convert basket total to cents
         basket_total = int(basket_obj.get_total_price() * 100)
-        # Build metadata dictionary
+        
+        # Create an order record for this purchase
+        order = Order.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            stripe_checkout_session_id=str(uuid.uuid4()),
+            amount=basket_obj.get_total_price(),
+            status="pending"
+        )
+        
         metadata = {}
         if request.user.is_authenticated:
             metadata['user_id'] = request.user.id
-
+        # Use the primary key as the order identifier
+        metadata['order_id'] = str(order.id)
+        
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
@@ -61,16 +73,18 @@ def create_checkout_session(request):
             mode='payment',
             success_url=domain_url + reverse('payments:payment-success'),
             cancel_url=domain_url + reverse('payments:payment-cancel'),
-            metadata=metadata,  # Pass extra metadata to Stripe
+            metadata=metadata,
         )
-        return JsonResponse({'id': session.id})
+        return JsonResponse({'id': session.id, 'message': 'Redirecting to payment gateway...'})
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=403)
+        return JsonResponse({'error': str(e), 'message': 'There was an error creating the checkout session.'}, status=403)
 
 def payment_success(request):
     basket_obj = Basket(request)
     basket_obj.clear()
+    messages.success(request, "Your payment was successful and your order has been placed!")
     return render(request, 'payments/success.html')
 
 def payment_cancel(request):
+    messages.error(request, "Your payment was cancelled. Please try again.")
     return render(request, 'payments/cancel.html')
