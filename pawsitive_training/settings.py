@@ -23,13 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # Initialize environment variables
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
-
-# reading .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+env = environ.Env(DEBUG=(bool, False))
+# Only load .env if DEBUG is True
+DEBUG = env('DEBUG')
+if DEBUG:
+    environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 DEBUG = env.bool('DEBUG', default=False)
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
@@ -142,7 +140,7 @@ WSGI_APPLICATION = 'pawsitive_training.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://postgres:nmolzremember@localhost:5432/postgres')
+    'default': env.db(default='postgres://postgres:nmolzremember@localhost:5432/postgres')
 }
 
 
@@ -180,11 +178,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
