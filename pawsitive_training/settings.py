@@ -13,6 +13,7 @@ import os
 import sys
 import environ
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +31,7 @@ env = environ.Env(
 # reading .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-DEBUG = env('DEBUG') 
+DEBUG = env.bool('DEBUG', default=False)
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS = os.getenv("STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS")
@@ -38,17 +39,14 @@ STRIPE_WEBHOOK_SECRET_PAYMENTS = os.getenv("STRIPE_WEBHOOK_SECRET_PAYMENTS")
 STRIPE_PRICE_ID_YEARLY = os.getenv("STRIPE_PRICE_ID_YEARLY")
 STRIPE_PRICE_ID_MONTHLY = os.getenv("STRIPE_PRICE_ID_MONTHLY")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^z=y7d^gfp!$44&wm+t)xll*@gun^!^ztf4gjepzh-e(_$2)l-'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = [
     'localhost',
     '6517-2001-bb6-1fe4-1400-39d0-94e8-fa72-2398.ngrok-free.app',
     '127.0.0.1',
     '1647-2001-bb6-1fe4-1400-14ac-ee0a-5803-e9d6.ngrok-free.app',
+    'pawsitive-training-37efa34a3204.herokuapp.com'
 ]
 
 
@@ -82,6 +80,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -143,15 +142,9 @@ WSGI_APPLICATION = 'pawsitive_training.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',       
-        'USER': 'postgres',       
-        'PASSWORD': 'nmolzremember',  
-        'HOST': 'localhost',          
-        'PORT': '5432',              
-    }
+    'default': dj_database_url.config(default='postgres://postgres:nmolzremember@localhost:5432/postgres')
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -187,10 +180,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Media files
 MEDIA_URL = '/media/'
