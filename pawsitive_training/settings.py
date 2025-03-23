@@ -14,6 +14,7 @@ import sys
 import environ
 from pathlib import Path
 import dj_database_url
+import stripe
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,6 +37,7 @@ STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS = os.getenv("STRIPE_WEBHOOK_SECRET_SUBSCRIPT
 STRIPE_WEBHOOK_SECRET_PAYMENTS = os.getenv("STRIPE_WEBHOOK_SECRET_PAYMENTS")
 STRIPE_PRICE_ID_YEARLY = os.getenv("STRIPE_PRICE_ID_YEARLY")
 STRIPE_PRICE_ID_MONTHLY = os.getenv("STRIPE_PRICE_ID_MONTHLY")
+stripe.api_key = STRIPE_SECRET_KEY
 
 SECRET_KEY = env('SECRET_KEY')
 
