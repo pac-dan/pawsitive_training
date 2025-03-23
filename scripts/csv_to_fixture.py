@@ -18,7 +18,7 @@ pk_counter = 1
 with open(csv_file_path, mode='r', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        # first 27 products
+        # 50 products should be enough for a sample
         if pk_counter > 50:
             break
         

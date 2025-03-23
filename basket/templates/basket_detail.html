@@ -4,6 +4,8 @@
 <div class="basket">
     <div class="basket-contents">
     <h1>Your Basket</h1>
+
+    <!-- If the basket is not empty, display the basket contents -->
     {% if basket|length > 0 %}
         <div class="table-responsive">
         <table class="table table-striped">
@@ -17,6 +19,8 @@
                 </tr>
             </thead>
             <tbody>
+                
+                <!-- Loop through each item in the basket -->
                 {% for item in basket %}
                     <tr id="basket-row-{{ item.product.id }}">
                         <td>{{ item.product.name|truncatewords:3 }}</td>
@@ -39,6 +43,8 @@
 {% endif %}
     </div>
     </div>
+
+    <!-- Buttons to continue shopping or proceed to checkout -->
     <div class="buttons">
     <a href="{% url 'products:products_display' %}" class="btn btn-dark">Continue shopping</a>
     <a href="{% url 'payments:checkout' %}" class="btn btn-light btn-outline-success">Proceed to checkout</a>  

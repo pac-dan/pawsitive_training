@@ -1,6 +1,9 @@
 from .models import Basket  
 
 def basket_total(request):
+    """
+    A context processor to add the basket total to the context.
+    """
     basket = Basket(request)
     
     return {

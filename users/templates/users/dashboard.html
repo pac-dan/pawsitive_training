@@ -7,7 +7,10 @@
   
   <!-- Row for Profile and Subscription Status -->
   <div class="row mb-4 align-items-stretch">
-    <!-- Profile Dashboard on the Left (2/3 or half, adjust as needed) -->
+
+    
+
+    <!-- Profile Dashboard on the Left -->
     <div class="col-md-6">
       <div class="dash p-3 border rounded bg-light h-100">
         <p><strong>Username:</strong> {{ request.user.username }}</p>
@@ -15,6 +18,8 @@
         <p><strong>Bio:</strong> {{ profile.bio|default:"No bio provided" }}</p>
         <p><strong>Location:</strong> {{ profile.location|default:"Not specified" }}</p>
         <p><strong>Birth Date:</strong> {{ profile.birth_date|date:"M d, Y" }}</p>
+        <p><strong>Profile Picture:</strong></p>
+        <img src="{{ profile.image.url }}" alt="{{ request.user.username }}'s Profile Picture" class="img-fluid rounded mb-3" style="max-width: 200px;">
         <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
       </div>
     </div>
@@ -36,33 +41,35 @@
             <a href="{% url 'subscriptions:subscribe' %}" class="btn btn-link">Subscribe now</a>
           </div>
         </div>
-      {% endif %}
+      {% endif %} 
     </div>
   </div>
   
   <!-- Orders List -->
-  <h3>Order History</h3>
-  {% if orders %}
-    <table class="table">
-      <thead>
+<h3>Order History</h3>
+{% if orders %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
         <tr>
-          <th>Order ID</th>
-          <th>Amount</th>
-          <th>Date</th>
+          <td>{{ order.id }}</td>
+          <td>€{{ order.amount|floatformat:2 }}</td>
+          <td>{{ order.created|date:"M d, Y" }}</td>
+          <td>{{ order.status }}</td>
         </tr>
-      </thead>
-      <tbody>
-        {% for order in orders %}
-          <tr>
-            <td>{{ order.id }}</td>
-            <td>{{ order.amount }}</td>
-            <td>{{ order.created|date:"M d, Y" }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>You haven't placed any orders yet.</p>
-  {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>You haven't placed any orders yet.</p>
+{% endif %}
 </div>
 {% endblock %}

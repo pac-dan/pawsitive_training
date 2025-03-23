@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container">
-  <h2>Checkout</h2>
+  <h2 class="text-center">Checkout</h2>
   
   {% if basket %}
     <table class="table table-striped">
@@ -17,12 +17,12 @@
       </thead>
       <tbody>
         {% for item in basket %}
-        <tr >
-          <td>{{ item.product.name }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>€{{ item.product.price|floatformat:2 }}</td>
-          <td>€{{ item.total|floatformat:2 }}</td>
-        </tr>
+          <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>€{{ item.product.price|floatformat:2 }}</td>
+            <td>€{{ item.total|floatformat:2 }}</td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>
@@ -35,32 +35,19 @@
   
   <button id="checkout-button" class="btn btn-primary mt-3">Pay Now</button>
 </div>
+{% endblock %}
 
-<!-- Stripe JS library -->
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-  // Initialize Stripe 
-  var stripe = Stripe("{{ stripe_publishable_key }}");
-
-  document.getElementById("checkout-button").addEventListener("click", function () {
-    fetch("{% url 'payments:create-checkout-session' %}", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": "{{ csrf_token }}"
-      },
-      body: JSON.stringify({})  
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.error) {
-        alert("Error: " + data.error);
-      } else {
-        // Redirect to Stripe's Checkout
-        stripe.redirectToCheckout({ sessionId: data.id });
-      }
-    })
-    .catch(error => console.error("Error:", error));
-  });
-</script>
+{% block extra_js %}
+  <!-- Load Stripe's JS library -->
+  <script src="https://js.stripe.com/v3/"></script>
+  
+  <!-- Pass template variables as global JS variables -->
+  <script>
+      var STRIPE_PUBLISHABLE_KEY = "{{ stripe_publishable_key }}";
+      var CSRF_TOKEN = "{{ csrf_token }}";
+      // URL to create the checkout session
+      var CHECKOUT_URL = "{% url 'payments:create-checkout-session' %}";
+  </script>
+  
+  <script src="{% static 'js/checkout.js' %}"></script>
 {% endblock %}

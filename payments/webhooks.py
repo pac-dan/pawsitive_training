@@ -8,10 +8,14 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @csrf_exempt
 def stripe_webhook(request):
+    """
+    A view to handle the Stripe webhooks
+    """
     payload = request.body
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
     endpoint_secret = settings.STRIPE_WEBHOOK_SECRET_PAYMENTS
 
+    # Verify the event by constructing it from the payload and signature
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
     except ValueError:
@@ -42,14 +46,13 @@ def stripe_webhook(request):
             except User.DoesNotExist:
                 pass
 
+        # 4) Update the order status to 'paid'
         metadata = session.get('metadata', {})
         order_id = metadata.get('order_id')        
         if order_id:
             order = Order.objects.get(id=order_id)
             order.status = "paid"
             order.save()
-
-        print("Payment completed successfully! Order created.")
 
     return HttpResponse(status=200)
 

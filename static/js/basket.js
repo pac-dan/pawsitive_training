@@ -1,4 +1,7 @@
 // Helper function to get the CSRF token from cookies
+// This is needed to send POST requests with AJAX
+// Source: https://docs.djangoproject.com/en/3.1/ref/csrf/#ajax
+
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {

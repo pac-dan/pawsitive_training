@@ -10,12 +10,15 @@ def category_trainings(request, category_slug):
     """
     Displays a paginated list of training videos for a given category.
     """
+
+    # Get the category object based on the slug.
     category = get_object_or_404(TrainingCategory, slug=category_slug)
     trainings = category.trainings.all()  
     paginator = Paginator(trainings, 8)  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    # Check if the user has an active subscription.
     context = {
         'category': category,
         'page_obj': page_obj,
@@ -27,11 +30,14 @@ def training_display(request):
     """
     Displays a paginated list of all training videos.
     """
+
+    # Get all training videos and paginate them.
     trainings = Training.objects.all()
     paginator = Paginator(trainings, 8)  # 8 training videos per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    # Check if the user has an active subscription.
     context = {
         'page_obj': page_obj,
         'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
@@ -52,14 +58,17 @@ def search(request):
         trainings = trainings.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
+    # If no results are found, display an error message.
     elif 'q' in request.GET:
         messages.error(request, "You didn't enter any search criteria!")
         return redirect(reverse('training:training_display'))
     
+    # Paginate the results.
     paginator = Paginator(trainings, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    # Check if the user has an active subscription.
     context = {
         'page_obj': page_obj,
         'search_term': query,

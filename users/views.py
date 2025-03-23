@@ -8,6 +8,7 @@ from subscriptions.models import Subscription
 
 @login_required
 def profile_dashboard(request):
+    """ A view to return the user's profile dashboard """
     try:
         subscription = request.user.subscription
     except Subscription.DoesNotExist:
@@ -15,7 +16,6 @@ def profile_dashboard(request):
 
     # Compute active status using our model method
     subscription_active = subscription.is_active() if subscription else False
-
     orders = Order.objects.filter(user=request.user).order_by('-created')
     context = {
         'profile': request.user.profile, 
@@ -27,6 +27,9 @@ def profile_dashboard(request):
 
 @login_required
 def edit_profile(request):
+    """ A view to handle the user's profile editing """
+    
+    # Check if the user has an active subscription
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=request.user.profile)
         if form.is_valid():

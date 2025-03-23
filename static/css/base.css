@@ -151,12 +151,13 @@ h1.display-4.fw-bold.mb-4{
     justify-content: space-between;
     border: 1px solid #2d2d2d;
     border-radius: 15px;
-    padding: 10px;
+    padding: 20px !important;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     background-color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative; /* Needed for absolute positioning of overlay */
+    min-width: 13rem;
 }
 
 .video-card:hover {
@@ -282,11 +283,12 @@ h5.card-title {
     align-items: center;
     border: 1px solid #2d2d2d;
     border-radius: 15px;
-    padding: 20px;
+    padding: 20px !important;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px; 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-width: 2rem;
 }
 
 .product-card:hover {
@@ -314,6 +316,10 @@ h5.card-title {
     justify-content: space-between;
 }
 
+.padding {
+    padding-top: 6%;
+}
+
 table {
     width: 100%;
     border-collapse: separate; 
@@ -334,28 +340,24 @@ td {
     text-align: left;
 }
 
+/* Responsive adjustments for very small screens */
+@media (max-width: 576px) {
+    
+    .product-card {
+        width: 100% !important;
+    }
+    .video-card {
+        width: 100% !important;
+    }
+}
+
 /* Slightly larger container on xl screens */
 @media (max-width: 1200px) {
-    .container {
-      max-width: 80%;
-    }
 
     .navbar-brand.logo-nav {
         flex-shrink: 0;
         max-width: 300px;
     }
-  }
-
-    /* Video Player */
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    width: 80%;
-    left: 10%;
-    overflow: hidden;
 }
 
     /* Checkout */

@@ -8,13 +8,22 @@ from .forms import ProductStockUpdateForm
 
 @staff_member_required
 def update_stock(request, product_id):
+    """
+    A view to update the stock level of a product.
+    """
     product = get_object_or_404(Product, id=product_id)
+
+    # Check if the form has been submitted.
     if request.method == 'POST':
         form = ProductStockUpdateForm(request.POST, instance=product)
+
+        # If the form is valid, save the product and display a success message.
         if form.is_valid():
             form.save()
             messages.success(request, "Stock updated successfully!")
             return redirect('products:stock_list')
+        
+        # If the form is invalid, display an error message.
         else:
             messages.error(request, "Please correct the errors below.")
     else:
@@ -23,6 +32,9 @@ def update_stock(request, product_id):
 
 @staff_member_required
 def stock_list(request):
+    """
+    A view to display a list of products and their stock levels.
+    """
     products = Product.objects.all()
     return render(request, 'products/stock_list.html', {'products': products})
 
@@ -30,6 +42,8 @@ def category_products(request, category_slug):
     """
     Displays a paginated list of products for a given category.
     """
+
+    # Get the category object based on the slug.
     category = get_object_or_404(ProductCategory, slug=category_slug)
     products = category.products.all() 
     paginator = Paginator(products, 8)  
@@ -46,6 +60,8 @@ def products_display(request):
     """
     Displays a paginated list of all products.
     """
+
+    # Get all products and paginate them.
     products = Product.objects.all()
     paginator = Paginator(products, 8)  # 8 products per page
     page_number = request.GET.get('page')

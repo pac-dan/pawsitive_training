@@ -6,6 +6,9 @@ class ProductCategory(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     
     def save(self, *args, **kwargs):
+        """
+        Create a slug when saving the product category.
+        """
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
@@ -13,14 +16,16 @@ class ProductCategory(models.Model):
     def __str__(self):
         return self.name
 class Product(models.Model):
+    """
+    Model to store product details.
+    """
     sku = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255)
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     image = models.ImageField(upload_to='products/')  
     brand = models.CharField(max_length=255, blank=True, null=True)
-
-    # New field for categorizing products:
+    
     category = models.ForeignKey(
         ProductCategory,
         on_delete=models.SET_NULL,
@@ -29,10 +34,11 @@ class Product(models.Model):
         blank=True
     )
 
-    # New stock field
     stock = models.IntegerField(default=0, help_text="Available stock for this product")
 
-
     def __str__(self):
+        """
+        Return a string representation of the product.
+        """
         return self.name or 'Unnamed Product'
  

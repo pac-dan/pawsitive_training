@@ -1,4 +1,3 @@
-from django.db import models
 from decimal import Decimal
 from django.conf import settings
 from products.models import Product
@@ -12,7 +11,13 @@ from products.models import Product
 # This allows us to easily add, remove, and update items in the basket.
 
 class Basket:
+    """
+    A shopping basket class that allows us to manage the items in the basket by adding, removing, and updating products.
+    """
     def __init__(self, request):
+        """
+        Initialize the basket object and get the current basket from the session.
+        """
         self.session = request.session
         basket = self.session.get(settings.BASKET_SESSION_ID)
         if not basket:
@@ -21,6 +26,9 @@ class Basket:
         self.basket = basket
 
     def add(self, product, quantity=1, update_quantity=False):
+        """
+        Add a product to the basket or update its quantity
+        """
         product_id = str(product.id)
         if product_id not in self.basket:
             self.basket[product_id] = {'quantity': 0, 'price': str(product.price)}
@@ -31,10 +39,15 @@ class Basket:
         self.save()
 
     def save(self):
-        # mark the session as modified to make sure it gets saved
+        """
+        Save the basket in the session
+        """
         self.session.modified = True
 
     def remove(self, product):
+        """
+        Remove a product from the basket
+        """
         product_id = str(product.id)
         if product_id in self.basket:
             # if more than 1 quantity, reduce the quantity
@@ -46,6 +59,9 @@ class Basket:
             self.save()
 
     def __iter__(self):
+        """
+        Iterate over the items in the basket and get the products from the database.
+        """
         product_ids = self.basket.keys()
         # get the product objects and add them to the basket
         products = Product.objects.filter(id__in=product_ids)
@@ -58,11 +74,20 @@ class Basket:
             yield item
         
     def __len__(self):
+        """
+        Count all items in the basket
+        """
         return sum(item['quantity'] for item in self.basket.values())
 
     def get_total_price(self):
+        """
+        Calculate the total cost of the items in the basket.
+        """
         return sum(Decimal(item['price']) * item['quantity'] for item in self.basket.values())
 
     def clear(self):
+        """
+        Remove the basket from the session
+        """
         del self.session[settings.BASKET_SESSION_ID]    
         self.save()

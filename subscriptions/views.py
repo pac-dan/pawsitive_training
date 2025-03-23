@@ -18,6 +18,9 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def subscribe(request):
+    """ A view to return the subscription page """
+
+    # Check if the user has an active subscription
     try:
         subscription = request.user.subscription
     except Subscription.DoesNotExist:
@@ -28,6 +31,11 @@ def subscribe(request):
 
 @login_required
 def create_subscription_checkout(request):
+    """
+    A view to create a new subscription checkout session.
+    """
+
+    # Get the domain URL
     domain_url = request.build_absolute_uri('/')[:-1]
     price_id = request.GET.get('price_id')
     
@@ -36,10 +44,11 @@ def create_subscription_checkout(request):
     
     try:
         user_id_str = str(request.user.id)
+
         # Create an order record for this subscription purchase
         order = Order.objects.create(
             user=request.user,
-            stripe_checkout_session_id=str(uuid.uuid4()),  # Use a temporary unique value for now
+            stripe_checkout_session_id=str(uuid.uuid4()),  
             amount=250 if price_id == settings.STRIPE_PRICE_ID_YEARLY else 50,
             status="pending"
         )
@@ -51,7 +60,6 @@ def create_subscription_checkout(request):
                 'price': price_id,
                 'quantity': 1,
             }],
-            # Pass metadata including the Order's primary key as 'order_id'
             metadata={'user_id': user_id_str, 'order_id': str(order.id)},
             subscription_data={
                 'metadata': {'user_id': user_id_str, 'order_id': str(order.id)}
@@ -74,28 +82,29 @@ def subscription_success(request):
 
 @csrf_exempt
 def stripe_subscription_webhook(request):
+    """
+    Handle Stripe subscription webhook events.
+    """
     payload = request.body
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
     endpoint_secret = settings.STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS
 
+    # Verify the event by constructing it from the payload and signature
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
-        print("Webhook event received:", event['type'])
-        print("Full event payload:", event)  # This will show all data, including metadata.
     except ValueError as e:
-        print("Invalid payload:", e)
+        # Invalid payload
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
-        print("Invalid signature:", e)
+        # Invalid signature
         return HttpResponse(status=400)
 
+    # Handle subscription creation or update events
     if event['type'] in ['customer.subscription.created', 'customer.subscription.updated']:
         subscription_event = event['data']['object']
         metadata = subscription_event.get('metadata', {})
         user_id = metadata.get('user_id')
         order_id = metadata.get('order_id')
-        print("Metadata from event:", metadata)
-        print("Processing subscription event for user_id:", user_id)
         if user_id:
             try:
                 user = User.objects.get(id=user_id)
@@ -105,37 +114,40 @@ def stripe_subscription_webhook(request):
                 sub.start_date = timezone.now()
                 sub.expiry_date = timezone.now() + timedelta(days=30)
                 sub.save()
-                print("Subscription updated for user:", user.username)
                 if order_id:
-                # Update the corresponding order record
+                    # Update the corresponding order record
                     order = Order.objects.get(id=order_id)
-                    order.status = "paid"  # Mark as paid or complete
+                    order.status = "paid"  # Mark as paid
                     order.save()
-                print("Order updated for order_id:", order_id)
             except Exception as e:
-                print("Error updating subscription for user_id {}: {}".format(user_id, e))
+                # Log the error if desired
+                return HttpResponse(status=400)
+
+    # Handle subscription deletion events
     elif event['type'] == 'customer.subscription.deleted':
         subscription_event = event['data']['object']
         user_id = subscription_event.get('metadata', {}).get('user_id')
-        print("Processing deletion event for user_id:", user_id)
         if user_id:
             try:
                 user = User.objects.get(id=user_id)
                 sub = user.subscription
                 sub.active = False
                 sub.save()
-                print("Subscription deactivated for user:", user.username)
             except Exception as e:
-                print("Error deactivating subscription for user_id {}: {}".format(user_id, e))
+                return HttpResponse(status=400)
 
     return HttpResponse(status=200)
 
 @csrf_exempt
 def stripe_payments_webhook(request):
+    """
+    Handle Stripe payments webhook events.
+    """
     payload = request.body
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
     endpoint_secret = settings.STRIPE_WEBHOOK_SECRET_PAYMENTS
 
+    # Verify the event by constructing it from the payload and signature
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
         print("Payments webhook event received:", event['type'])
