@@ -204,6 +204,4 @@ if not DEBUG:
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME', default='eu-north-1')
-    AWS_QUERYSTRING_AUTH = False  # disables query string authentication
-
     MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'

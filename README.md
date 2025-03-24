@@ -298,7 +298,7 @@ These primary colours are derived from the project's hero image, which features 
 #### _Lessons page_
 ![checkout_page wireframe]()
 
-[Return to top](#)
+[Return to top](#pawsitive_training)
 
 # Development Process
 
@@ -382,6 +382,8 @@ After completing this research, I updated the project's templates as follows:
 
 - **Image filenames:**  
   Product image filenames were renamed to descriptively reflect the product, while training video lesson images are titled based on the pet training topics they cover.
+
+[Return to top](#pawsitive_training)
 
 ## Data Model
 ### Products App
@@ -565,6 +567,7 @@ Below is a detailed checklist covering the main pages and functionalities of the
 
 ---
 
+[Return to top](#pawsitive_training)
 ### Responsiveness
 
 All pages on the live site were tested using the default device presets in Chrome DevTools—covering desktop, tablet, and mobile views. Public-facing pages (such as the Welcome, Product Display, Product Detail, Basket, and Checkout pages) have been optimized for both portrait and landscape orientations to ensure a seamless user experience across all devices.
@@ -691,7 +694,7 @@ Through these webhook handlers, the pawsitive_training project ensures that any 
 ### Testing django views, models and forms.
 
 
-[Return to top](#)
+[Return to top](#pawsitive_training)
 
 ---
 ---
@@ -701,7 +704,7 @@ Through these webhook handlers, the pawsitive_training project ensures that any 
 ## Remaining Bugs
 
 
-[Return to top](#)
+[Return to top](#pawsitive_training)
 
 ---
 ---
@@ -817,7 +820,7 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
     - STRIPE_WEBHOOK_SECRET : Stripe webhook signing secret
 
 
-[Return to top](#)
+[Return to top](#pawsitive_training)
 
 ---
 ---
@@ -828,4 +831,4 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 # Acknowledgements
 
 
-[Return to top](#)
+[Return to top](#pawsitive_training)
