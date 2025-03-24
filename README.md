@@ -406,10 +406,6 @@ After completing this research, I updated the project's templates as follows:
 - **Image filenames:**  
   Product image filenames were renamed to descriptively reflect the product, while training video lesson images are titled based on the pet training topics they cover.
 
-- **Emphasized text:**  
-  On the Checkout Success page, the words *"pet training lessons"* are wrapped in `<strong>` tags to highlight key services.
-
-
 ## Data Model
 ### Products App
 ![Entity-relationship diagram for models]()
@@ -425,12 +421,23 @@ After completing this research, I updated the project's templates as follows:
 
 ## Data Validation
 
-The following decimal fields, representing currency amounts, are protected by Django's `MinValueValidator`, ensuring that prices cannot be set below 0:
+## Data Validation
 
-- `training.models.Subscription.price`
-- `products.models.Product.price`
+In the Pawsitive Training project, data validation is handled on the client side using JavaScript to ensure smooth and secure interactions between the user interface and the server. Key aspects include:
 
-Additionally, the JavaScript in [basket/static/js/quantity_buttons.js](https://github.com/pac-dan/pawsitive_training/blob/main/basket/static/js/quantity_buttons.js) monitors the quantity input on the basket page. It disables the decrement button if the quantity is less than or equal to 1 and the increment button if the quantity is 10 or more. This script also prevents users from entering out-of-range values manually. This functionality was adapted from the Boutique Ado project.
+- **Input and Response Verification:**  
+  The JavaScript files validate data both before sending it to the server (e.g., ensuring necessary headers like CSRF tokens are included) and after receiving a response. This helps catch issues such as malformed requests or unexpected responses.
+
+- **Error Handling and User Feedback:**  
+  The code uses robust error handling with console logging and visual notifications (via toastr) to inform users when actions like adding to or removing from the basket fail, or if a Stripe checkout process encounters an error.
+
+- **Ensuring Consistent UI Updates:**  
+  The scripts check the data returned from server calls (such as updated basket totals or subscription statuses) before updating the UI. This prevents the display of incorrect or incomplete information.
+
+- **Securing Data Transactions:**  
+  By including CSRF tokens in AJAX requests and verifying that the expected JSON responses are received, the project safeguards data integrity during user transactions.
+
+Together, these measures ensure that data flowing between the front-end and back-end is validated, errors are caught and communicated effectively, and the user experience remains reliable and secure.
 
 ---
 ---
@@ -447,6 +454,81 @@ Additionally, the JavaScript in [basket/static/js/quantity_buttons.js](https://g
 
 ### Feature Testing
 Manual testing of the site’s features was carried out on a 1920 x 1080 desktop screen, a Samsung tablet, and an iPhone 12 Pro to ensure optimal functionality across devices.
+
+# Comprehensive Manual Testing Checklist for Pawsitive Training Project
+
+Below is a detailed checklist covering the main pages and functionalities of the project.
+
+---
+
+<details>
+<summary>General Template & Page Structure</summary>
+
+| Page / Template       | Feature                                   | Action                                                                     | Effect                                                                           |
+|-----------------------|-------------------------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Base Template         | Meta Tags & SEO                           | View page source and inspect meta, Open Graph, and JSON-LD tags              | All meta tags, Open Graph data, and structured data are correctly embedded       |
+| Base Template         | CSS & JavaScript Loads                    | Load the page and check the browser console for errors                       | All external CSS/JS files load without errors                                    |
+| Base Template         | Responsive Layout                         | Resize the browser window (desktop/tablet/mobile)                            | Layout adjusts correctly for various screen sizes                                |
+</details>
+
+<details>
+<summary>Navigation & Header</summary>
+
+| Page / Template       | Feature                                   | Action                                                                     | Effect                                                                           |
+|-----------------------|-------------------------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Base Template (Header)| Logo & Branding                           | Click the logo                                                             | Redirects to the Welcome (home) page                                             |
+| Base Template (Header)| Search Form Action                        | Select a search category, enter a query, and submit                        | Navigates to the correct search results page (Products or Training)              |
+| Base Template (Header)| Account Dropdown                          | Open the dropdown as an unauthenticated and then as an authenticated user    | Shows Register/Login for guests; My Profile/Logout (and Product Management for staff) when logged in  |
+| Base Template (Header)| Basket Link Display                       | Verify the basket total displayed                                          | Correct basket total (e.g., "$0.00" if empty or updated value) is shown           |
+</details>
+
+<details>
+<summary>Welcome (Home) Page</summary>
+
+| Page               | Feature                                       | Action                                                   | Effect                                                                   |
+|--------------------|-----------------------------------------------|----------------------------------------------------------|--------------------------------------------------------------------------|
+| Welcome Page       | Call-to-Action Buttons                        | Click "Shop Here" and "Train Here" buttons               | "Shop Here" redirects to Products page; "Train Here" redirects to Training page  |
+| Welcome Page       | Newsletter Signup                             | Enter a valid email and submit the form                  | A success (or error) message is displayed via Toastr                       |
+</details>
+
+<details>
+<summary>Lessons Listing Page</summary>
+
+| Page                        | Feature                                          | Action                                                                     | Effect                                                                           |
+|-----------------------------|--------------------------------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Lessons Listing Page        | Training Cards Display                           | Inspect each training card on the grid                                     | Each card shows a thumbnail (or placeholder), title, truncated description, and a "Watch Lesson" button |
+| Lessons Listing Page        | Locked Overlay for Non-Subscribers               | For non-free lessons, verify the overlay is visible when user is not subscribed | A lock icon with "Locked" text appears over the card                            |
+| Lessons Listing Page        | Pagination Controls                              | Click "Previous", "Next", or a specific page number                        | Navigates correctly between pages of training cards                              |
+</details>
+
+<details>
+<summary>Training Detail Page</summary>
+
+| Page                        | Feature                                          | Action                                                                     | Effect                                                                           |
+|-----------------------------|--------------------------------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Training Detail Page        | Video Player & Content Display                   | Play the video and check the poster image                                  | The video plays with functional controls and the poster image displays before playback |
+| Training Detail Page        | Navigation Back to Lessons                       | Click the "Back to Lessons" button                                         | Returns to the Lessons Listing Page                                              |
+</details>
+
+<details>
+<summary>Search Results Page (Training Lessons Search)</summary>
+
+| Page                        | Feature                                          | Action                                                                     | Effect                                                                           |
+|-----------------------------|--------------------------------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Search Results Page         | Results Header                                   | Perform a search and inspect the header                                    | Header displays "Search Results for 'search term'" (or appropriate text)           |
+| Search Results Page         | Training Card Display                            | Verify each search result card shows a thumbnail, title, and description     | Cards render correctly with all required details                                 |
+| Search Results Page         | Pagination Controls                              | Click pagination controls (Previous/Next)                                  | Navigates through search result pages accurately                                 |
+</details>
+
+<details>
+<summary>Additional Functionality & UI Elements</summary>
+
+| Page / Template       | Feature                                   | Action                                                                     | Effect                                                                           |
+|-----------------------|-------------------------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| All Pages             | Toastr Notifications                      | Trigger actions (e.g., newsletter signup, add to basket)                   | Toast messages appear with correct styling (close button, progress bar, timeout)   |
+| Basket & Related Pages| Dynamic UI Updates                        | Add or remove items from the basket via AJAX                               | Basket totals, quantities, and prices update without full page reload            |
+| All Pages             | Accessibility & Alt Text                  | Inspect images and interactive elements for alt text and keyboard access   | All images have meaningful alt text; interactive elements are keyboard accessible |
+</details>
 
 <details>
 <summary>Basket App</summary>
@@ -466,89 +548,42 @@ Manual testing of the site’s features was carried out on a 1920 x 1080 desktop
 | /basket/view_basket/      | Navigation back to shop                              | Click the shop link                                            | User is redirected to the products page                                |
 | /basket/view_basket/      | Clear basket functionality                           | Click the 'clear all' link                                     | The basket is emptied and the user is redirected to the products page  |
 | /basket/view_basket/      | Correct subtotal calculation                         | Add two products to the basket                                 | The subtotal equals the sum of the product prices                      |
-| /basket/view_basket/      | Delivery charge conditions                           | Add a product and verify the appropriate delivery charge         | No delivery charge appears for training products; a standard charge applies for other items|
 | /basket/view_basket/      | Consistent product pricing                           | Compare product price on product detail with that in the basket   | Prices match across pages                                              |
 | /basket/view_basket/      | Checkout button functionality                        | Click the checkout button                                      | User is redirected to the Checkout page                                |
 | /basket/view_basket/      | Direct input validation                              | Try entering an out-of-range quantity manually                   | The input value is automatically corrected to fall within the allowed range |
 </details>
 
 <details>
-<summary>Products App</summary>
+<summary>Checkout & Payment Pages</summary>
 
-| Page              | Feature                                          | Action                                             | Effect                                                                                 |
-|-------------------|--------------------------------------------------|----------------------------------------------------|----------------------------------------------------------------------------------------|
-| /products/        | Product filtering by category                    | Click on a category link                           | Only products within the selected category are displayed                              |
-| /products/        | Keyword search functionality                     | Enter a valid keyword in the search field          | Only matching products are shown, based on the search term                               |
-| /products/        | Handling of invalid search queries               | Enter text that yields no matches                  | A 'no results' message is displayed                                                     |
-| /products/        | Navigation to product detail page                | Click on a product card                            | User is redirected to the corresponding Product Detail page                             |
-| /products/        | Out-of-stock indicator                           | Set a product's stock to 0 in the admin panel       | The product is greyed out and displays an out-of-stock badge                             |
-| /product_detail/ | Product image, name, and full description display  | Navigate to a product detail page                  | The page displays a clear product image, full name, and detailed description             |
-| /product_detail/ | Price and category display                       | Navigate to a product detail page                  | The correct price and category are displayed                                              |
-| /product_detail/ | Out-of-stock handling on detail page             | View a product with 0 stock                         | A greyed-out banner appears and the add-to-basket option is hidden                         |
-| /product_detail/ | Navigation back to shop                          | Click the "Back to Shop" button                    | User is redirected back to the Product Display page                                         |
-| /product_detail/ | Incrementing basket quantity                     | Set a quantity and click the "Add to Basket" button  | The basket quantity is updated by the specified amount                                    |
-| /product_detail/ | Navigation to basket                             | Click the "View Basket" button                     | User is taken to the Basket page                                                            |
-| /product_detail/ | Audio clip playback (if available)               | Navigate to a product with an audio clip           | An audio player appears and the clip plays as expected                                  |
-| /product_detail/ | Display of associated products                   | View a product with related items                   | Related products are displayed, complete with image, name, and price                         |
-| /product_detail/ | Quick add option for associated products         | Click the quick add button on an associated product  | The product is added to the basket without navigating away                                  |
-| /product_detail/ | Staff-only options                               | Log in as a staff member and view the product detail page | Staff-specific options are displayed (e.g., stock level display), while editing is managed via Django Admin |
+| Page / Endpoint                          | Feature                                                     | Action                                                                                          | Effect                                                                                         |
+|------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| /payments/checkout/                      | Checkout page displays basket items                         | Navigate to the Checkout page after adding products to the basket                              | Basket items, their quantities, individual totals, and overall basket total are displayed     |
+| /payments/checkout/                      | Stripe publishable key in context                           | Inspect page source or console                                                                 | The Stripe publishable key is present in the page context                                      |
+| API: create_checkout_session             | Create Checkout Session endpoint                            | Trigger a POST request (via button click or API tool) with CSRF token and basket data            | Returns a JSON response with a session id and a message indicating redirection to Stripe        |
+| /payments/payment-success/               | Payment success page                                        | Simulate a successful payment and navigate to the success URL                                  | A success message is displayed; product stock is updated and the basket is cleared              |
+| /payments/payment-cancel/                | Payment cancel page                                         | Simulate cancelling a payment and navigate to the cancel URL                                   | An error message is displayed, indicating the payment was cancelled                             |
 </details>
 
 <details>
-<summary>Checkout App</summary>
+<summary>Stock Management Pages (Staff Only)</summary>
 
-| Page                           | Feature                                          | Action                                             | Effect                                                                               |
-|--------------------------------|--------------------------------------------------|----------------------------------------------------|--------------------------------------------------------------------------------------|
-| /checkout/                     | Pre-filled delivery details                      | If a UserOrderProfile exists, details auto-fill     | Delivery form is populated with stored user details                                 |
-| /checkout/                     | Stripe payment integration                       | Proceed to checkout from the basket                | The Stripe payment form is displayed for secure transactions                          |
-| /checkout/                     | Order summary display                            | Add items to basket and go to checkout             | An order summary displays item details, delivery charge, and total cost                |
-| /checkout/                     | Navigation back to basket                        | Click the "View Basket" button                     | User is redirected to the Basket page                                                 |
-| /checkout/                     | Order cancellation                                | Click the "Cancel Purchase" button                 | User is redirected back to the Product Display page, and the purchase is cancelled      |
-| /checkout/                     | Stripe error handling                             | Enter invalid card details                         | Specific error messages appear beneath each input field                               |
-| /checkout/                     | Disabling interactions during payment processing  | Click "Pay Now" with valid details                 | Interactive elements are temporarily disabled during the payment process              |
-| /checkout/checkout_succeeded/  | Display of delivery details                      | Successfully complete a payment                    | Delivery details are summarized in a table on the success page                         |
-| /checkout/checkout_succeeded/  | Order summary display                            | Successfully complete a payment                    | An order summary (including line items, delivery charge, and total) is displayed          |
-| /checkout/checkout_succeeded/  | Navigation to video lessons                      | Click the "Video Lessons" button                   | User is redirected to the All Lessons page                                             |
-| /checkout/staff_order_list/    | Comprehensive order listing                      | Navigate to the Staff Order List page              | Orders are listed in order based on payment and fulfillment status                       |
-| /checkout/staff_order_detail/  | Detailed order information                       | Click an order in the list                         | The Order Detail page displays complete delivery and order line information              |
-| /checkout/staff_order_detail/  | Order fulfillment update                         | Click "Mark as Fulfilled" (if applicable)          | Order is marked as fulfilled; note that this action is managed only in Django Admin      |
+| Page                                  | Feature                                                | Action                                                                                          | Effect                                                                                        |
+|---------------------------------------|--------------------------------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| /products/update_stock/<product_id>/  | Update Stock Form                                      | As a staff member, navigate to a product's update stock page and submit a valid stock update    | The product's stock level is updated; a success message is shown and the user is redirected      |
+| /products/update_stock/<product_id>/  | Form Validation                                        | Submit the update form with invalid data                                                       | An error message is displayed prompting correction                                             |
+| /products/stock_list/                  | Stock List Display                                     | Navigate to the Stock List page as a staff member                                               | A list of all products with their current stock levels is displayed                             |
 </details>
 
 <details>
-<summary>Welcome App and Navbar</summary>
+<summary>Products & Search Pages</summary>
 
-| Page | Feature                                            | Action                                               | Effect                                                                  |
-|------|----------------------------------------------------|------------------------------------------------------|-------------------------------------------------------------------------|
-| /    | Hero image and title display                       | Navigate to the landing page                         | The hero image and title appear as designed                              |
-| /    | Shop button navigation                             | Click the "Shop" button                              | User is redirected to the Products page                                 |
-| /    | Subscribe button navigation                        | Click the "Subscribe" button                         | User is redirected to the Video Lessons page                             |
-| /    | Logo functionality                                 | Click the logo                                       | The page reloads                                                         |
-| /    | Search functionality                               | Enter text in the search bar and submit              | User is directed to the Products page with filtered results              |
-| /    | Login status indicator                             | Log in as a user                                     | Navbar displays "logged in as {username}"                               |
-| /    | Account dropdown options                           | Click the account dropdown                           | Login and Register links are displayed                                   |
-| /    | Staff navigation                                   | Log in as a staff member                             | A staff dropdown appears with links to product stock levels and order management (accessible via Django Admin) |
-| /    | Basket icon display                                | Add an item to the basket                            | Basket icon updates with current item count and total cost               |
-</details>
-
-<details>
-<summary>Stock App</summary>
-
-| Page                       | Feature                                          | Action                                             | Effect                                                                                   |
-|----------------------------|--------------------------------------------------|----------------------------------------------------|------------------------------------------------------------------------------------------|
-| /stock/                    | Product stock level display (staff only)         | Navigate to the stock management page (via Django Admin) | Staff can view current stock levels for products; adding or editing products is managed exclusively through Django Admin |
-</details>
-
-<details>
-<summary>Video Lessons App</summary>
-
-| Page                                  | Feature                                               | Action                                                    | Effect                                                                        |
-|---------------------------------------|-------------------------------------------------------|-----------------------------------------------------------|-------------------------------------------------------------------------------|
-| /video_lessons/all_lessons/           | Display of all available lessons                       | Navigate to the All Lessons page                          | Lessons are displayed, categorized by course                                  |
-| /video_lessons/all_lessons/           | Access control for lessons                             | Non-subscribers see only the first two lessons clickable   | Only the first two lessons are accessible; additional lessons are locked       |
-| /video_lessons/all_lessons/           | Subscribe link visibility                              | View the lessons page as a non-subscriber                  | A subscribe link appears in the left panel, directing users to the subscription page |
-| /video_lessons/video_player/          | Video playback functionality                           | Click on a lesson thumbnail                                | The video plays in the video player                                           |
-| /video_lessons/video_player/          | Navigation controls                                    | Use the Previous/Next buttons                              | The appropriate lesson loads; navigation buttons disable at first/last lesson    |
-| /video_lessons/subscription_success/   | Subscription confirmation                              | Complete a subscription process                          | A confirmation message is shown with links to premium content and account management |
+| Page                                       | Feature                                                     | Action                                                                                          | Effect                                                                                         |
+|--------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| /products/products_display/                | Products Display Page (All Products)                        | Navigate to the products display page                                                           | A paginated list of all products is displayed                                                  |
+| /products/category_products/<category_slug>/ | Category Products Page                                     | Navigate to a category-specific page from a category link                                       | Only products belonging to the selected category are displayed; pagination works correctly     |
+| /products/search/                          | Product Search                                             | Enter a valid search term and submit the search form                                           | Products matching the search query (by name and description) are displayed with pagination       |
+| /products/products_detail/<pk>/            | Product Detail Page                                        | Click on a product from any list to view its details                                            | The product detail page shows comprehensive information about the product (name, price, etc.)    |
 </details>
 
 ---
