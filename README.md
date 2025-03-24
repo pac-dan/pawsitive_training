@@ -92,7 +92,7 @@ The following pages are visible to all users, logged in or not.
     - A basket link that takes the user directly to the View Basket page.
 - The page footer, common to all pages, features a call-to-action encouraging users to "Stay in Touch!", a link to the site's Facebook promotional page, and an invitation to subscribe to the mailing list (integrated with MailChimp).
 
-![Welcome Page]()
+![Welcome Page](media/docs/Screenshot (57).png)
 
 </details>
 
