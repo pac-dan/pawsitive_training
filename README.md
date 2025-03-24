@@ -256,7 +256,7 @@ The following pages are accessible only to staff:
 
 
 ---
-[Return to top](#)
+[Return to top](#pawsitive_training)
 # User Experience
 
 ## Design
