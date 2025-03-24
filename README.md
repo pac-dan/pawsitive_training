@@ -92,7 +92,7 @@ The following pages are visible to all users, logged in or not.
     - A basket link that takes the user directly to the View Basket page.
 - The page footer, common to all pages, features a call-to-action encouraging users to "Stay in Touch!", a link to the site's Facebook promotional page, and an invitation to subscribe to the mailing list (integrated with MailChimp).
 
-![Welcome Page](media/docs/Screenshot (57).png)
+![Welcome Page](media/docs/Screenshot%20(57).png)
 
 </details>
 
@@ -103,14 +103,14 @@ The following pages are visible to all users, logged in or not.
 - If there are any current special offers, they are showcased in a rotating banner (using a Bootstrap Carousel).
 - Each product tile is clickable and links to its respective Product Detail Page.
 
-![Product Display]()
+![Product Display](media\docs\Screenshot (58).png)
 
 </details>
 
 <details>
 <summary>Product Detail Page</summary>
 
-![Product Detail]()
+![Product Detail](media/docs/Screenshot%20(61).png)
 
 - This page provides detailed information about a product:
     - A clear image of the product.
@@ -134,14 +134,14 @@ The following pages are visible to all users, logged in or not.
 - A summary table displays the subtotal, and the grand total.
 - A checkout button directs the user to the Checkout Page.
 
-![Basket]()
+![Basket](media/docs/Screenshot%20(62).png)
 
 </details>
 
 <details>
 <summary>Checkout Page</summary>
 
-![Checkout]()
+![Checkout](media/docs/Screenshot%20(63).png)
 
 - The Checkout page is divided into three main sections:
     - A Stripe Payment element for secure payment entry and delivery details.
@@ -153,7 +153,7 @@ The following pages are visible to all users, logged in or not.
 <details>
 <summary>Checkout Success Page</summary>
 
-![Checkout Success]()
+![Checkout Success](media\docs\Screenshot (65).png)
 
 - The Checkout Success page displays a “Payment Successful” message.
 - It summarizes the order and delivery details.
@@ -164,7 +164,7 @@ The following pages are visible to all users, logged in or not.
 <details>
 <summary>Video Lessons Page</summary>
 
-![Video Lessons]()
+![Video Lessons](media/docs/Screenshot%20(66).png)
 
 - The main section lists the available training video lessons, the lessons dropdown in navlinks contains categories for lesson difficulty.
 - Chosen lessons in each course are available for free, while additional lessons require a subscription (indicated by a padlock icon on non-accessible lessons).
@@ -174,7 +174,7 @@ The following pages are visible to all users, logged in or not.
 <details>
 <summary>Video Player Page</summary>
 
-![Video Player]()
+![Video Player](media/docs/Screenshot%20(67).png)
 
 - The Video Player page is centered around the video element that plays the training lesson.
 - Thumbnails for the remaining lessons are displayed for quick navigation.
@@ -182,67 +182,12 @@ The following pages are visible to all users, logged in or not.
 </details>
 
 <details>
-<summary>Login Page</summary>
-
-![Login Page]()
-
-- The Login page provides a standard authentication form.
-
-</details>
-
-<details>
 <summary>Register Page</summary>
 
-![Register Page]()
+![Register Page](media/docs/Screenshot%20(73).png)
 
 - The Register page allows new users to sign up with email, username, and password (with confirmation).
 - All fields are required, and the form is styled consistently with the rest of the site.
-
-</details>
-
----
-
-The following pages are available only to logged-in users:
-
-<details>
-<summary>Choose Subscription Page</summary>
-
-![Choose Subscription]()
-
-- This page presents a straightforward choice between different subscription durations (e.g., 1 month or yearly).
-- Each option links directly to the Stripe subscription checkout page.
-
-</details>
-
-<details>
-<summary>Subscription Success Page</summary>
-
-![Subscription Success]()
-
-- The Subscription Success page displays a confirmation message after a successful subscription purchase.
-
-</details>
-
----
-
-The following pages are accessible only to staff:
-
-<details>
-<summary>Product List Page</summary>
-
-![Product List]()
-
-- The Product List page displays all products in a sortable table.
-- The Products are broken into categories in the Shop NavLink.
-
-</details>
-
-<details>
-<summary>Order history</summary>
-
-![Order History]()
-
-- The Order History page shows comprehensive information about a particular order, including price, status and order id.
 
 </details>
 
@@ -284,19 +229,19 @@ These primary colours are derived from the project's hero image, which features 
 ### Wireframes
 #### _Product Display page_
 
-![products_display wireframe]()
+![products_display wireframe](media\docs\products_display.jpg)
 
 #### _Product Detail page_
-![products_detail wireframe]()
+![products_detail wireframe](media\docs\product_detail.jpg)
 
 #### _Basket page_
-![checkout_page wireframe]()
+![checkout_page wireframe](media\docs\cart_and_checkout.jpg)
 
 #### _Checkout page_
-![checkout_page wireframe]()
+![checkout_page wireframe](media\docs\cart_and_checkout.jpg)
 
 #### _Lessons page_
-![checkout_page wireframe]()
+![checkout_page wireframe](media\docs\lessons_display.jpg)
 
 [Return to top](#pawsitive_training)
 
@@ -702,6 +647,21 @@ Through these webhook handlers, the pawsitive_training project ensures that any 
 # Bugs
     
 ## Remaining Bugs
+
+AWS S3 Integration for Media Files:
+Lesson video thumbnails, uploaded videos, and the logo are not displaying correctly. This appears to be due to issues with AWS S3 configuration or file permissions. Further investigation is needed to verify file uploads, bucket policies, and URL generation.
+
+Database Configuration Discrepancies:
+Some inconsistencies between local and production database setups have been noted. Ensuring a consistent configuration across environments remains a priority.
+
+Responsive Design Adjustments:
+While most pages display correctly across devices, some staff administration pages and detailed views could benefit from further responsive design tweaks.
+
+Stripe Payment Edge Cases:
+Additional testing is required to handle edge cases in the payment flow, such as handling payment failures or reconciling orders that are not properly marked as paid.
+
+Automated Test Coverage:
+Although core functionalities are covered, additional tests (such as for newsletter signup and search functionality) could improve overall test coverage.
 
 
 [Return to top](#pawsitive_training)
