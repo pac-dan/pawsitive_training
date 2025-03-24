@@ -67,8 +67,6 @@ This project follows a B2C model aimed at selling pet training products directly
 The site offers both tangible products—such as training aids, accessories, and nutritional supplements—and a digital service in the form of subscription-based video lessons.
 The online store is designed to streamline the purchase process by minimizing friction and allowing users to quickly add items to their basket and check out.
 
-
-
 ## Web Marketing
 
 ---
@@ -87,9 +85,7 @@ The following pages are visible to all users, logged in or not.
     - A search bar and button allowing users to search products by keyword.
     - A display showing the logged-in user's name (empty if the user is anonymous).
     - A staff dropdown menu (visible only to staff) with options to:
-        - Add a Product
-        - View the Product List
-        - View the Order List
+        - View the Product Management
     - An account dropdown menu for users not logged in, offering:
         - Register
         - Login
@@ -133,10 +129,10 @@ The following pages are visible to all users, logged in or not.
 <summary>Basket Page</summary>
 
 - The Basket page lists all items added to the basket.
-- Users can adjust the quantity of each product (using a range-bound input) or remove items entirely (using a trash icon button).
-- The page includes buttons to return to the All Products page or to clear the entire basket.
-- A summary table displays the subtotal, any delivery charges, and the grand total.
-- A large blue checkout button directs the user to the Checkout Page.
+- Users can adjust the quantity of each product or remove fully(using a range-bound input).
+- The page includes buttons to return to the All Products page.
+- A summary table displays the subtotal, and the grand total.
+- A checkout button directs the user to the Checkout Page.
 
 ![Basket]()
 
@@ -148,12 +144,9 @@ The following pages are visible to all users, logged in or not.
 ![Checkout]()
 
 - The Checkout page is divided into three main sections:
-    - A form for entering the user's delivery details, which includes a checkbox to save data for future purchases.
-    - A Stripe Payment element for secure payment entry.
-    - A concise summary of the basket contents, including product names, quantities, and total costs, along with delivery and grand totals.
-- Two buttons allow the user to either:
-    - Return to the View Basket page.
-    - Cancel the purchase (redirecting back to the Product Display page).
+    - A Stripe Payment element for secure payment entry and delivery details.
+
+    - Pay Now Button
 
 </details>
 
@@ -164,7 +157,7 @@ The following pages are visible to all users, logged in or not.
 
 - The Checkout Success page displays a “Payment Successful” message.
 - It summarizes the order and delivery details.
-- A call-to-action invites users to browse the training video lessons section of the site.
+- A call-to-action invites users to browse the shop section of the site.
 
 </details>
 
@@ -173,9 +166,8 @@ The following pages are visible to all users, logged in or not.
 
 ![Video Lessons]()
 
-- This page features a left-hand panel that displays a motivational message (“Practice Makes Perfect”) for subscribed users or a Subscribe link for non-subscribers.
-- The main section lists the available training video lessons, organized by course.
-- The first two lessons in each course are available for free, while additional lessons require a subscription (indicated by a padlock icon on non-accessible lessons).
+- The main section lists the available training video lessons, the lessons dropdown in navlinks contains categories for lesson difficulty.
+- Chosen lessons in each course are available for free, while additional lessons require a subscription (indicated by a padlock icon on non-accessible lessons).
 
 </details>
 
@@ -185,7 +177,6 @@ The following pages are visible to all users, logged in or not.
 ![Video Player]()
 
 - The Video Player page is centered around the video element that plays the training lesson.
-- Navigation buttons for “Previous,” “Next,” and “All Lessons” allow sequential or direct access to lessons.
 - Thumbnails for the remaining lessons are displayed for quick navigation.
 
 </details>
@@ -196,7 +187,6 @@ The following pages are visible to all users, logged in or not.
 ![Login Page]()
 
 - The Login page provides a standard authentication form.
-- It includes options for social login (Google and Facebook) and matches the site's overall styling.
 
 </details>
 
@@ -219,7 +209,7 @@ The following pages are available only to logged-in users:
 
 ![Choose Subscription]()
 
-- This page presents a straightforward choice between different subscription durations (e.g., 1 month, 3 months, or yearly).
+- This page presents a straightforward choice between different subscription durations (e.g., 1 month or yearly).
 - Each option links directly to the Stripe subscription checkout page.
 
 </details>
@@ -230,7 +220,6 @@ The following pages are available only to logged-in users:
 ![Subscription Success]()
 
 - The Subscription Success page displays a confirmation message after a successful subscription purchase.
-- It provides links to access premium video lessons and to manage subscription details through Stripe.
 
 </details>
 
@@ -239,33 +228,21 @@ The following pages are available only to logged-in users:
 The following pages are accessible only to staff:
 
 <details>
-<summary>Add/Edit Product Pages</summary>
-
-![Add/Edit Product]()
-
-- These pages allow staff to add new pet training products or edit existing ones.
-- The forms include preview functionality for product images and any associated media.
-
-</details>
-
-<details>
 <summary>Product List Page</summary>
 
 ![Product List]()
 
 - The Product List page displays all products in a sortable table.
-- Table headers allow sorting by product name, category, price, or stock levels.
-- Each row includes a delete option and links to the Edit Product page.
+- The Products are broken into categories in the Shop NavLink.
 
 </details>
 
 <details>
-<summary>Order Detail Page</summary>
+<summary>Order history</summary>
 
-![Order Detail]()
+![Order History]()
 
-- The Order Detail page shows comprehensive information about a particular order, including delivery details and order line items.
-- It includes options for staff to mark an order as fulfilled and navigate back to the Order List page.
+- The Order History page shows comprehensive information about a particular order, including price, status and order id.
 
 </details>
 
