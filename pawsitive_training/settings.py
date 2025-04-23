@@ -10,26 +10,24 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-import sys
 import environ
 from pathlib import Path
-import dj_database_url
 import stripe
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# This is a settings file for a Django project named "pawsitive_training".
+# It includes configurations for database, static files, media files, authentication,
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# Initialize environment variables
+# Initialize environment variables with a default for DEBUG
 env = environ.Env(DEBUG=(bool, False))
-# Only load .env if DEBUG is True
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-DEBUG = env.bool('DEBUG', default=False)
 
-DEBUG = env.bool('DEBUG', default=False)
+# Optionally load a .env file if it exists (typically used only in development)
+env_file = os.path.join(BASE_DIR, '.env')
+if os.path.exists(env_file):
+    environ.Env.read_env(env_file)
+
+DEBUG = False # env.bool('DEBUG', default=False)
+# SECURITY WARNING: keep the secret key used in production secret!
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS = os.getenv("STRIPE_WEBHOOK_SECRET_SUBSCRIPTIONS")
@@ -42,10 +40,10 @@ SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = [
     'localhost',
-    '6517-2001-bb6-1fe4-1400-39d0-94e8-fa72-2398.ngrok-free.app',
+    # '6517-2001-bb6-1fe4-1400-39d0-94e8-fa72-2398.ngrok-free.app',
     '127.0.0.1',
-    '1647-2001-bb6-1fe4-1400-14ac-ee0a-5803-e9d6.ngrok-free.app',
-    'pawsitive-training-37efa34a3204.herokuapp.com'
+    # '1647-2001-bb6-1fe4-1400-14ac-ee0a-5803-e9d6.ngrok-free.app',
+    # 'pawsitive-training-37efa34a3204.herokuapp.com'
 ]
 
 
@@ -128,7 +126,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During devel
 
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = ''
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
