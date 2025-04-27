@@ -92,11 +92,12 @@ def stripe_subscription_webhook(request):
     # Verify the event by constructing it from the payload and signature
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+        print("Subscription webhook event received:", event['type'])
     except ValueError as e:
-        # Invalid payload
+        print("Invalid payload:", e)
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
+        print("Invalid signature:", e)
         return HttpResponse(status=400)
 
     # Handle subscription creation or update events
@@ -105,22 +106,26 @@ def stripe_subscription_webhook(request):
         metadata = subscription_event.get('metadata', {})
         user_id = metadata.get('user_id')
         order_id = metadata.get('order_id')
-        if user_id:
+        
+        if user_id and order_id:
             try:
                 user = User.objects.get(id=user_id)
+                order = Order.objects.get(id=order_id)
+                
+                # Update the subscription
                 sub, created = Subscription.objects.get_or_create(user=user)
                 sub.stripe_subscription_id = subscription_event['id']
                 sub.active = True
                 sub.start_date = timezone.now()
                 sub.expiry_date = timezone.now() + timedelta(days=30)
                 sub.save()
-                if order_id:
-                    # Update the corresponding order record
-                    order = Order.objects.get(id=order_id)
-                    order.status = "paid"  # Mark as paid
-                    order.save()
+                
+                # Update the order status
+                order.status = "paid"
+                order.save()
+                print(f"Updated order {order_id} status to paid")
             except Exception as e:
-                # Log the error if desired
+                print(f"Error processing subscription webhook: {str(e)}")
                 return HttpResponse(status=400)
 
     # Handle subscription deletion events
@@ -134,6 +139,7 @@ def stripe_subscription_webhook(request):
                 sub.active = False
                 sub.save()
             except Exception as e:
+                print(f"Error processing subscription deletion: {str(e)}")
                 return HttpResponse(status=400)
 
     return HttpResponse(status=200)

@@ -49,6 +49,10 @@ section.container {
     z-index: 99;
 }
 
+h1.mb-4.text-center {
+    padding: 2rem;
+}
+
     /* Base styling for nav links */
 .nav-item {
     display: flex;
