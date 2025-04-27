@@ -14,7 +14,7 @@
         class="video-js"
         controls
         preload="auto"
-        poster="{% static '../media/training/thumbnails/thumbnail_image_V1NJazF.png' %}" 
+        poster="{{ training.thumbnail.url }}"
         data-setup='{"fluid": true}'>
         <source src="{{ training.video_file.url }}" type="video/mp4">
         Your browser does not support the video tag.
