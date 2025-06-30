@@ -1,34 +1,69 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/basket.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid padding">
   <h1 class="mb-4 text-center">Our Products</h1>
   <div class="row">
-    {% for product in page_obj %}
+    {% for product_info in products_with_basket_info %}
     <div class="col-12 col-sm-6 col-lg-3">
       <!-- Use product-card for products -->
       <div class="product-card">
         <div class="product-contents">
-          {% if product.image %}
-            <a href="{% url 'products:product_detail' product.pk %}">
-              <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+          {% if product_info.product.image %}
+            <a href="{% url 'products:product_detail' product_info.product.pk %}">
+              <img src="{{ product_info.product.image.url }}" class="card-img-top" alt="{{ product_info.product.name }}">
             </a>
           {% else %}
             <img src="{% static 'media/products/placeholder.png' %}" class="card-img-top" alt="Placeholder">
           {% endif %}
           <div class="card-body text-center">
             <h5 class="card-title">
-              <a href="{% url 'products:product_detail' product.pk %}" class="text-decoration-none text-dark">
-                {{ product.name|truncatewords:6 }}
+              <a href="{% url 'products:product_detail' product_info.product.pk %}" class="text-decoration-none text-dark">
+                {{ product_info.product.name|truncatewords:4 }}
               </a>
             </h5>
-            <p class="card-text text-success">€{{ product.price|floatformat:2 }}</p>
-            <!-- Add to Basket Button -->
-            <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success add-to-basket">
-              Add to Basket
-            </a>
-            <a href="{% url 'basket_detail' %}" class="btn btn-secondary">View Basket</a>
+            <p class="card-text text-success mb-1">€{{ product_info.product.price|floatformat:2 }}</p>
+            
+            <!-- Stock Information -->
+            {% if product_info.product.stock <= 0 %}
+              <p class="mt-1 mb-1">
+                <span class="badge bg-danger">Out of Stock</span>
+              </p>
+            {% else %}
+              <p class="mt-1 mb-1">
+                <span class="badge bg-success">In Stock: {{ product_info.product.stock }}</span>
+              </p>
+            {% endif %}
+            
+            <!-- Basket Information -->
+            {% if product_info.current_basket_quantity > 0 %}
+              <p class="mt-1 mb-1">
+                <span class="badge bg-info">In Basket: {{ product_info.current_basket_quantity }}</span>
+              </p>
+            {% endif %}
+            
+            <!-- Simple Add to Basket Button -->
+            {% if product_info.product.stock > 0 and product_info.can_add_more %}
+              <form method="POST" action="{% url 'basket_add' product_info.product.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-success btn-sm add-to-basket">
+                  <i class="fas fa-shopping-cart"></i> Add to Basket
+                </button>
+              </form>
+            {% elif product_info.product.stock > 0 and not product_info.can_add_more %}
+              <button class="btn btn-outline-secondary btn-sm" disabled>
+                <i class="fas fa-shopping-cart"></i> Max in Basket
+              </button>
+            {% else %}
+              <button class="btn btn-outline-secondary btn-sm" disabled>Add to Basket</button>
+            {% endif %}
+            
+            <a href="{% url 'basket_detail' %}" class="btn btn-secondary btn-sm mt-1">View Basket</a>
           </div>
         </div>
       </div>

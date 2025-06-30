@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/basket.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="basket">
@@ -15,7 +20,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Subtotal</th>
-                    <th>Adjust basket</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,11 +30,24 @@
                     <tr id="basket-row-{{ item.product.id }}">
                         <td>{{ item.product.name|truncatewords:3 }}</td>
                         <td id="basket-price-{{ item.product.id }}">€{{ item.price|floatformat:2 }}</td>
-                        <td id="basket-quantity-{{ item.product.id }}">{{ item.quantity }}</td>
+                        <td>
+                            <div class="quantity-controls">
+                                <button class="btn btn-sm btn-outline-secondary quantity-btn" onclick="decreaseQuantity({{ item.product.id }})">-</button>
+                                <input type="number" 
+                                       class="form-control quantity-input" 
+                                       id="quantity-input-{{ item.product.id }}" 
+                                       value="{{ item.quantity }}" 
+                                       min="1" 
+                                       max="{{ item.product.stock }}"
+                                       onchange="updateQuantity({{ item.product.id }})"
+                                       onblur="updateQuantity({{ item.product.id }})">
+                                <button class="btn btn-sm btn-outline-secondary quantity-btn" onclick="increaseQuantity({{ item.product.id }})">+</button>
+                            </div>
+                            <small class="text-muted">Stock: {{ item.product.stock }}</small>
+                        </td>
                         <td id="basket-subtotal-{{ item.product.id }}">€{{ item.total|floatformat:2 }}</td>
                         <td>
-                            <a href="{% url 'basket_add' item.product.id %}" class="btn btn-sm btn-outline-success add-to-basket">Add</a>
-                            <a href="{% url 'basket_remove' item.product.id %}" class="btn btn-sm btn-outline-danger remove-from-basket">Remove</a>
+                            <button class="btn btn-sm btn-outline-danger remove-from-basket" onclick="removeFromBasket({{ item.product.id }})">Remove</button>
                         </td>
                     </tr>
                 {% endfor %}

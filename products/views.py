@@ -5,6 +5,7 @@ from django.db.models import Q
 from .models import Product, ProductCategory
 from django.contrib.admin.views.decorators import staff_member_required
 from .forms import ProductStockUpdateForm
+from basket.models import Basket
 
 @staff_member_required
 def update_stock(request, product_id):
@@ -50,9 +51,26 @@ def category_products(request, category_slug):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    # Get basket information for each product
+    basket = Basket(request)
+    products_with_basket_info = []
+    
+    for product in page_obj:
+        product_id_str = str(product.id)
+        current_quantity = basket.basket.get(product_id_str, {}).get('quantity', 0)
+        can_add_more = current_quantity < product.stock
+        
+        products_with_basket_info.append({
+            'product': product,
+            'current_basket_quantity': current_quantity,
+            'can_add_more': can_add_more,
+            'available_to_add': product.stock - current_quantity
+        })
+    
     context = {
         'category': category,
         'page_obj': page_obj,
+        'products_with_basket_info': products_with_basket_info,
     }
     return render(request, '../templates/products/products_category.html', context)
 
@@ -67,8 +85,25 @@ def products_display(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    # Get basket information for each product
+    basket = Basket(request)
+    products_with_basket_info = []
+    
+    for product in page_obj:
+        product_id_str = str(product.id)
+        current_quantity = basket.basket.get(product_id_str, {}).get('quantity', 0)
+        can_add_more = current_quantity < product.stock
+        
+        products_with_basket_info.append({
+            'product': product,
+            'current_basket_quantity': current_quantity,
+            'can_add_more': can_add_more,
+            'available_to_add': product.stock - current_quantity
+        })
+    
     context = {
         'page_obj': page_obj,
+        'products_with_basket_info': products_with_basket_info,
     }
     return render(request, 'products/products_display.html', context)
 
@@ -94,9 +129,26 @@ def search(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
+    # Get basket information for each product
+    basket = Basket(request)
+    products_with_basket_info = []
+    
+    for product in page_obj:
+        product_id_str = str(product.id)
+        current_quantity = basket.basket.get(product_id_str, {}).get('quantity', 0)
+        can_add_more = current_quantity < product.stock
+        
+        products_with_basket_info.append({
+            'product': product,
+            'current_basket_quantity': current_quantity,
+            'can_add_more': can_add_more,
+            'available_to_add': product.stock - current_quantity
+        })
+    
     context = {
         'page_obj': page_obj,
         'search_term': query,
+        'products_with_basket_info': products_with_basket_info,
     }
     return render(request, '../templates/products/products_category.html', context)
 
