@@ -26,7 +26,7 @@ env_file = os.path.join(BASE_DIR, '.env')
 if os.path.exists(env_file):
     environ.Env.read_env(env_file)
 
-DEBUG = False # env.bool('DEBUG', default=False)
+DEBUG = True # env.bool('DEBUG', default=False)
 # SECURITY WARNING: keep the secret key used in production secret!
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")

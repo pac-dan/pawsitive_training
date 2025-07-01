@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/basket.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container mt-5 pt-5">
     <div class="row">
@@ -26,13 +30,39 @@
               <p class="mt-2">
                 <span class="badge bg-danger out-of-stock">Out of Stock</span>
               </p>
+            {% else %}
+              <p class="mt-2">
+                <span class="badge bg-success">In Stock: {{ product.stock }}</span>
+              </p>
+              <div id="basket-info-{{ product.id }}" class="mt-2" style="display: none;">
+                <small class="text-info">
+                  <i class="fas fa-shopping-cart"></i> 
+                  You have <span id="current-basket-quantity-{{ product.id }}">0</span> in your basket
+                </small>
+              </div>
             {% endif %}
             
             <div class="products-buttons mt-3">
                 <a href="{% url 'products:products_display' %}" class="btn btn-secondary">&larr; Back to Products</a>
                 <a href="{% url 'basket_detail' %}" class="btn btn-outline-success">View Basket</a>
+                
                 {% if product.stock > 0 %}
-                  <a href="{% url 'basket_add' product.pk %}" class="btn btn-outline-success add-to-basket">Add to Basket</a>
+                  <div class="quantity-section mt-3">
+                    <label for="quantity-input-{{ product.id }}" class="form-label">Quantity:</label>
+                    <div class="quantity-controls">
+                      <button class="btn btn-outline-secondary quantity-btn" onclick="decreaseQuantity({{ product.id }})">-</button>
+                      <input type="number" 
+                             class="form-control quantity-input" 
+                             id="quantity-input-{{ product.id }}" 
+                             value="1" 
+                             min="1" 
+                             max="{{ product.stock }}">
+                      <button class="btn btn-outline-secondary quantity-btn" onclick="increaseQuantity({{ product.id }})">+</button>
+                    </div>
+                    <button class="btn btn-success mt-2 add-to-basket" onclick="addToBasket({{ product.id }})">
+                      <i class="fas fa-shopping-cart"></i> Add to Basket
+                    </button>
+                  </div>
                 {% else %}
                   <button class="btn btn-outline-secondary" disabled>Add to Basket</button>
                 {% endif %}

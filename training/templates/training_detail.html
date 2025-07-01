@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
 <div class="lessons-container">
     
@@ -11,11 +15,13 @@
     <div class="video-container">
       <video
         id="my-video"
-        class="video-js"
+        class="video-js vjs-default-skin vjs-big-play-centered"
         controls
         preload="auto"
+        width="640"
+        height="360"
         poster="{{ training.thumbnail.url }}"
-        data-setup='{"fluid": true}'>
+        data-setup='{"fluid": true, "responsive": true}'>
         <source src="{{ training.video_file.url }}" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -25,4 +31,17 @@
     <p>No video available for this lesson.</p>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var player = videojs('my-video', {
+      fluid: true,
+      responsive: true,
+      playbackRates: [0.5, 1, 1.25, 1.5, 2]
+    });
+  });
+</script>
 {% endblock %}

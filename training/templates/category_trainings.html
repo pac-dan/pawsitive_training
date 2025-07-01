@@ -19,7 +19,9 @@
             {% if training.thumbnail %}
               <img src="{{ training.thumbnail.url }}" class="card-img-top" alt="{{ training.title }}">
             {% else %}
-              <img src="{% static 'products/placeholder.png' %}" class="card-img-top" alt="No Thumbnail">
+              <div class="card-img-top placeholder-thumbnail" style="background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 150px;">
+                <i class="fas fa-video" style="font-size: 2rem; color: #6c757d;"></i>
+              </div>
             {% endif %}
           </div>
           <div class="card-body text-center">
