@@ -90,7 +90,7 @@ The following pages are visible to all users, logged in or not.
         - Register
         - Login
     - A basket link that takes the user directly to the View Basket page.
-- The page footer, common to all pages, features a call-to-action encouraging users to "Stay in Touch!", a link to the site's Facebook promotional page, and an invitation to subscribe to the mailing list (integrated with MailChimp).
+- The page footer, common to all pages, features a call-to-action encouraging users to "Stay in Touch!", a link to the site's [Facebook promotional page](https://www.facebook.com/profile.php?id=61574171532774), and an invitation to subscribe to the mailing list (integrated with MailChimp).
 
 ![Welcome Page](media/docs/Screenshot%20(57).png)
 
@@ -117,7 +117,7 @@ The following pages are visible to all users, logged in or not.
     - The full name and description of the product.
     - Pricing details, the product category, and current stock levels.
     - A range-bound quantity input.
-    - A primary “Add To Basket” button, which adds the specified quantity to the user's basket.
+    - A primary "Add To Basket" button, which adds the specified quantity to the user's basket.
     - Additional buttons below the main content that link to:
         - Return to the shop
         - Edit the product (visible only to staff)
@@ -155,7 +155,7 @@ The following pages are visible to all users, logged in or not.
 
 ![Checkout Success](media\docs\Screenshot (65).png)
 
-- The Checkout Success page displays a “Payment Successful” message.
+- The Checkout Success page displays a "Payment Successful" message.
 - It summarizes the order and delivery details.
 - A call-to-action invites users to browse the shop section of the site.
 
@@ -196,7 +196,7 @@ The following pages are visible to all users, logged in or not.
 ## Future Features
 
 - It would be useful for staff to track the volume of sales for different pet training products over various timeframes. A dashboard, potentially built using Plotly, could display sales by product and period, providing valuable insights for inventory and marketing decisions.
-- An added benefit for subscribers would be the ability to share videos of their pet training progress, with features to like and comment on each other’s posts. This community engagement tool would require moderation to ensure that feedback remains constructive and supportive.
+- An added benefit for subscribers would be the ability to share videos of their pet training progress, with features to like and comment on each other's posts. This community engagement tool would require moderation to ensure that feedback remains constructive and supportive.
 - Another future feature under consideration is an embedded video-calling functionality. This would allow subscribers to connect with one another or even with professional pet trainers for live training sessions, tips, and advice. Unfortunately, due to time constraints, this feature was not implemented in the current version of the project.
 
 
@@ -312,7 +312,7 @@ After completing this research, I updated the project's templates as follows:
 
 - **`<meta>` description tag in base.html:**  
   Updated to:  
-  *"Pets are more than just animals—they’re family. Join us at Pawsitive Training, where you can learn effective pet training techniques through our online pet training lessons. Discover a wide range of pet care products in our online shop."*  
+  *"Pets are more than just animals—they're family. Join us at Pawsitive Training, where you can learn effective pet training techniques through our online pet training lessons. Discover a wide range of pet care products in our online shop."*  
   This description integrates several of the chosen keywords while keeping the description concise.
 
 - **`<meta>` keywords in base.html:**  
@@ -377,7 +377,7 @@ Together, these measures ensure that data flowing between the front-end and back
 ## Manual Testing
 
 ### Feature Testing
-Manual testing of the site’s features was carried out on a 1920 x 1080 desktop screen, a Samsung tablet, and an iPhone 12 Pro to ensure optimal functionality across devices.
+Manual testing of the site's features was carried out on a 1920 x 1080 desktop screen, a Samsung tablet, and an iPhone 12 Pro to ensure optimal functionality across devices.
 
 # Comprehensive Manual Testing Checklist for Pawsitive Training Project
 
@@ -614,7 +614,7 @@ This approach offers the added advantage that any orders whose payments are not 
 The pawsitive_training project listens for several key Stripe webhook events to ensure that all payment transactions—both for product orders and training lesson subscriptions—are accurately recorded. Our payment flow is designed to create orders in the database before the Stripe payment process begins, with a `payment_confirmed` flag set to false. Essential metadata (such as an order number) is sent to Stripe so that, upon successful payment, the webhook events can update the corresponding record in our database. Manual tests were conducted by forwarding webhook events to a local listener on port 8000. (Note: the webhook for the deployed Heroku app was temporarily disabled during testing since both environments share the same database.)
 
 - **stripe.payment_intent.succeeded:**  
-  The webhook handler retrieves the order number from the event metadata and confirms that the corresponding order exists. If it does, the handler updates the order record, setting `payment_confirmed` to true. This was tested by temporarily disabling the view that normally sets this flag, then verifying via the admin panel that after a successful payment, the order’s `payment_confirmed` flag was correctly updated.
+  The webhook handler retrieves the order number from the event metadata and confirms that the corresponding order exists. If it does, the handler updates the order record, setting `payment_confirmed` to true. This was tested by temporarily disabling the view that normally sets this flag, then verifying via the admin panel that after a successful payment, the order's `payment_confirmed` flag was correctly updated.
 
 - **stripe.payment_intent.payment_failed:**  
   This handler simply acknowledges the event by returning an HTTP 200 response to Stripe, confirming receipt of the event even though no changes are made to the order.
@@ -626,7 +626,7 @@ The pawsitive_training project listens for several key Stripe webhook events to 
   This event triggers the handler to update the subscription status for a user. Upon receiving this event, the handler sets the `subscription_paid` flag to true, activating full access to premium training video content. Tests confirmed that the flag was correctly updated in the database when this webhook was received.
 
 - **stripe.invoice.payment_failed:**  
-  In the event that an invoice payment fails, the handler updates the subscription record by setting the `subscription_paid` flag to false, thereby revoking access to premium content. Although this webhook is more challenging to test (requiring a test card with a short expiration date), initial tests in Stripe’s test environment indicate that the handler behaves as expected.
+  In the event that an invoice payment fails, the handler updates the subscription record by setting the `subscription_paid` flag to false, thereby revoking access to premium content. Although this webhook is more challenging to test (requiring a test card with a short expiration date), initial tests in Stripe's test environment indicate that the handler behaves as expected.
 
 Through these webhook handlers, the pawsitive_training project ensures that any changes in payment status reported by Stripe are accurately and reliably reflected in our order and subscription records.
 
@@ -670,6 +670,34 @@ Although core functionalities are covered, additional tests (such as for newslet
 ---
 
 # Libraries and Programs Used
+
+## Languages
+- **Python 3.8+**: Primary programming language
+- **HTML5**: Markup language for structure
+- **CSS3**: Styling and responsive design
+- **JavaScript**: Frontend interactivity and AJAX functionality
+
+## Frameworks and Libraries
+- **Django 4.2**: Web framework for rapid development
+- **Bootstrap 5**: CSS framework for responsive design
+- **jQuery**: JavaScript library for DOM manipulation
+- **Stripe**: Payment processing API
+- **Boto3**: AWS SDK for Python (S3 integration)
+
+## Database
+- **PostgreSQL**: Primary database (Heroku Postgres)
+- **SQLite**: Local development database
+
+## Cloud Services
+- **Heroku**: Application hosting and deployment
+- **AWS S3**: Static and media file storage
+- **MailChimp**: Email marketing and newsletter services
+
+## Development Tools
+- **Git**: Version control
+- **GitHub**: Code repository and project management
+- **VS Code**: Code editor
+- **Flake8**: Python code linting and style validation
 
 ---
 ---
@@ -789,6 +817,14 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 
 # Acknowledgements
+
+- **Facebook Page**: [Pawsitive Training Facebook Page](https://www.facebook.com/profile.php?id=61574171532774) - Our social media presence for community engagement and updates.
+- **Bootstrap**: For the responsive framework and UI components.
+- **Django**: For the robust web framework.
+- **Stripe**: For secure payment processing.
+- **Heroku**: For hosting and deployment services.
+- **AWS S3**: For static and media file storage.
+- **MailChimp**: For newsletter integration.
 
 
 [Return to top](#pawsitive_training)
