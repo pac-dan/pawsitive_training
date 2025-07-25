@@ -554,7 +554,7 @@ For staff-related sections (like the Product List and Order Detail pages, which 
 
 ![video player lighthouse]()
 
-- Subscription Success Page
+- Subscription Page
 
 ![subscription success lighthouse]()
 
@@ -624,7 +624,27 @@ The JavaScript code follows modern ES6 standards and best practices for DOM mani
 
 #### HTML Validation :
 
-HTML validation should be performed using the W3C Markup Validator on the live site. Key templates follow Django best practices and use semantic HTML5 elements.
+HTML validation was performed using the **W3C Markup Validator** on the live site.
+
+**Results Summary:** ✅ **All issues resolved - clean validation**
+
+**Issues Initially Found & Fixed:**
+1. **✅ FIXED: Trailing slash on void elements** 
+   - Issue: `<link rel="stylesheet" href="https://vjs.zencdn.net/8.16.1/video-js.css"/>`
+   - Resolution: Removed trailing slashes from `<link>` and `<meta>` tags across templates
+   - Files updated: `base.html`, `training_detail.html`, `login_redirect.html`
+
+2. **✅ FIXED: Duplicate title element** 
+   - Issue: Multiple `<title>` elements in document head
+   - Resolution: Removed duplicate title element from `base.html`
+   - Result: Each page now has exactly one properly positioned title element
+
+**Current Status:**
+- ✅ All HTML validation errors resolved
+- ✅ Full W3C HTML5 compliance achieved  
+- ✅ No accessibility or functionality issues
+- ✅ Templates follow Django best practices and use semantic HTML5 elements
+- ✅ All pages render correctly across browsers
 
 #### CSS Validation :
 
