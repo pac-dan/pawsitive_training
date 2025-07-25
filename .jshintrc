@@ -1,0 +1,10 @@
+{
+  "esversion": 6,
+  "browser": true,
+  "jquery": true,
+  "strict": false,
+  "globals": {
+    "toastr": false,
+    "Stripe": false
+  }
+} 

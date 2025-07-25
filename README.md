@@ -522,61 +522,44 @@ For staff-related sections (like the Product List and Order Detail pages, which 
 <details>
 <summary>Lighthouse results by page</summary>
 
-- Welcome Page
+### Welcome Page
+![Welcome Page Lighthouse](media/docs/welcome_lh.png)
 
-![welcome_page_lighthouse]()
+### Product Display Page
+![Product Display Page Lighthouse](media/docs/productsdisplay_lh.png)
 
-- Product Display Page
+### Product Detail Page
+![Product Detail Page Lighthouse](media/docs/product_lh.png)
 
-![product display lighthouse]()
+### Basket Page
+![Basket Page Lighthouse](media/docs/basket_lh.png)
 
-- Product Detail Page
+### Checkout Page
+![Checkout Page Lighthouse](media/docs/checkout_lh.png)
 
-![product detail lighthouse]()
+### Payment Success Page
+![Payment Success Page Lighthouse](media/docs/payment_lh.png)
 
-- Basket Page
+### Video Lessons Page
+![Video Lessons Page Lighthouse](media/docs/lessons_lh.png)
 
-![basket lighthouse]()
+### Video Player Page
+![Video Player Page Lighthouse](media/docs/videodisplay_lh.png)
 
-- Checkout Page
+### Subscription Page
+![Subscription Page Lighthouse](media/docs/subscriptions_lh.png)
 
-![checkout lighthouse]()
+### Product Management Page
+![Product Management Page Lighthouse](media/docs/productmanage_lh.png)
 
-- Checkout Success Page
+### User Profile Page
+![User Profile Page Lighthouse](media/docs/profile_lh.png)
 
-![checkout success lighthouse]()
+### Login Page
+![Login Page Lighthouse](media/docs/login_lh.png)
 
-- All Video Lessons Page
-
-![video lessons lighthouse]()
-
-- Video Player Page
-
-![video player lighthouse]()
-
-- Subscription Page
-
-![subscription success lighthouse]()
-
-- Product List Page
-
-![product list lighthouse]()
-
-- Order List Page
-
-![order list lighthouse]()
-
-- Order Detail Page
-
-![order detail lighthouse]()
-
-- Login Page
-
-![signin lighthouse]()
-
-- Register Page 
-
-![register lighthouse]()
+### Register Page
+![Register Page Lighthouse](media/docs/register_lh.png)
 
 </details>
 
@@ -584,71 +567,31 @@ For staff-related sections (like the Product List and Order Detail pages, which 
 
 ### Code Validation
 
-#### Python code :
-
-Python code validation was performed using **Flake8** with a max line length of 88 characters. The scan revealed several areas for improvement:
-
-**Summary of Issues Found:**
-- **Formatting Issues:** 180+ instances of trailing whitespace, missing newlines at end of files, and blank lines containing whitespace
-- **Import Issues:** 15+ unused imports across various modules  
-- **Line Length:** 20+ lines exceeding the 88-character limit
-- **Spacing Issues:** Missing blank lines between functions/classes as per PEP 8
-
-**Key Areas Identified:**
-- Most issues are cosmetic formatting problems that don't affect functionality
-- No critical syntax errors or major structural issues found
-- Code follows Django best practices overall
-- All functionality remains intact despite formatting inconsistencies
-
-**Files with most issues:** basket/views.py, payments/views.py, training/views.py, and several admin.py files
-
-While these formatting issues should ideally be addressed in a production environment, they do not impact the functionality or security of the application.
+#### Python code : 
 
 #### JavaScript code :
 
-JavaScript validation was performed using **JSHint** with ES6 support enabled.
-
-**Results:** ✅ **All JavaScript files passed validation with no errors**
-
-**Files validated:**
-- `static/js/basket.js` - ✅ No issues found
-- `static/js/checkout.js` - ✅ No issues found  
-- `static/js/subscribe.js` - ✅ No issues found
-
-**Configuration used:**
-- ES6 syntax support enabled
-- Browser and jQuery globals recognized
-- Stripe and Toastr libraries declared as external dependencies
-
-The JavaScript code follows modern ES6 standards and best practices for DOM manipulation and AJAX requests.
-
 #### HTML Validation :
-
-HTML validation was performed using the **W3C Markup Validator** on the live site.
-
-**Results Summary:** ✅ **All issues resolved - clean validation**
-
-**Issues Initially Found & Fixed:**
-1. **✅ FIXED: Trailing slash on void elements** 
-   - Issue: `<link rel="stylesheet" href="https://vjs.zencdn.net/8.16.1/video-js.css"/>`
-   - Resolution: Removed trailing slashes from `<link>` and `<meta>` tags across templates
-   - Files updated: `base.html`, `training_detail.html`, `login_redirect.html`
-
-2. **✅ FIXED: Duplicate title element** 
-   - Issue: Multiple `<title>` elements in document head
-   - Resolution: Removed duplicate title element from `base.html`
-   - Result: Each page now has exactly one properly positioned title element
-
-**Current Status:**
-- ✅ All HTML validation errors resolved
-- ✅ Full W3C HTML5 compliance achieved  
-- ✅ No accessibility or functionality issues
-- ✅ Templates follow Django best practices and use semantic HTML5 elements
-- ✅ All pages render correctly across browsers
 
 #### CSS Validation :
 
-CSS validation should be performed using the W3C CSS Validator. The stylesheets use modern CSS3 features and follow BEM naming conventions where applicable.
+CSS validation was performed using the **W3C CSS Validator**.
+
+![CSS Validation Results](media/docs/css_val.png)
+
+**Results Summary:** ✅ **All CSS files passed validation with no errors**
+
+**Files validated:**
+- `static/css/base.css` - ✅ No issues found
+- `static/css/basket.css` - ✅ No issues found  
+- `static/css/allauth.css` - ✅ No issues found
+
+**Assessment:**
+- All stylesheets follow W3C CSS3 standards
+- No syntax errors or invalid properties found
+- Modern CSS3 features used appropriately
+- Responsive design principles implemented correctly
+- Clean, maintainable CSS structure throughout
 
 ---
 ## Stripe Webhook Testing
