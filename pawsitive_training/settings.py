@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'django.contrib.sitemaps',
+    'django_extensions',  # Added for generating model diagrams
     'welcome',
     'products',
     'training',

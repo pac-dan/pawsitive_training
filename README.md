@@ -331,13 +331,13 @@ After completing this research, I updated the project's templates as follows:
 
 ## Data Model
 ### Products App
-![Entity-relationship diagram for models]()
+![Entity-relationship diagram for Products models](media/docs/products_erd.png)
 
-### Checkout App
-![Entity-relationship diagram for models]()
+### Orders App
+![Entity-relationship diagram for Orders models](media/docs/orders_erd.png)
 
-### Video_lessons App
-![Entity-relationship diagram for models]()
+### Training App
+![Entity-relationship diagram for Training models](media/docs/training_erd.png)
 
 
 ---
