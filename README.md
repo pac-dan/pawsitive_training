@@ -8,7 +8,6 @@ The live project can be viewed [here](https://pawsitive-training-37efa34a3204.he
 ## Purpose of Project 
 The aim of the project is to help pet owners train their pets while providing a one-stop shop for pet training products. The website combines an online store—with carefully selected pet care products—and a subscription service that grants access to exclusive training video lessons.
 
-ADD RESPONSIVE SCREENSHOT HERE
 
 ---
 
@@ -103,7 +102,7 @@ The following pages are visible to all users, logged in or not.
 - If there are any current special offers, they are showcased in a rotating banner (using a Bootstrap Carousel).
 - Each product tile is clickable and links to its respective Product Detail Page.
 
-![Product Display](media\docs\Screenshot (58).png)
+![Product Display](media/docs/Screenshot (58).png)
 
 </details>
 
@@ -153,7 +152,7 @@ The following pages are visible to all users, logged in or not.
 <details>
 <summary>Checkout Success Page</summary>
 
-![Checkout Success](media\docs\Screenshot (65).png)
+![Checkout Success](media/docs/Screenshot (65).png)
 
 - The Checkout Success page displays a "Payment Successful" message.
 - It summarizes the order and delivery details.
@@ -229,19 +228,19 @@ These primary colours are derived from the project's hero image, which features 
 ### Wireframes
 #### _Product Display page_
 
-![products_display wireframe](media\docs\products_display.jpg)
+![products_display wireframe](media/docs/products_display.jpg)
 
 #### _Product Detail page_
-![products_detail wireframe](media\docs\product_detail.jpg)
+![products_detail wireframe](media/docs/product_detail.jpg)
 
 #### _Basket page_
-![checkout_page wireframe](media\docs\cart_and_checkout.jpg)
+![checkout_page wireframe](media/docs/cart_and_checkout.jpg)
 
 #### _Checkout page_
-![checkout_page wireframe](media\docs\cart_and_checkout.jpg)
+![checkout_page wireframe](media/docs/cart_and_checkout.jpg)
 
 #### _Lessons page_
-![checkout_page wireframe](media\docs\lessons_display.jpg)
+![checkout_page wireframe](media/docs/lessons_display.jpg)
 
 [Return to top](#pawsitive_training)
 
