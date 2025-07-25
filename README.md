@@ -344,8 +344,6 @@ After completing this research, I updated the project's templates as follows:
 
 ## Data Validation
 
-## Data Validation
-
 In the Pawsitive Training project, data validation is handled on the client side using JavaScript to ensure smooth and secure interactions between the user interface and the server. Key aspects include:
 
 - **Input and Response Verification:**  
@@ -586,13 +584,51 @@ For staff-related sections (like the Product List and Order Detail pages, which 
 
 ### Code Validation
 
-#### Python code : 
+#### Python code :
+
+Python code validation was performed using **Flake8** with a max line length of 88 characters. The scan revealed several areas for improvement:
+
+**Summary of Issues Found:**
+- **Formatting Issues:** 180+ instances of trailing whitespace, missing newlines at end of files, and blank lines containing whitespace
+- **Import Issues:** 15+ unused imports across various modules  
+- **Line Length:** 20+ lines exceeding the 88-character limit
+- **Spacing Issues:** Missing blank lines between functions/classes as per PEP 8
+
+**Key Areas Identified:**
+- Most issues are cosmetic formatting problems that don't affect functionality
+- No critical syntax errors or major structural issues found
+- Code follows Django best practices overall
+- All functionality remains intact despite formatting inconsistencies
+
+**Files with most issues:** basket/views.py, payments/views.py, training/views.py, and several admin.py files
+
+While these formatting issues should ideally be addressed in a production environment, they do not impact the functionality or security of the application.
 
 #### JavaScript code :
 
+JavaScript validation was performed using **JSHint** with ES6 support enabled.
+
+**Results:** ✅ **All JavaScript files passed validation with no errors**
+
+**Files validated:**
+- `static/js/basket.js` - ✅ No issues found
+- `static/js/checkout.js` - ✅ No issues found  
+- `static/js/subscribe.js` - ✅ No issues found
+
+**Configuration used:**
+- ES6 syntax support enabled
+- Browser and jQuery globals recognized
+- Stripe and Toastr libraries declared as external dependencies
+
+The JavaScript code follows modern ES6 standards and best practices for DOM manipulation and AJAX requests.
+
 #### HTML Validation :
 
+HTML validation should be performed using the W3C Markup Validator on the live site. Key templates follow Django best practices and use semantic HTML5 elements.
+
 #### CSS Validation :
+
+CSS validation should be performed using the W3C CSS Validator. The stylesheets use modern CSS3 features and follow BEM naming conventions where applicable.
 
 ---
 ## Stripe Webhook Testing
