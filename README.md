@@ -573,6 +573,34 @@ For staff-related sections (like the Product List and Order Detail pages, which 
 
 #### HTML Validation :
 
+HTML validation was performed using the **W3C Markup Validator** on the live site.
+
+![HTML Validation Results](media/docs/htmlval.png)
+
+**Results Summary:** ✅ **Perfect - No errors or warnings found**
+
+**Validation Outcome:**
+- ✅ **"Document checking completed. No errors or warnings to show."**
+- ✅ All HTML validation issues have been successfully resolved
+- ✅ Full W3C HTML5 compliance achieved
+- ✅ Clean, semantic markup throughout the application
+
+**Issues Previously Fixed:**
+1. **✅ RESOLVED: Trailing slash on void elements** 
+   - Removed trailing slashes from `<link>` and `<meta>` tags across templates
+   - Files updated: `base.html`, `training_detail.html`, `login_redirect.html`
+
+2. **✅ RESOLVED: Duplicate title element** 
+   - Removed duplicate title element from `base.html`
+   - Each page now has exactly one properly positioned title element
+
+**Current Status:**
+- ✅ Zero HTML validation errors
+- ✅ Zero HTML validation warnings  
+- ✅ Full W3C HTML5 compliance
+- ✅ Professional, accessible markup
+- ✅ All pages render correctly across browsers
+
 #### CSS Validation :
 
 CSS validation was performed using the **W3C CSS Validator**.

@@ -26,7 +26,9 @@ env_file = os.path.join(BASE_DIR, '.env')
 if os.path.exists(env_file):
     environ.Env.read_env(env_file)
 
-DEBUG = True  # env.bool('DEBUG', default=False) - Temporarily True for local media serving
+# SECURITY WARNING: Don't run with debug turned on in production!
+DEBUG = env.bool('DEBUG', default=False)
+
 # SECURITY WARNING: keep the secret key used in production secret!
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
@@ -124,7 +126,17 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1  # required for allauth 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+# Email configuration
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = env('EMAIL_HOST', default='smtp.gmail.com')
+    EMAIL_PORT = env.int('EMAIL_PORT', default=587)
+    EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
+    DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='noreply@pawsitive-training.com')
 
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 ACCOUNT_EMAIL_REQUIRED = True
@@ -141,7 +153,7 @@ WSGI_APPLICATION = 'pawsitive_training.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db(default='postgres://postgres:nmolzremember@localhost:5432/postgres')
+    'default': env.db(default='sqlite:///db.sqlite3')
 }
 
 
