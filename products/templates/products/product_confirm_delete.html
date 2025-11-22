@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h3>Confirm Delete</h3>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to delete the product:</p>
+                    <h4>"{{ product.name }}"</h4>
+                    
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid mt-3 mb-3" style="max-height: 200px;">
+                    {% endif %}
+                    
+                    <p class="text-muted">SKU: {{ product.sku|default:"N/A" }}</p>
+                    <p class="text-muted">Price: ${{ product.price }}</p>
+                    <p class="text-muted">Stock: {{ product.stock }}</p>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <strong>Warning:</strong> This action cannot be undone.
+                    </div>
+                    
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Yes, Delete Product</button>
+                        <a href="{% url 'products:stock_list' %}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

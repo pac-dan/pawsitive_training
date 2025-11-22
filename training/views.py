@@ -5,6 +5,8 @@ from django.db.models import Q
 from .models import Training, TrainingCategory
 from django.utils import timezone
 from subscriptions.models import Subscription
+from django.contrib.admin.views.decorators import staff_member_required
+from .forms import TrainingForm
 
 def category_trainings(request, category_slug):
     """
@@ -24,7 +26,7 @@ def category_trainings(request, category_slug):
         'page_obj': page_obj,
         'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
     }
-    return render(request, 'category_trainings.html', context)
+    return render(request, 'training/category_trainings.html', context)
 
 def training_display(request):
     """
@@ -42,7 +44,7 @@ def training_display(request):
         'page_obj': page_obj,
         'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
     }
-    return render(request, 'training_display.html', context)
+    return render(request, 'training/training_display.html', context)
 
 
 def search(request):
@@ -74,7 +76,7 @@ def search(request):
         'search_term': query,
         'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
     }
-    return render(request, 'category_trainings.html', context)
+    return render(request, 'training/category_trainings.html', context)
 
 
 def training_detail(request, pk):
@@ -92,14 +94,99 @@ def training_detail(request, pk):
     
     # If the training video is free, allow access immediately.
     if training.is_free:
-        return render(request, 'training_detail.html', {'training': training})
+        return render(request, 'training/training_detail.html', {'training': training})
     
     # Otherwise, require an active subscription.
     try:
         subscription = request.user.subscription
         if subscription.active and subscription.expiry_date > timezone.now():
-            return render(request, 'training_detail.html', {'training': training})
+            return render(request, 'training/training_detail.html', {'training': training})
         else:
             return redirect('subscriptions:subscribe')
     except Subscription.DoesNotExist:
         return redirect('subscriptions:subscribe')
+
+
+@staff_member_required
+def training_list(request):
+    """
+    View for staff to see all training videos for management.
+    """
+    trainings = Training.objects.all().order_by('order', 'title')
+    return render(request, 'training/training_list.html', {'trainings': trainings})
+
+
+@staff_member_required
+def create_training(request):
+    """
+    View for staff to create a new training video.
+    """
+    if request.method == 'POST':
+        form = TrainingForm(request.POST, request.FILES)
+        if form.is_valid():
+            training = form.save()
+            messages.success(
+                request, 
+                f'Training video "{training.title}" created successfully!'
+            )
+            return redirect('training:training_detail', pk=training.pk)
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = TrainingForm()
+    
+    return render(request, 'training/training_form.html', {
+        'form': form,
+        'title': 'Create New Training Video',
+        'button_text': 'Create Training'
+    })
+
+
+@staff_member_required
+def edit_training(request, training_id):
+    """
+    View for staff to edit an existing training video.
+    """
+    training = get_object_or_404(Training, id=training_id)
+    
+    if request.method == 'POST':
+        form = TrainingForm(request.POST, request.FILES, instance=training)
+        if form.is_valid():
+            training = form.save()
+            messages.success(
+                request, 
+                f'Training video "{training.title}" updated successfully!'
+            )
+            return redirect('training:training_detail', pk=training.pk)
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = TrainingForm(instance=training)
+    
+    return render(request, 'training/training_form.html', {
+        'form': form,
+        'training': training,
+        'title': f'Edit {training.title}',
+        'button_text': 'Update Training'
+    })
+
+
+@staff_member_required
+def delete_training(request, training_id):
+    """
+    View for staff to delete a training video.
+    """
+    training = get_object_or_404(Training, id=training_id)
+    
+    if request.method == 'POST':
+        training_title = training.title
+        training.delete()
+        messages.success(
+            request, 
+            f'Training video "{training_title}" has been deleted.'
+        )
+        return redirect('training:training_list')
+    
+    return render(request, 'training/training_confirm_delete.html', {
+        'training': training
+    })

@@ -20,15 +20,39 @@
         preload="auto"
         width="640"
         height="360"
-        poster="{{ training.thumbnail.url }}"
+        {% if training.thumbnail %}poster="{{ training.thumbnail.url }}"{% endif %}
         data-setup='{"fluid": true, "responsive": true}'>
         <source src="{{ training.video_file.url }}" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-      <a href="{% url 'training:training_display' %}" class="btn btn-secondary mb-3">&larr; Back to Lessons</a>
+      
+      <div class="mt-3">
+        <a href="{% url 'training:training_display' %}" class="btn btn-secondary">&larr; Back to Lessons</a>
+        
+        {% if request.user.is_staff %}
+          <hr class="my-3">
+          <p class="text-muted"><small><strong>Staff Actions:</strong></small></p>
+          <a href="{% url 'training:edit_training' training.id %}" class="btn btn-sm btn-primary">
+            <i class="fas fa-edit"></i> Edit Video
+          </a>
+          <a href="{% url 'training:delete_training' training.id %}" class="btn btn-sm btn-danger">
+            <i class="fas fa-trash"></i> Delete
+          </a>
+        {% endif %}
+      </div>
     </div>
     {% else %}
-    <p>No video available for this lesson.</p>
+    <div class="alert alert-warning">
+      <strong>No video available for this lesson.</strong>
+      {% if request.user.is_staff %}
+        <p class="mt-2">
+          <a href="{% url 'training:edit_training' training.id %}" class="btn btn-sm btn-primary">
+            <i class="fas fa-upload"></i> Upload Video
+          </a>
+        </p>
+      {% endif %}
+    </div>
+    <a href="{% url 'training:training_display' %}" class="btn btn-secondary">&larr; Back to Lessons</a>
     {% endif %}
 </div>
 {% endblock %}

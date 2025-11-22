@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .models import Product, ProductCategory
 from django.contrib.admin.views.decorators import staff_member_required
-from .forms import ProductStockUpdateForm
+from .forms import ProductStockUpdateForm, ProductForm
 from basket.models import Basket
 
 @staff_member_required
@@ -72,7 +72,7 @@ def category_products(request, category_slug):
         'page_obj': page_obj,
         'products_with_basket_info': products_with_basket_info,
     }
-    return render(request, '../templates/products/products_category.html', context)
+    return render(request, 'products/products_category.html', context)
 
 def products_display(request):
     """
@@ -150,7 +150,7 @@ def search(request):
         'search_term': query,
         'products_with_basket_info': products_with_basket_info,
     }
-    return render(request, '../templates/products/products_category.html', context)
+    return render(request, 'products/products_category.html', context)
 
 
 def product_detail(request, pk):
@@ -158,4 +158,71 @@ def product_detail(request, pk):
     Displays the detail view of a single product.
     """
     product = get_object_or_404(Product, pk=pk)
-    return render(request, '../templates/products/products_detail.html', {'product': product})
+    return render(request, 'products/products_detail.html', {'product': product})
+
+
+@staff_member_required
+def create_product(request):
+    """
+    View for staff to create a new product.
+    """
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            messages.success(request, f'Product "{product.name}" created successfully!')
+            return redirect('products:product_detail', pk=product.pk)
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = ProductForm()
+    
+    return render(request, 'products/product_form.html', {
+        'form': form,
+        'title': 'Create New Product',
+        'button_text': 'Create Product'
+    })
+
+
+@staff_member_required
+def edit_product(request, product_id):
+    """
+    View for staff to edit an existing product.
+    """
+    product = get_object_or_404(Product, id=product_id)
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            product = form.save()
+            messages.success(request, f'Product "{product.name}" updated successfully!')
+            return redirect('products:product_detail', pk=product.pk)
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = ProductForm(instance=product)
+    
+    return render(request, 'products/product_form.html', {
+        'form': form,
+        'product': product,
+        'title': f'Edit {product.name}',
+        'button_text': 'Update Product'
+    })
+
+
+@staff_member_required
+def delete_product(request, product_id):
+    """
+    View for staff to delete a product.
+    """
+    product = get_object_or_404(Product, id=product_id)
+    
+    if request.method == 'POST':
+        product_name = product.name
+        product.delete()
+        messages.success(request, f'Product "{product_name}" has been deleted.')
+        return redirect('products:stock_list')
+    
+    return render(request, 'products/product_confirm_delete.html', {
+        'product': product
+    })

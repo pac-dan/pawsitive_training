@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h3>Confirm Delete</h3>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to delete the training video:</p>
+                    <h4>"{{ training.title }}"</h4>
+                    
+                    {% if training.thumbnail %}
+                        <img src="{{ training.thumbnail.url }}" alt="{{ training.title }}" 
+                             class="img-fluid mt-3 mb-3" style="max-height: 200px;">
+                    {% endif %}
+                    
+                    <p class="text-muted">Category: {{ training.category.name|default:"Uncategorized" }}</p>
+                    <p class="text-muted">
+                        Access: 
+                        {% if training.is_free %}
+                            <span class="badge bg-success">Free</span>
+                        {% else %}
+                            <span class="badge bg-warning">Subscription Required</span>
+                        {% endif %}
+                    </p>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <strong>Warning:</strong> This action cannot be undone. The video file and thumbnail will be permanently deleted.
+                    </div>
+                    
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Yes, Delete Training Video</button>
+                        <a href="{% url 'training:training_list' %}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

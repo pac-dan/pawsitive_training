@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Training Video Management</h2>
+            <a href="{% url 'training:create_training' %}" class="btn btn-light">
+                <i class="fas fa-plus"></i> Add New Training Video
+            </a>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Order</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Free Access</th>
+                        <th>Has Video</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for training in trainings %}
+                    <tr>
+                        <td>{{ training.order }}</td>
+                        <td>
+                            <a href="{% url 'training:training_detail' training.pk %}">
+                                {{ training.title }}
+                            </a>
+                        </td>
+                        <td>{{ training.category.name|default:"Uncategorized" }}</td>
+                        <td>
+                            {% if training.is_free %}
+                                <span class="badge bg-success">Free</span>
+                            {% else %}
+                                <span class="badge bg-warning">Subscription Required</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if training.video_file %}
+                                <i class="fas fa-check-circle text-success"></i>
+                            {% else %}
+                                <i class="fas fa-times-circle text-danger"></i>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a href="{% url 'training:edit_training' training.id %}" 
+                                   class="btn btn-sm btn-outline-primary" 
+                                   title="Edit Training">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'training:delete_training' training.id %}" 
+                                   class="btn btn-sm btn-outline-danger" 
+                                   title="Delete Training">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            No training videos found. 
+                            <a href="{% url 'training:create_training' %}">Create your first training video</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

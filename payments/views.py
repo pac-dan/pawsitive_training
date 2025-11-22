@@ -17,6 +17,16 @@ def checkout(request):
     """
     basket_obj = Basket(request)
     
+    # Check if basket is empty
+    if len(basket_obj.basket) == 0:
+        messages.warning(request, 'Your basket is empty. Please add some items before checking out.')
+        return redirect('products:products_display')
+    
+    # Check if Stripe is configured
+    if not settings.STRIPE_PUBLISHABLE_KEY:
+        messages.error(request, 'Payment system is not configured. Please contact support.')
+        return redirect('basket_detail')
+    
     basket_items = []
     # Iterate over key-value pairs where key is product_id
     for product_id, item in basket_obj.basket.items():
@@ -39,11 +49,17 @@ def checkout(request):
     return render(request, 'payments/checkout.html', context)
 
 
-@csrf_exempt
 def create_checkout_session(request):
     """
     A view to create a new Checkout Session using the Stripe API.
     """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+    
+    # Check if Stripe is configured
+    if not settings.STRIPE_SECRET_KEY or not settings.STRIPE_PUBLISHABLE_KEY:
+        return JsonResponse({'error': 'Payment system is not configured. Please contact support.'}, status=500)
+    
     domain_url = request.build_absolute_uri('/')[:-1]
     try:
         basket_obj = Basket(request)

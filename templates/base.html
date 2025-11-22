@@ -116,8 +116,12 @@
                     {% if request.user.is_authenticated %}
                       <li><a href="{% url 'users:dashboard' %}" class="dropdown-item">My Profile</a></li>
                       {% if request.user.is_staff %}
-                        <li><a href="{% url 'products:stock_list' %}" class="dropdown-item">Product Management</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header">Staff Tools</h6></li>
+                        <li><a href="{% url 'products:stock_list' %}" class="dropdown-item">Manage Products</a></li>
+                        <li><a href="{% url 'training:training_list' %}" class="dropdown-item">Manage Training Videos</a></li>
                       {% endif %}
+                      <li><hr class="dropdown-divider"></li>
                       <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>
                     {% else %}
                       <li><a href="{% url 'account_signup' %}" class="dropdown-item">Register</a></li>

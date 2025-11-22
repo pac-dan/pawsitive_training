@@ -29,6 +29,10 @@ if os.path.exists(env_file):
 # SECURITY WARNING: Don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
+# Additional safety check - force DEBUG to False if not in development
+if 'heroku' in env('DATABASE_URL', default=''):
+    DEBUG = False
+
 # SECURITY WARNING: keep the secret key used in production secret!
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")

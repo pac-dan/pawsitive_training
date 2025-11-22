@@ -2,6 +2,9 @@ from django.db import models
 from django.utils.text import slugify
 
 class ProductCategory(models.Model):
+    """
+    Model to store product categories for organizing products.
+    """
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     
@@ -15,6 +18,9 @@ class ProductCategory(models.Model):
     
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural = "Product Categories"
 class Product(models.Model):
     """
     Model to store product details.

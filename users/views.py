@@ -9,6 +9,11 @@ from subscriptions.models import Subscription
 @login_required
 def profile_dashboard(request):
     """ A view to return the user's profile dashboard """
+    # Ensure the user has a profile
+    if not hasattr(request.user, 'profile'):
+        from .models import Profile
+        Profile.objects.create(user=request.user)
+    
     try:
         subscription = request.user.subscription
     except Subscription.DoesNotExist:

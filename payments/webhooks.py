@@ -2,6 +2,7 @@ import stripe
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from orders.models import Order
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
