@@ -125,19 +125,16 @@ def create_training(request):
         form = TrainingForm(request.POST, request.FILES)
         if form.is_valid():
             training = form.save(commit=False)
-            video_file = form.cleaned_data.get('video_file')
-            storage = (
-                video_file.storage
-                if video_file
-                else training.video_file.storage
-            )
-            print(
-                "STORAGE:",
-                getattr(storage, "__class__", storage).__name__,
-                getattr(storage, "bucket_name", ""),
-            )
             try:
+                storage = getattr(training.video_file, "storage", None)
+                if storage:
+                    print(
+                        "STORAGE:",
+                        storage.__class__.__name__,
+                        getattr(storage, "bucket_name", ""),
+                    )
                 training.save()
+                form.save_m2m()
                 print("Saved key:", training.video_file.name)
             except Exception as exc:
                 print("Save error:", exc)
