@@ -12,7 +12,10 @@ class PublicMediaStorage(S3Boto3Storage):
     querystring_auth = False
     default_acl = 'public-read'
     file_overwrite = False
-    custom_domain = None
+    object_parameters = {
+        'CacheControl': 'max-age=86400',
+        'ContentDisposition': 'inline',
+    }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
