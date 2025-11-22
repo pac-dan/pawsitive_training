@@ -20,8 +20,7 @@
         preload="auto"
         width="640"
         height="360"
-        {% if training.thumbnail %}poster="{{ training.thumbnail.url }}"{% endif %}
-        data-setup='{"fluid": true, "responsive": true}'>
+        {% if training.thumbnail %}poster="{{ training.thumbnail.url }}"{% endif %}>
         <source src="{{ training.video_file.url }}" type="video/mp4">
         Your browser does not support the video tag.
       </video>
