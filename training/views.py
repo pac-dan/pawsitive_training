@@ -124,7 +124,24 @@ def create_training(request):
     if request.method == 'POST':
         form = TrainingForm(request.POST, request.FILES)
         if form.is_valid():
-            training = form.save()
+            training = form.save(commit=False)
+            video_file = form.cleaned_data.get('video_file')
+            storage = (
+                video_file.storage
+                if video_file
+                else training.video_file.storage
+            )
+            print(
+                "STORAGE:",
+                getattr(storage, "__class__", storage).__name__,
+                getattr(storage, "bucket_name", ""),
+            )
+            try:
+                training.save()
+                print("Saved key:", training.video_file.name)
+            except Exception as exc:
+                print("Save error:", exc)
+                raise
             messages.success(
                 request, 
                 f'Training video "{training.title}" created successfully!'
