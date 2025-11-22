@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-from django.core.files.storage import default_storage
+from storages.backends.s3boto3 import S3Boto3Storage
 
 class TrainingCategory(models.Model):
     """
@@ -30,14 +30,14 @@ class Training(models.Model):
     description = models.TextField()
     video_file = models.FileField(
         upload_to='training/videos/',
-        storage=default_storage,
+        storage=S3Boto3Storage(),
         blank=True,
         null=True,
         help_text="Upload training video file"
     )
     thumbnail = models.ImageField(
         upload_to='training/thumbnails/',
-        storage=default_storage,
+        storage=S3Boto3Storage(),
         blank=True,
         null=True,
         help_text="Upload video thumbnail image"
