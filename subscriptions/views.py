@@ -1,3 +1,4 @@
+# Immediate subscription activation implemented
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Subscription
@@ -76,8 +77,34 @@ def create_subscription_checkout(request):
 def subscription_success(request):
     """
     Renders a success page after a successful subscription purchase.
-    Note: In production, subscription status should be updated via Stripe webhooks.
+    Immediately activates the subscription since we're in test mode.
     """
+    try:
+        # Get or create subscription and immediately activate it
+        subscription, created = Subscription.objects.get_or_create(
+            user=request.user,
+            defaults={
+                'active': True,
+                'start_date': timezone.now(),
+                'expiry_date': timezone.now() + timedelta(days=30),
+                'subscription_type': 'monthly'  # Default to monthly
+            }
+        )
+
+        # If subscription already existed but wasn't active, activate it now
+        if not subscription.active:
+            subscription.active = True
+            subscription.start_date = timezone.now()
+            subscription.expiry_date = timezone.now() + timedelta(days=30)
+            subscription.save()
+
+        print(f"Immediate activation: {'Created' if created else 'Activated'} subscription for user {request.user.username}")
+
+    except Exception as e:
+        print(f"Error activating subscription: {str(e)}")
+        import traceback
+        traceback.print_exc()
+
     return render(request, 'subscriptions/success.html')
 
 @csrf_exempt
@@ -106,26 +133,35 @@ def stripe_subscription_webhook(request):
         metadata = subscription_event.get('metadata', {})
         user_id = metadata.get('user_id')
         order_id = metadata.get('order_id')
-        
+
+        print(f"Processing subscription event: user_id={user_id}, order_id={order_id}")
+        print(f"Subscription status: {subscription_event.get('status')}")
+
         if user_id and order_id:
             try:
                 user = User.objects.get(id=user_id)
                 order = Order.objects.get(id=order_id)
-                
+
                 # Update the subscription
                 sub, created = Subscription.objects.get_or_create(user=user)
                 sub.stripe_subscription_id = subscription_event['id']
                 sub.active = True
                 sub.start_date = timezone.now()
-                sub.expiry_date = timezone.now() + timedelta(days=30)
+                # Set expiry based on subscription type if available
+                if metadata.get('subscription_type') == 'yearly':
+                    sub.expiry_date = timezone.now() + timedelta(days=365)
+                else:
+                    sub.expiry_date = timezone.now() + timedelta(days=30)
                 sub.save()
-                
+
                 # Update the order status
                 order.status = "paid"
                 order.save()
-                print(f"Updated order {order_id} status to paid")
+                print(f"Successfully activated subscription for user {user.username}, order {order_id}")
             except Exception as e:
                 print(f"Error processing subscription webhook: {str(e)}")
+                import traceback
+                traceback.print_exc()
                 return HttpResponse(status=400)
 
     # Handle subscription deletion events
@@ -138,8 +174,11 @@ def stripe_subscription_webhook(request):
                 sub = user.subscription
                 sub.active = False
                 sub.save()
+                print(f"Deactivated subscription for user {user.username}")
             except Exception as e:
                 print(f"Error processing subscription deletion: {str(e)}")
+                import traceback
+                traceback.print_exc()
                 return HttpResponse(status=400)
 
     return HttpResponse(status=200)
