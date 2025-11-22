@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.core.files.storage import default_storage
 
 class TrainingCategory(models.Model):
     """
@@ -28,14 +29,16 @@ class Training(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     video_file = models.FileField(
-        upload_to='training/videos/', 
-        blank=True, 
+        upload_to='training/videos/',
+        storage=default_storage,
+        blank=True,
         null=True,
         help_text="Upload training video file"
     )
     thumbnail = models.ImageField(
-        upload_to='training/thumbnails/', 
-        blank=True, 
+        upload_to='training/thumbnails/',
+        storage=default_storage,
+        blank=True,
         null=True,
         help_text="Upload video thumbnail image"
     )
