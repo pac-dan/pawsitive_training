@@ -653,6 +653,21 @@ JavaScript code was validated using JSHint.
 
 **Current Status:** ✅ All JavaScript files pass validation with no errors
 
+#### CSS Validation :
+
+CSS code was validated using the **W3C CSS Validator (Jigsaw)**.
+
+**Files Validated:**
+- static/css/base.css - ✅ Valid CSS3
+- static/css/basket.css - ✅ Valid CSS3
+- static/css/allauth.css - ✅ Valid CSS3
+
+**Validation Method:**
+- Direct input validation via https://jigsaw.w3.org/css-validator/
+- CSS Level 3 + SVG profile
+
+**Current Status:** ✅ All CSS files validated successfully with no errors
+
 #### HTML Validation :
 
 HTML validation was performed using the **W3C Markup Validator** on the live site.
@@ -746,6 +761,54 @@ Through these webhook handlers, the pawsitive_training project ensures that any 
 
 ### Testing django views, models and forms.
 
+The project includes comprehensive automated tests using Django's testing framework to ensure code quality and functionality.
+
+**Test Coverage:**
+- ✅ **Basket App** (`basket/tests.py`): 5 tests
+  - Add to basket functionality
+  - Basket length calculation
+  - Total price calculation
+  - Remove from basket
+  - Update quantity
+
+- ✅ **Products App** (`products/tests.py`): 1 test
+  - Product model string representation
+
+- ✅ **Orders App** (`orders/tests.py`): 1 test
+  - Order model string representation
+
+- ✅ **Training App** (`training/tests.py`): 3 tests
+  - Training category creation and slug generation
+  - Training lesson creation
+  - Training ordering
+
+- ✅ **Payments App** (`payments/tests.py`): 2 tests
+  - Checkout authentication requirements
+  - Payment success workflow
+
+- ✅ **Newsletter App** (`newsletter/tests.py`): 2 tests
+  - Newsletter app configuration
+  - Newsletter form accessibility
+
+**Running Tests:**
+```bash
+python manage.py test
+```
+
+**Test Results:**
+```
+Creating test database for alias 'default'...
+Found 14 test(s).
+System check identified no issues (0 silenced).
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 1.561s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+All 14 automated tests pass successfully, ensuring core functionality remains stable across updates.
 
 [Return to top](#pawsitive_training)
 
