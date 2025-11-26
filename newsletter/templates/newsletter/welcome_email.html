@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Pawsitive Training</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px 30px;
+            color: #333333;
+        }
+        .content h2 {
+            color: #667eea;
+            font-size: 24px;
+            margin-top: 0;
+        }
+        .benefits {
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .benefits ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .benefits li {
+            margin: 12px 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .benefit-icon {
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .cta-container {
+            text-align: center;
+            margin: 35px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            margin: 10px;
+            background-color: #667eea;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #5568d3;
+        }
+        .cta-button-secondary {
+            background-color: #28a745;
+        }
+        .cta-button-secondary:hover {
+            background-color: #218838;
+        }
+        .footer {
+            background-color: #333333;
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 30px 0;
+        }
+        .emoji {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="emoji">🐾</div>
+            <h1>Welcome to Pawsitive Training!</h1>
+            <p>Great Products, Online Learning</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <h2>Hello there! 👋</h2>
+            <p>Thank you for subscribing to the <strong>Pawsitive Training newsletter</strong>! We're thrilled to have you join our community of passionate pet owners and trainers.</p>
+
+            <!-- Benefits Section -->
+            <div class="benefits">
+                <h3 style="margin-top: 0; color: #333;">What You'll Get:</h3>
+                <ul>
+                    <li><span class="benefit-icon">🎓</span> <strong>Expert Training Tips</strong> - Professional advice to help train your furry friends</li>
+                    <li><span class="benefit-icon">💰</span> <strong>Exclusive Discounts</strong> - Special offers on training products just for subscribers</li>
+                    <li><span class="benefit-icon">📹</span> <strong>Early Access</strong> - Be the first to see our new training videos</li>
+                    <li><span class="benefit-icon">🐕</span> <strong>Pet Care Advice</strong> - Health and wellness tips from our experts</li>
+                </ul>
+            </div>
+
+            <p>Whether you're a first-time pet owner or an experienced trainer, we've got something special for everyone. Our mission is to help you build a stronger bond with your pets through positive training methods.</p>
+
+            <div class="divider"></div>
+
+            <p style="text-align: center; font-size: 18px; color: #667eea; font-weight: bold;">Ready to get started?</p>
+
+            <!-- Call to Action Buttons -->
+            <div class="cta-container">
+                <a href="https://pawsitive-training-8b1237150b97.herokuapp.com/products/" class="cta-button">
+                    🛍️ Shop Products
+                </a>
+                <a href="https://pawsitive-training-8b1237150b97.herokuapp.com/training/" class="cta-button cta-button-secondary">
+                    📚 Watch Training Videos
+                </a>
+            </div>
+
+            <p style="text-align: center; color: #666; font-size: 14px; margin-top: 30px;">
+                We're excited to be part of your pet training journey!
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Pawsitive Training</strong></p>
+            <p>Great Products, Online Learning</p>
+            <p style="margin-top: 20px;">
+                <a href="https://pawsitive-training-8b1237150b97.herokuapp.com/">Visit Our Website</a> | 
+                <a href="https://www.facebook.com/profile.php?id=61574171532774">Follow Us on Facebook</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">
+                You received this email because you subscribed to our newsletter.<br>
+                To unsubscribe, please contact us at {{ from_email }}
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,23 +1,26 @@
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.template.loader import render_to_string
 from .forms import NewsletterSignupForm
 
 
 def subscribe(request):
     """
-    View to handle newsletter subscriptions with automated welcome email.
+    View to handle newsletter subscriptions with automated HTML welcome email.
     """
     if request.method == 'POST':
         form = NewsletterSignupForm(request.POST)
         if form.is_valid():
             subscriber = form.save()
             
-            # Send welcome email
+            # Send welcome email (HTML + plain text)
             try:
-                subject = 'Welcome to Pawsitive Training Newsletter!'
-                message = f"""Hello!
+                subject = 'Welcome to Pawsitive Training Newsletter! 🐾'
+                
+                # Plain text version (fallback)
+                text_content = f"""Hello!
 
 Thank you for subscribing to the Pawsitive Training newsletter!
 
@@ -29,21 +32,32 @@ You'll receive:
 
 We're excited to have you in our community!
 
+Visit us: https://pawsitive-training-8b1237150b97.herokuapp.com
+Shop Products: https://pawsitive-training-8b1237150b97.herokuapp.com/products/
+Watch Training Videos: https://pawsitive-training-8b1237150b97.herokuapp.com/training/
+
 Best regards,
 The Pawsitive Training Team
 
 ---
-Visit us: https://pawsitive-training-8b1237150b97.herokuapp.com
 To unsubscribe, contact us at {settings.DEFAULT_FROM_EMAIL}
 """
                 
-                send_mail(
+                # HTML version
+                html_content = render_to_string('newsletter/welcome_email.html', {
+                    'subscriber_email': subscriber.email,
+                    'from_email': settings.DEFAULT_FROM_EMAIL,
+                })
+                
+                # Create email with both versions
+                email = EmailMultiAlternatives(
                     subject=subject,
-                    message=message,
+                    body=text_content,
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[subscriber.email],
-                    fail_silently=False,
+                    to=[subscriber.email],
                 )
+                email.attach_alternative(html_content, "text/html")
+                email.send(fail_silently=False)
                 
                 messages.success(
                     request,
