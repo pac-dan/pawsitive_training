@@ -68,6 +68,55 @@ The online store is designed to streamline the purchase process by minimizing fr
 
 ## Web Marketing
 
+The Pawsitive Training project employs a multi-channel B2C marketing strategy to reach pet owners:
+
+### Social Media Marketing
+- **Facebook Business Page**: [Pawsitive Training on Facebook](https://www.facebook.com/profile.php?id=61574171532774)
+  - Regular posts featuring training tips and product highlights
+  - Community engagement with pet owners
+  - Targeted advertising to reach local and regional pet owners
+  - User-generated content showcasing training success stories
+
+### Email Marketing
+- **Newsletter Subscription** (MailChimp Integration):
+  - Signup form integrated into website footer
+  - Welcome series for new subscribers
+  - Monthly newsletters with training tips and product offers
+  - Exclusive subscriber discounts and early access to new content
+  - Segmented campaigns for product buyers vs. subscription members
+
+### SEO Strategy
+- Targeted keywords focusing on "pet training", "dog training", "online pet training"
+- Long-tail keywords: "affordable pet training", "pet training shop"
+- Meta descriptions optimized for search engines
+- Sitemap.xml and robots.txt implemented for better crawlability
+- Descriptive image alt tags and semantic HTML structure
+
+### Content Marketing
+- Free training video lessons to attract and engage users
+- Subscription model for premium content creates recurring revenue
+- Blog-style product descriptions that provide value beyond selling
+
+### Target Audience
+- **Primary**: Dog owners seeking training solutions (ages 25-55)
+- **Secondary**: First-time pet owners needing guidance and products
+- **Geographic**: Initially UK and Ireland, expandable to US market
+
+### Customer Acquisition Strategy
+1. Offer free trial lessons to demonstrate value
+2. Social proof through Facebook community engagement
+3. Email nurture campaigns to convert free users to subscribers
+4. Cross-sell products to subscription members
+5. Referral incentives for existing customers
+
+### Pricing Strategy
+- **Freemium Model**: Free lessons build trust and showcase expertise
+- **Subscription Tiers**: Monthly and yearly options for video access
+- **Product Sales**: One-time purchases with competitive pricing
+- **Bundle Opportunities**: Subscription + product packages at discounted rates
+
+This integrated approach combines digital marketing best practices with the specific needs of the pet training market, creating multiple touchpoints for customer engagement and conversion.
+
 ---
 
 ## Features
@@ -567,9 +616,42 @@ For staff-related sections (like the Product List and Order Detail pages, which 
 
 ### Code Validation
 
-#### Python code : 
+#### Python code :
+
+Python code was validated using Flake8 with a maximum line length of 120 characters.
+
+**Validation Results:**
+- All Python files were checked excluding venv and migrations folders
+- Minor PEP8 violations were identified and corrected:
+  - Trailing whitespace in settings.py (3 instances) - **FIXED**
+  - Line length violations in newsletter/views.py - **FIXED**
+  - Missing blank lines before function definitions - **FIXED**
+
+**Current Status:** ✅ All critical PEP8 violations resolved
+
+**Command used:**
+```bash
+flake8 . --exclude=venv,migrations --max-line-length=120
+```
 
 #### JavaScript code :
+
+JavaScript code was validated using JSHint.
+
+**Files Validated:**
+- static/js/checkout.js - ✅ No errors
+- static/js/basket.js - ✅ No errors
+
+**JSHint Configuration (.jshintrc):**
+```json
+{
+  "esversion": 6,
+  "jquery": true,
+  "browser": true
+}
+```
+
+**Current Status:** ✅ All JavaScript files pass validation with no errors
 
 #### HTML Validation :
 

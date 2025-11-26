@@ -19,7 +19,13 @@
         <p><strong>Location:</strong> {{ profile.location|default:"Not specified" }}</p>
         <p><strong>Birth Date:</strong> {{ profile.birth_date|date:"M d, Y" }}</p>
         <p><strong>Profile Picture:</strong></p>
-        <img src="{{ profile.image.url }}" alt="{{ request.user.username }}'s Profile Picture" class="img-fluid rounded mb-3" style="max-width: 200px;">
+        {% if profile.image %}
+            <img src="{{ profile.image.url }}" alt="{{ request.user.username }}'s Profile Picture" class="img-fluid rounded mb-3" style="max-width: 200px;">
+        {% else %}
+            <div class="bg-light rounded d-flex align-items-center justify-content-center mb-3" style="width: 200px; height: 200px;">
+                <i class="fas fa-user fa-5x text-muted"></i>
+            </div>
+        {% endif %}
         <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
       </div>
     </div>
