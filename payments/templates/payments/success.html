@@ -2,9 +2,79 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-  <h2>Payment Successful</h2>
-  <p>Thank you for your purchase. Your payment has been processed successfully.</p>
-  <a href="{% url 'products:products_display' %}" class="btn btn-primary">Back to Store</a>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-success text-white text-center">
+          <h2><i class="fas fa-check-circle"></i> Payment Successful</h2>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-success">
+            <p class="mb-0">Thank you for your order! Your payment has been processed successfully.</p>
+            <p class="mb-0">A confirmation email has been sent to your email address.</p>
+          </div>
+
+          {% if order %}
+          <div class="mt-4">
+            <h4>Order Details</h4>
+            <div class="mb-3">
+              <p><strong>Order Number:</strong> {{ order.stripe_checkout_session_id }}</p>
+              <p><strong>Order Date:</strong> {{ order.created|date:"F d, Y" }} at {{ order.created|time:"g:i A" }}</p>
+              <p><strong>Status:</strong> <span class="badge bg-success">{{ order.status|title }}</span></p>
+            </div>
+
+            <h5 class="mt-4">Items Ordered</h5>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in order.items.all %}
+                  <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                    <td>${{ item.item_total }}</td>
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td><strong>${{ order.amount }}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {% if order.shipping_address %}
+            <div class="mt-4">
+              <h5>Shipping Address</h5>
+              <div class="card">
+                <div class="card-body">
+                  {{ order.shipping_address|linebreaks }}
+                </div>
+              </div>
+              <p class="text-muted mt-2"><small>Your order will be shipped to this address within 3-5 business days.</small></p>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          <div class="mt-4 text-center">
+            <a href="{% url 'products:products_display' %}" class="btn btn-primary">Continue Shopping</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'users:dashboard' %}" class="btn btn-outline-secondary">View Order History</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

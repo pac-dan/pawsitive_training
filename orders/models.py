@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from products.models import Product
 
 
 class Order(models.Model):
@@ -15,21 +16,18 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, default="pending")
 
-    # Payment tracking
     payment_confirmed = models.BooleanField(
         default=False,
         help_text="Set to True when payment is confirmed via webhook"
     )
 
-    # Shipping information
     shipping_address = models.TextField(blank=True, null=True, help_text="Full shipping address")
     billing_address = models.TextField(blank=True, null=True, help_text="Full billing address")
+    customer_email = models.EmailField(blank=True, null=True)
 
-    # Additional costs
     shipping_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
-    # Order fulfillment
     shipped = models.BooleanField(default=False)
     tracking_number = models.CharField(max_length=100, blank=True, null=True)
 
@@ -38,5 +36,18 @@ class Order(models.Model):
 
     @property
     def total_amount(self):
-        """Calculate total amount including shipping and tax"""
         return self.amount + self.shipping_cost + self.tax_amount
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name}"
+
+    @property
+    def item_total(self):
+        return self.price * self.quantity

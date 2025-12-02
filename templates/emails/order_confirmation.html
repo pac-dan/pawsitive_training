@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #17a2b8; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background-color: #f8f9fa; }
+        .order-details { background-color: white; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .item { padding: 10px 0; border-bottom: 1px solid #dee2e6; }
+        .total { font-size: 18px; font-weight: bold; margin-top: 15px; padding-top: 15px; border-top: 2px solid #17a2b8; }
+        .footer { text-align: center; padding: 20px; color: #6c757d; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Order Confirmation</h1>
+        </div>
+        
+        <div class="content">
+            <p>Thank you for your order!</p>
+            
+            <div class="order-details">
+                <h3>Order Details</h3>
+                <p><strong>Order Number:</strong> {{ order.stripe_checkout_session_id }}</p>
+                <p><strong>Order Date:</strong> {{ order.created|date:"F d, Y" }} at {{ order.created|time:"g:i A" }}</p>
+                <p><strong>Status:</strong> {{ order.status|title }}</p>
+            </div>
+            
+            <div class="order-details">
+                <h3>Items Ordered</h3>
+                {% for item in order.items.all %}
+                <div class="item">
+                    <strong>{{ item.product.name }}</strong><br>
+                    Quantity: {{ item.quantity }} × ${{ item.price }} = <strong>${{ item.item_total }}</strong>
+                </div>
+                {% endfor %}
+                
+                <div class="total">
+                    Total: ${{ order.amount }}
+                </div>
+            </div>
+            
+            {% if order.shipping_address %}
+            <div class="order-details">
+                <h3>Shipping Address</h3>
+                <p>{{ order.shipping_address|linebreaks }}</p>
+            </div>
+            {% endif %}
+            
+            <p>We'll send you another email when your order ships.</p>
+            <p>You can view your order history by logging into your account.</p>
+        </div>
+        
+        <div class="footer">
+            <p>Thank you for shopping with Pawsitive Training!</p>
+            <p><a href="https://pawsitive-training-8b1237150b97.herokuapp.com">Visit Our Store</a></p>
+        </div>
+    </div>
+</body>
+</html>
+

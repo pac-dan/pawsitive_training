@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Order
+from .models import Order, OrderItem
+
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0
+    readonly_fields = ('product', 'quantity', 'price', 'item_total')
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -14,6 +20,7 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ('stripe_checkout_session_id', 'user__username', 'user__email', 'tracking_number')
     ordering = ('-created',)
     readonly_fields = ('stripe_checkout_session_id', 'created', 'total_amount')
+    inlines = [OrderItemInline]
 
     fieldsets = (
         ('Order Information', {

@@ -7,7 +7,8 @@ from django.contrib import messages
 import stripe
 import uuid
 from basket.models import Basket
-from orders.models import Order
+from orders.models import Order, OrderItem
+from orders.utils import send_order_confirmation_email
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -83,7 +84,6 @@ def create_checkout_session(request):
         # Use the primary key as the order identifier
         metadata['order_id'] = str(order.id)
 
-        # Create a new Checkout Session using the Stripe API
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
@@ -100,7 +100,7 @@ def create_checkout_session(request):
             shipping_address_collection={
                 'allowed_countries': ['US', 'GB', 'IE']
             },
-            success_url=domain_url + reverse('payments:payment-success'),
+            success_url=domain_url + reverse('payments:payment-success') + '?session_id={CHECKOUT_SESSION_ID}',
             cancel_url=domain_url + reverse('payments:payment-cancel'),
             metadata=metadata,
         )
@@ -116,20 +116,70 @@ def payment_success(request):
     """
     A view to handle a successful payment.
     """
-    basket_obj = Basket(request)
+    session_id = request.GET.get('session_id')
+    order = None
 
-    # Update the stock level of each product in the basket
-    for item in basket_obj:
-        product = item['product']
-        quantity_purchased = item['quantity']
+    if session_id:
+        try:
+            session = stripe.checkout.Session.retrieve(
+                session_id,
+                expand=['customer', 'shipping_details']
+            )
 
-        product.stock = max(product.stock - quantity_purchased, 0)
-        product.save()
+            order_id = session.metadata.get('order_id')
+            if order_id:
+                order = Order.objects.get(id=order_id)
 
-    basket_obj.clear()  # Clear the basket after processing
+                if not order.payment_confirmed:
+                    basket_obj = Basket(request)
+
+                    for item in basket_obj:
+                        product = item['product']
+                        quantity = item['quantity']
+
+                        OrderItem.objects.create(
+                            order=order,
+                            product=product,
+                            quantity=quantity,
+                            price=product.price
+                        )
+
+                        product.stock = max(product.stock - quantity, 0)
+                        product.save()
+
+                    if session.shipping_details:
+                        address_parts = []
+                        if session.shipping_details.get('name'):
+                            address_parts.append(session.shipping_details['name'])
+                        addr = session.shipping_details.get('address', {})
+                        if addr.get('line1'):
+                            address_parts.append(addr['line1'])
+                        if addr.get('line2'):
+                            address_parts.append(addr['line2'])
+                        if addr.get('city'):
+                            address_parts.append(addr['city'])
+                        if addr.get('state'):
+                            address_parts.append(addr['state'])
+                        if addr.get('postal_code'):
+                            address_parts.append(addr['postal_code'])
+                        if addr.get('country'):
+                            address_parts.append(addr['country'])
+
+                        order.shipping_address = '\n'.join(address_parts)
+
+                    order.customer_email = session.customer_details.get('email', '')
+                    order.payment_confirmed = True
+                    order.status = 'paid'
+                    order.save()
+
+                    send_order_confirmation_email(order)
+                    basket_obj.clear()
+
+        except Exception as e:
+            print(f"Error processing payment success: {e}")
 
     messages.success(request, "Your payment was successful and your order has been placed!")
-    return render(request, 'payments/success.html')
+    return render(request, 'payments/success.html', {'order': order})
 
 
 def payment_cancel(request):
