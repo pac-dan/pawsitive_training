@@ -8,6 +8,7 @@ SUBSCRIPTION_CHOICES = (
     ('yearly', 'Yearly'),
 )
 
+
 class Subscription(models.Model):
     """
     Model to store user subscriptions.

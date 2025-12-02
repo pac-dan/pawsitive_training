@@ -1,5 +1,6 @@
 from django import forms
-from .models import Product, ProductCategory
+from .models import Product
+
 
 class ProductStockUpdateForm(forms.ModelForm):
     """
@@ -10,7 +11,7 @@ class ProductStockUpdateForm(forms.ModelForm):
         fields = ['stock']
         widgets = {
             'stock': forms.NumberInput(attrs={
-                'class': 'form-control', 
+                'class': 'form-control',
                 'min': 0,
                 'placeholder': 'Enter stock quantity'
             }),
@@ -78,14 +79,14 @@ class ProductForm(forms.ModelForm):
             'price': 'Product price in USD',
             'sku': 'Stock Keeping Unit (optional)',
         }
-    
+
     def clean_price(self):
         """Ensure price is positive."""
         price = self.cleaned_data.get('price')
         if price and price < 0:
             raise forms.ValidationError('Price cannot be negative.')
         return price
-    
+
     def clean_stock(self):
         """Ensure stock is not negative."""
         stock = self.cleaned_data.get('stock')

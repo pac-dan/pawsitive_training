@@ -2,6 +2,7 @@ from django.test import TestCase, RequestFactory
 from products.models import Product, ProductCategory
 from basket import Basket
 
+
 class BasketTest(TestCase):
     def setUp(self):
         """
@@ -16,7 +17,7 @@ class BasketTest(TestCase):
             category=self.category,
             stock=10
         )
-    
+
     def test_add_to_basket(self):
         """
         Test adding a product to the basket.
@@ -27,7 +28,7 @@ class BasketTest(TestCase):
         basket.add(product=self.product, quantity=2, update_quantity=False)
         self.assertIn(str(self.product.id), basket.basket)
         self.assertEqual(basket.basket[str(self.product.id)]['quantity'], 2)
-    
+
     def test_remove_from_basket(self):
         """
         Test removing a product from the basket.

@@ -7,6 +7,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .forms import ProductStockUpdateForm, ProductForm
 from basket.models import Basket
 
+
 @staff_member_required
 def update_stock(request, product_id):
     """
@@ -23,13 +24,14 @@ def update_stock(request, product_id):
             form.save()
             messages.success(request, "Stock updated successfully!")
             return redirect('products:stock_list')
-        
+
         # If the form is invalid, display an error message.
         else:
             messages.error(request, "Please correct the errors below.")
     else:
         form = ProductStockUpdateForm(instance=product)
     return render(request, 'products/update_stock.html', {'form': form, 'product': product})
+
 
 @staff_member_required
 def stock_list(request):
@@ -39,6 +41,7 @@ def stock_list(request):
     products = Product.objects.all()
     return render(request, 'products/stock_list.html', {'products': products})
 
+
 def category_products(request, category_slug):
     """
     Displays a paginated list of products for a given category.
@@ -46,33 +49,34 @@ def category_products(request, category_slug):
 
     # Get the category object based on the slug.
     category = get_object_or_404(ProductCategory, slug=category_slug)
-    products = category.products.all() 
-    paginator = Paginator(products, 8)  
+    products = category.products.all()
+    paginator = Paginator(products, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     # Get basket information for each product
     basket = Basket(request)
     products_with_basket_info = []
-    
+
     for product in page_obj:
         product_id_str = str(product.id)
         current_quantity = basket.basket.get(product_id_str, {}).get('quantity', 0)
         can_add_more = current_quantity < product.stock
-        
+
         products_with_basket_info.append({
             'product': product,
             'current_basket_quantity': current_quantity,
             'can_add_more': can_add_more,
             'available_to_add': product.stock - current_quantity
         })
-    
+
     context = {
         'category': category,
         'page_obj': page_obj,
         'products_with_basket_info': products_with_basket_info,
     }
     return render(request, 'products/products_category.html', context)
+
 
 def products_display(request):
     """
@@ -84,28 +88,29 @@ def products_display(request):
     paginator = Paginator(products, 8)  # 8 products per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     # Get basket information for each product
     basket = Basket(request)
     products_with_basket_info = []
-    
+
     for product in page_obj:
         product_id_str = str(product.id)
         current_quantity = basket.basket.get(product_id_str, {}).get('quantity', 0)
         can_add_more = current_quantity < product.stock
-        
+
         products_with_basket_info.append({
             'product': product,
             'current_basket_quantity': current_quantity,
             'can_add_more': can_add_more,
             'available_to_add': product.stock - current_quantity
         })
-    
+
     context = {
         'page_obj': page_obj,
         'products_with_basket_info': products_with_basket_info,
     }
     return render(request, 'products/products_display.html', context)
+
 
 def search(request):
     """
@@ -113,7 +118,7 @@ def search(request):
     """
     query = None
     products = Product.objects.all()
-    
+
     # Check if a search query exists and is non-empty.
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
@@ -123,28 +128,28 @@ def search(request):
     elif 'q' in request.GET:
         messages.error(request, "You didn't enter any search criteria!")
         return redirect(reverse('products:products_display'))
-    
+
     # Paginate the filtered products (8 per page).
     paginator = Paginator(products, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     # Get basket information for each product
     basket = Basket(request)
     products_with_basket_info = []
-    
+
     for product in page_obj:
         product_id_str = str(product.id)
         current_quantity = basket.basket.get(product_id_str, {}).get('quantity', 0)
         can_add_more = current_quantity < product.stock
-        
+
         products_with_basket_info.append({
             'product': product,
             'current_basket_quantity': current_quantity,
             'can_add_more': can_add_more,
             'available_to_add': product.stock - current_quantity
         })
-    
+
     context = {
         'page_obj': page_obj,
         'search_term': query,
@@ -176,7 +181,7 @@ def create_product(request):
             messages.error(request, 'Please correct the errors below.')
     else:
         form = ProductForm()
-    
+
     return render(request, 'products/product_form.html', {
         'form': form,
         'title': 'Create New Product',
@@ -190,7 +195,7 @@ def edit_product(request, product_id):
     View for staff to edit an existing product.
     """
     product = get_object_or_404(Product, id=product_id)
-    
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
@@ -201,7 +206,7 @@ def edit_product(request, product_id):
             messages.error(request, 'Please correct the errors below.')
     else:
         form = ProductForm(instance=product)
-    
+
     return render(request, 'products/product_form.html', {
         'form': form,
         'product': product,
@@ -216,13 +221,13 @@ def delete_product(request, product_id):
     View for staff to delete a product.
     """
     product = get_object_or_404(Product, id=product_id)
-    
+
     if request.method == 'POST':
         product_name = product.name
         product.delete()
         messages.success(request, f'Product "{product_name}" has been deleted.')
         return redirect('products:stock_list')
-    
+
     return render(request, 'products/product_confirm_delete.html', {
         'product': product
     })

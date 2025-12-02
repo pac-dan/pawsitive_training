@@ -13,7 +13,7 @@ def profile_dashboard(request):
     if not hasattr(request.user, 'profile'):
         from .models import Profile
         Profile.objects.create(user=request.user)
-    
+
     try:
         subscription = request.user.subscription
     except Subscription.DoesNotExist:
@@ -23,17 +23,18 @@ def profile_dashboard(request):
     subscription_active = subscription.is_active() if subscription else False
     orders = Order.objects.filter(user=request.user).order_by('-created')
     context = {
-        'profile': request.user.profile, 
+        'profile': request.user.profile,
         'subscription': subscription,
         'subscription_active': subscription_active,
         'orders': orders,
     }
     return render(request, 'users/dashboard.html', context)
 
+
 @login_required
 def edit_profile(request):
     """ A view to handle the user's profile editing """
-    
+
     # Check if the user has an active subscription
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
@@ -45,5 +46,5 @@ def edit_profile(request):
             messages.error(request, 'Please correct the errors below.')
     else:
         form = ProfileForm(instance=request.user.profile)
-    
+
     return render(request, 'users/edit_profile.html', {'form': form})

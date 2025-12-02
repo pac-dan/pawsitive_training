@@ -14,11 +14,11 @@ def subscribe(request):
         form = NewsletterSignupForm(request.POST)
         if form.is_valid():
             subscriber = form.save()
-            
+
             # Send welcome email (HTML + plain text)
             try:
                 subject = 'Welcome to Pawsitive Training Newsletter! 🐾'
-                
+
                 # Plain text version (fallback)
                 text_content = f"""Hello!
 
@@ -42,13 +42,13 @@ The Pawsitive Training Team
 ---
 To unsubscribe, contact us at {settings.DEFAULT_FROM_EMAIL}
 """
-                
+
                 # HTML version
                 html_content = render_to_string('newsletter/welcome_email.html', {
                     'subscriber_email': subscriber.email,
                     'from_email': settings.DEFAULT_FROM_EMAIL,
                 })
-                
+
                 # Create email with both versions
                 email = EmailMultiAlternatives(
                     subject=subject,
@@ -58,7 +58,7 @@ To unsubscribe, contact us at {settings.DEFAULT_FROM_EMAIL}
                 )
                 email.attach_alternative(html_content, "text/html")
                 email.send(fail_silently=False)
-                
+
                 messages.success(
                     request,
                     "Thank you for subscribing! Check your inbox for a welcome email."

@@ -8,6 +8,7 @@ from subscriptions.models import Subscription
 from django.contrib.admin.views.decorators import staff_member_required
 from .forms import TrainingForm
 
+
 def category_trainings(request, category_slug):
     """
     Displays a paginated list of training videos for a given category.
@@ -15,18 +16,24 @@ def category_trainings(request, category_slug):
 
     # Get the category object based on the slug.
     category = get_object_or_404(TrainingCategory, slug=category_slug)
-    trainings = category.trainings.all()  
-    paginator = Paginator(trainings, 8)  
+    trainings = category.trainings.all()
+    paginator = Paginator(trainings, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     # Check if the user has an active subscription.
+    has_subscription = (
+        request.user.subscription.is_active()
+        if request.user.is_authenticated and hasattr(request.user, 'subscription')
+        else False
+    )
     context = {
         'category': category,
         'page_obj': page_obj,
-        'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
+        'has_subscription': has_subscription,
     }
     return render(request, 'training/category_trainings.html', context)
+
 
 def training_display(request):
     """
@@ -38,11 +45,16 @@ def training_display(request):
     paginator = Paginator(trainings, 8)  # 8 training videos per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     # Check if the user has an active subscription.
+    has_subscription = (
+        request.user.subscription.is_active()
+        if request.user.is_authenticated and hasattr(request.user, 'subscription')
+        else False
+    )
     context = {
         'page_obj': page_obj,
-        'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
+        'has_subscription': has_subscription,
     }
     return render(request, 'training/training_display.html', context)
 
@@ -64,17 +76,22 @@ def search(request):
     elif 'q' in request.GET:
         messages.error(request, "You didn't enter any search criteria!")
         return redirect(reverse('training:training_display'))
-    
+
     # Paginate the results.
     paginator = Paginator(trainings, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     # Check if the user has an active subscription.
+    has_subscription = (
+        request.user.subscription.is_active()
+        if request.user.is_authenticated and hasattr(request.user, 'subscription')
+        else False
+    )
     context = {
         'page_obj': page_obj,
         'search_term': query,
-        'has_subscription': request.user.subscription.is_active() if request.user.is_authenticated and hasattr(request.user, 'subscription') else False,
+        'has_subscription': has_subscription,
     }
     return render(request, 'training/category_trainings.html', context)
 
@@ -82,20 +99,20 @@ def search(request):
 def training_detail(request, pk):
     """
     Displays the detail view of a single training video.
-    
+
     - If the video is marked as free (training.is_free is True), any logged-in user can view it.
     - Otherwise, the user must have an active subscription.
     - If the user is not logged in, they are redirected to the login page.
     """
     training = get_object_or_404(Training, pk=pk)
-    
+
     if not request.user.is_authenticated:
         return redirect('account_login')
-    
+
     # If the training video is free, allow access immediately.
     if training.is_free:
         return render(request, 'training/training_detail.html', {'training': training})
-    
+
     # Otherwise, require an active subscription.
     try:
         subscription = request.user.subscription
@@ -140,7 +157,7 @@ def create_training(request):
                 print("Save error:", exc)
                 raise
             messages.success(
-                request, 
+                request,
                 f'Training video "{training.title}" created successfully!'
             )
             return redirect('training:training_detail', pk=training.pk)
@@ -148,7 +165,7 @@ def create_training(request):
             messages.error(request, 'Please correct the errors below.')
     else:
         form = TrainingForm()
-    
+
     return render(request, 'training/training_form.html', {
         'form': form,
         'title': 'Create New Training Video',
@@ -162,13 +179,13 @@ def edit_training(request, training_id):
     View for staff to edit an existing training video.
     """
     training = get_object_or_404(Training, id=training_id)
-    
+
     if request.method == 'POST':
         form = TrainingForm(request.POST, request.FILES, instance=training)
         if form.is_valid():
             training = form.save()
             messages.success(
-                request, 
+                request,
                 f'Training video "{training.title}" updated successfully!'
             )
             return redirect('training:training_detail', pk=training.pk)
@@ -176,7 +193,7 @@ def edit_training(request, training_id):
             messages.error(request, 'Please correct the errors below.')
     else:
         form = TrainingForm(instance=training)
-    
+
     return render(request, 'training/training_form.html', {
         'form': form,
         'training': training,
@@ -191,16 +208,16 @@ def delete_training(request, training_id):
     View for staff to delete a training video.
     """
     training = get_object_or_404(Training, id=training_id)
-    
+
     if request.method == 'POST':
         training_title = training.title
         training.delete()
         messages.success(
-            request, 
+            request,
             f'Training video "{training_title}" has been deleted.'
         )
         return redirect('training:training_list')
-    
+
     return render(request, 'training/training_confirm_delete.html', {
         'training': training
     })

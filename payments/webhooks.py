@@ -7,6 +7,7 @@ from orders.models import Order
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
 @csrf_exempt
 def stripe_webhook(request):
     """
@@ -30,12 +31,12 @@ def stripe_webhook(request):
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         print("Processing checkout.session.completed event")
-        
+
         # Get metadata from the session
         metadata = session.get('metadata', {})
         order_id = metadata.get('order_id')
         user_id = metadata.get('user_id')
-        
+
         if order_id:
             try:
                 # Find and update the order
@@ -43,7 +44,7 @@ def stripe_webhook(request):
                 order.status = "paid"
                 order.save()
                 print(f"Updated order {order_id} status to paid")
-                
+
                 # If we have a user_id, make sure the order is attached to the user
                 if user_id and not order.user:
                     try:
@@ -59,5 +60,3 @@ def stripe_webhook(request):
                 return HttpResponse(status=400)
 
     return HttpResponse(status=200)
-
-

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Training, TrainingCategory
+from .models import Training
 
 
 class TrainingForm(forms.ModelForm):
@@ -8,7 +8,7 @@ class TrainingForm(forms.ModelForm):
     """
     class Meta:
         model = Training
-        fields = ['title', 'description', 'category', 'video_file', 
+        fields = ['title', 'description', 'category', 'video_file',
                   'thumbnail', 'is_free', 'order']
         widgets = {
             'title': forms.TextInput(attrs={
@@ -55,11 +55,10 @@ class TrainingForm(forms.ModelForm):
             'video_file': 'Upload an MP4 video file',
             'thumbnail': 'Upload a preview image for the video',
         }
-    
+
     def clean_order(self):
         """Ensure order is not negative."""
         order = self.cleaned_data.get('order')
         if order and order < 0:
             raise forms.ValidationError('Order cannot be negative.')
         return order
-

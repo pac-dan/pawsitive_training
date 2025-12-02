@@ -1,14 +1,13 @@
 # Immediate subscription activation implemented
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Subscription
-import stripe 
+import stripe
 from django.utils import timezone
 from datetime import timedelta
 from django.conf import settings
 from django.urls import reverse
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -16,6 +15,7 @@ from orders.models import Order
 import uuid
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 @login_required
 def subscribe(request):
@@ -30,6 +30,7 @@ def subscribe(request):
     context = {'subscription': subscription}
     return render(request, 'subscriptions/subscribe.html', context)
 
+
 @login_required
 def create_subscription_checkout(request):
     """
@@ -39,21 +40,21 @@ def create_subscription_checkout(request):
     # Get the domain URL
     domain_url = request.build_absolute_uri('/')[:-1]
     price_id = request.GET.get('price_id')
-    
+
     if not price_id:
         return JsonResponse({'error': 'No Price ID provided.'}, status=400)
-    
+
     try:
         user_id_str = str(request.user.id)
 
         # Create an order record for this subscription purchase
         order = Order.objects.create(
             user=request.user,
-            stripe_checkout_session_id=str(uuid.uuid4()),  
+            stripe_checkout_session_id=str(uuid.uuid4()),
             amount=250 if price_id == settings.STRIPE_PRICE_ID_YEARLY else 50,
             status="pending"
         )
-        
+
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             mode='subscription',
@@ -72,6 +73,7 @@ def create_subscription_checkout(request):
         return JsonResponse({'id': session.id})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=403)
+
 
 @login_required
 def subscription_success(request):
@@ -98,7 +100,10 @@ def subscription_success(request):
             subscription.expiry_date = timezone.now() + timedelta(days=30)
             subscription.save()
 
-        print(f"Immediate activation: {'Created' if created else 'Activated'} subscription for user {request.user.username}")
+        print(
+            f"Immediate activation: {'Created' if created else 'Activated'} "
+            f"subscription for user {request.user.username}"
+        )
 
     except Exception as e:
         print(f"Error activating subscription: {str(e)}")
@@ -106,6 +111,7 @@ def subscription_success(request):
         traceback.print_exc()
 
     return render(request, 'subscriptions/success.html')
+
 
 @csrf_exempt
 def stripe_subscription_webhook(request):
@@ -182,6 +188,7 @@ def stripe_subscription_webhook(request):
                 return HttpResponse(status=400)
 
     return HttpResponse(status=200)
+
 
 @csrf_exempt
 def stripe_payments_webhook(request):

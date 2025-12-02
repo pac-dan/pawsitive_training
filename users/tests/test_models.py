@@ -4,9 +4,10 @@ from users.models import Profile
 from products.models import Product, ProductCategory
 from orders.models import Order
 
+
 class ProfileModelTest(TestCase):
     def test_profile_str(self):
-        """ 
+        """
         Test the string representation of the Profile model by creating a user and profile.
         """
         user = User.objects.create(username="testuser")
@@ -25,9 +26,9 @@ class ProductModelTest(TestCase):
             description="This is a test product.",
             price="10.00",
             category=self.category,
-            stock=5  
+            stock=5
         )
-    
+
     def test_product_str(self):
         self.assertEqual(str(self.product), "Test Product")
 
@@ -44,7 +45,7 @@ class OrderModelTest(TestCase):
             amount="50.00",
             status="pending"
         )
-    
+
     def test_order_str(self):
         """
         Test the string representation of the Order model.

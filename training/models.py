@@ -2,13 +2,14 @@ from django.db import models
 from django.utils.text import slugify
 from storages.backends.s3boto3 import S3Boto3Storage
 
+
 class TrainingCategory(models.Model):
     """
     Model to store training categories for organizing video lessons.
     """
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    
+
     def save(self, *args, **kwargs):
         """
         Automatically generate slug from name if not provided.
@@ -16,12 +17,14 @@ class TrainingCategory(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-    
+
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name_plural = "Training Categories"
+
+
 class Training(models.Model):
     """
     Model to store training video lessons with optional subscription requirement.
@@ -46,7 +49,7 @@ class Training(models.Model):
         default=0,
         help_text="Display order (lower numbers appear first)"
     )
-    
+
     category = models.ForeignKey(
         TrainingCategory,
         on_delete=models.SET_NULL,
@@ -59,10 +62,10 @@ class Training(models.Model):
         default=False,
         help_text="Mark this video as free to view without a subscription"
     )
-    
+
     def __str__(self):
         return self.title
-    
+
     class Meta:
         db_table = 'training_lesson'
         verbose_name = "Training"

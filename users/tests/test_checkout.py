@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from products.models import Product, ProductCategory
-from basket import Basket
 from django.conf import settings
+
 
 class CheckoutViewTest(TestCase):
     def setUp(self):
@@ -17,7 +17,7 @@ class CheckoutViewTest(TestCase):
             category=self.category,
             stock=10
         )
-    
+
     def test_checkout_view_with_empty_basket(self):
         """
         Test the checkout view with an empty basket.
@@ -25,7 +25,7 @@ class CheckoutViewTest(TestCase):
         response = self.client.get(reverse('payments:checkout'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Your basket is empty")
-    
+
     def test_checkout_view_with_items(self):
         """
         Test the checkout view with items in the basket.

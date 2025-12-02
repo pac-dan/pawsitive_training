@@ -72,7 +72,7 @@ class Basket:
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
             yield item
-        
+
     def __len__(self):
         """
         Count all items in the basket
@@ -89,5 +89,5 @@ class Basket:
         """
         Remove the basket from the session
         """
-        del self.session[settings.BASKET_SESSION_ID]    
+        del self.session[settings.BASKET_SESSION_ID]
         self.save()

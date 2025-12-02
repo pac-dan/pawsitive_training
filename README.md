@@ -3,7 +3,7 @@ An online shop and lesson hub for pet training.
 
 Source code can be found [here](https://github.com/pac-dan/pawsitive_training)
 
-The live project can be viewed [here](https://pawsitive-training-37efa34a3204.herokuapp.com/)
+The live project can be viewed [here](https://pawsitive-training-8b1237150b97.herokuapp.com/)
 
 ## Purpose of Project 
 The aim of the project is to help pet owners train their pets while providing a one-stop shop for pet training products. The website combines an online store—with carefully selected pet care products—and a subscription service that grants access to exclusive training video lessons.

@@ -16,9 +16,8 @@ class PublicMediaStorage(S3Boto3Storage):
         'CacheControl': 'max-age=86400',
         'ContentDisposition': 'inline',
     }
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Force querystring_auth to False to get direct public URLs
         self.querystring_auth = False
-
