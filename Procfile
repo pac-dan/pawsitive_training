@@ -1,1 +1,2 @@
-web: gunicorn pawsitive_training.wsgi --log-file -
+web: gunicorn pawsitive_training.wsgi --log-file - --bind 0.0.0.0:$PORT
+release: python manage.py migrate --noinput && python manage.py collectstatic --noinput && python manage.py loaddata products/fixtures/products_fixture.json

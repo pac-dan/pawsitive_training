@@ -44,12 +44,15 @@ stripe.api_key = STRIPE_SECRET_KEY
 
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'pawsitive-training-37efa34a3204.herokuapp.com',
-    'pawsitive-training-8b1237150b97.herokuapp.com'
-]
+ALLOWED_HOSTS = env.list(
+    'ALLOWED_HOSTS',
+    default=[
+        'localhost',
+        '127.0.0.1',
+        'pawsitive-training-37efa34a3204.herokuapp.com',
+        'pawsitive-training-8b1237150b97.herokuapp.com',
+    ],
+)
 
 # Security settings for production
 if not DEBUG:
